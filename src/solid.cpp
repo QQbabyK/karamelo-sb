@@ -2370,10 +2370,10 @@ void Solid::read_mesh(string fileName)
   int length;
   int elemType;
   vector<string> splitLine;
-  array<double, 3> xn;
+  std::array<double, 3> xn;
 
   int nodeCount; // Count the number of nodes
-  vector<array<double, 3>> nodes;
+  vector<std::array<double, 3>> nodes;
 
 // #ifdef DEBUG
 //   std::vector<double> x2plot, y2plot;

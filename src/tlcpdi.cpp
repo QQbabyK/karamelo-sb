@@ -134,7 +134,7 @@ void TLCPDI::compute_grid_weight_functions_and_gradients()
 
       double inv_cellsize          = 1.0 / domain->solids[isolid]->grid->cellsize;
       vector<double> *vol          = &domain->solids[isolid]->vol;
-      vector<array<int, 3>> *ntype = &domain->solids[isolid]->grid->ntype;
+      vector<std::array<int, 3>> *ntype = &domain->solids[isolid]->grid->ntype;
 
       double wf;
       double s[3];

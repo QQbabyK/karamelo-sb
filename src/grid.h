@@ -88,7 +88,7 @@ class Grid : protected Pointers {
   vector<double> mass;              ///< nodes' current mass
   vector<int> mask;                 ///< nodes' group mask
   vector<bool> rigid;               ///< are the nodes in the area of influence of a rigid body?
-  vector<array<int, 3>> ntype;      ///< node type in x, y, and z directions (False for an edge, True otherwise)
+  vector<std::array<int, 3>> ntype;      ///< node type in x, y, and z directions (False for an edge, True otherwise)
 
   vector<double> T;                 ///< nodes' temperature at time t
   vector<double> T_update;          ///< nodes' temperature at time t+dt

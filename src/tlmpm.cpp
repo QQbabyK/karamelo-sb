@@ -131,7 +131,7 @@ void TLMPM::compute_grid_weight_functions_and_gradients()
       double wf;
       Eigen::Vector3d wfd;
 
-      vector<array<int, 3>> *ntype = &domain->solids[isolid]->grid->ntype;
+      vector<std::array<int, 3>> *ntype = &domain->solids[isolid]->grid->ntype;
       vector<bool> *nrigid = &domain->solids[isolid]->grid->rigid;
 
       vector<tagint> *map_ntag = &domain->solids[isolid]->grid->map_ntag;

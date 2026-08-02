@@ -7,7 +7,7 @@
 
 using namespace std;
 
-class Facet : public array<Vector3d, 3> {
+class Facet : public std::array<Vector3d, 3> {
  public:
   Vector3d normal;
 

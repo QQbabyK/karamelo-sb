@@ -150,7 +150,7 @@ void ULCPDI::compute_grid_weight_functions_and_gradients()
 	vector<Eigen::Vector3d> *rp  = &s->rp;
 
 	double inv_cellsize          = 1.0 / s->grid->cellsize;
-	vector<array<int, 3>> *ntype = &s->grid->ntype;
+	vector<std::array<int, 3>> *ntype = &s->grid->ntype;
 
 	double wf;
 	double phi[3];
