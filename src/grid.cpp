@@ -66,6 +66,14 @@ Grid::~Grid() {
 }
 
 void Grid::init(double *solidlo, double *solidhi) {
+    // my:: 自定义形函数
+    bool myQ4 = false;
+
+    if (update->shape_function ==
+        Update::ShapeFunctions::myQ4) {
+        myQ4 = true;
+    }
+    // -------------------
 
   bool linear = false;
   bool cubic = false;
@@ -225,7 +233,7 @@ void Grid::init(double *solidlo, double *solidhi) {
 	if (domain->dimension == 3) x0[l][2] = boundlo[2] + (noffsetlo[2] + k)*h;
 	else x0[l][2] = 0;
 
-	if (linear) {
+	if (linear || myQ4) {// my:: ? 这是干什么的??
 	  ntype[l][0] = 0;
 	  ntype[l][1] = 0;
 	  ntype[l][2] = 0;

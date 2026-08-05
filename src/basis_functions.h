@@ -18,6 +18,26 @@
 using namespace std;
 
 namespace BasisFunction { 
+    // my::自定义Q4单元1维基函数
+  inline double myQ4_1d(const double r_, const int ntype)
+    {
+        double r = fabs(r_);
+        if (r >= 1.0)
+            return 0.0;
+        else
+            return 1.0 - r;
+    }
+  inline double derivative_myQ4_1d(const double r, const int ntype, const double inv_cellsize)
+    {
+        if (r >= 1.0 || r <= -1.0 || r == 0)
+            return 0.0;
+        else if (r > 0.0)
+            return -inv_cellsize;
+        else
+            return inv_cellsize;
+    }
+
+  // ------------------------------------------------------
   inline double linear(const double r_, const int ntype)
   {
     double r = fabs(r_);

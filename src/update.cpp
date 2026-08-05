@@ -157,7 +157,11 @@ void Update::create_method(vector<string> args){
       shape_function = map_shape_functions.at(args[n]);
       n++;
     } else {
-      error->all(FLERR, "Illegal method_method argument: form function of type \033[1;31m" + args[2] + "\033[0m is unknown. Available options are:  \033[1;32mlinear\033[0m, \033[1;32mcubic-spline\033[0m, \033[1;32mquadratic-spline\033[0m, \033[1;32mBernstein-quadratic\033[0m.\n");
+      error->all(FLERR, "Illegal method_method argument: form function of type \033[1;31m" + args[2] + 
+          "\033[0m is unknown. Available options are:  "
+          "\033[1;32mlinear\033[0m, \033[1;32mcubic-spline\033[0m, \033[1;32mquadratic-spline\033[0m, "
+          "\033[1;32mBernstein-quadratic\033[0m."
+          "myQ4""\n");// my:: 报错提示加入myQ4
     }
   }
 

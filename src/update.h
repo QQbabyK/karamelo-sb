@@ -72,6 +72,7 @@ class Update : protected Pointers {
     CUBIC_SPLINE,
     QUADRATIC_SPLINE,
     BERNSTEIN,
+    myQ4 // my::自定义Q4
   };
 
 private:
@@ -85,7 +86,9 @@ private:
       {"linear", ShapeFunctions::LINEAR},
       {"cubic-spline", ShapeFunctions::CUBIC_SPLINE},
       {"quadratic-spline", ShapeFunctions::QUADRATIC_SPLINE},
-      {"Bernstein-quadratic", ShapeFunctions::BERNSTEIN}};
+      {"Bernstein-quadratic", ShapeFunctions::BERNSTEIN},
+      {"myQ4", ShapeFunctions::myQ4}// my::映射后输入文件就可以写: method(ulmpm, FLIP, custom-q4, 0.99, mechanical)
+  };
 
   vector<string> additional_args;     ///< Read method, scheme, timestep, dt... to restart file
 };

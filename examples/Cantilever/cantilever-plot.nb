@@ -1,0 +1,1840 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     86657,       1832]
+NotebookOptionsPosition[     85223,       1798]
+NotebookOutlinePosition[     85650,       1815]
+CellTagsIndexPosition[     85607,       1812]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"1.", " ", "\:542f\:52a8\:591a\:6838\:5e76\:884c"}], " ", "*)"}], 
+  "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Kernels", "[", "]"}], " ", "==", " ", 
+       RowBox[{"{", "}"}]}], ",", " ", 
+      RowBox[{"LaunchKernels", "[", "]"}]}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "2.", " ", "\:5065\:58ee\:7684\:52a8\:6001\:89e3\:6790\:51fd\:6570"}], 
+    " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parseLAMMPSRobust", "[", "filepath_String", "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "rawText", ",", " ", "sections", ",", " ", "headerLine", ",", " ", 
+         "dataStr", ",", " ", "headers", ",", " ", "rawTable", ",", " ", 
+         "cleanTable", ",", " ", "cols"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"rawText", " ", "=", " ", 
+         RowBox[{"Import", "[", 
+          RowBox[{"filepath", ",", " ", "\"\<Text\>\""}], "]"}]}], ";", "\n", 
+        "  ", 
+        RowBox[{"sections", " ", "=", " ", 
+         RowBox[{"StringSplit", "[", 
+          RowBox[{"rawText", ",", " ", "\"\<ITEM: ATOMS \>\""}], "]"}]}], ";",
+         "\n", "  ", 
+        RowBox[{"headerLine", " ", "=", " ", 
+         RowBox[{"First", "[", 
+          RowBox[{"StringSplit", "[", 
+           RowBox[{
+            RowBox[{"sections", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"\"\<\\r\\n\>\"", ",", " ", "\"\<\\n\>\""}], "}"}]}], 
+           "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"headers", " ", "=", " ", 
+         RowBox[{"StringSplit", "[", "headerLine", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"dataStr", " ", "=", " ", 
+         RowBox[{"StringDrop", "[", 
+          RowBox[{
+           RowBox[{"sections", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+           RowBox[{
+            RowBox[{"StringLength", "[", "headerLine", "]"}], " ", "+", " ", 
+            "1"}]}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"rawTable", " ", "=", " ", 
+         RowBox[{"ImportString", "[", 
+          RowBox[{"dataStr", ",", " ", "\"\<Table\>\""}], "]"}]}], ";", "\n", 
+        "  ", 
+        RowBox[{"cleanTable", " ", "=", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{"rawTable", ",", " ", 
+           RowBox[{
+            RowBox[{"VectorQ", "[", 
+             RowBox[{"#", ",", " ", "NumericQ"}], "]"}], " ", "&"}]}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"cols", " ", "=", " ", 
+         RowBox[{"Transpose", "[", "cleanTable", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"AssociationThread", "[", 
+         RowBox[{"headers", ",", " ", "cols"}], "]"}]}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"3.", " ", "\:63d0\:53d6\:6587\:4ef6\:5e76\:6392\:5e8f"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "cantileverDir", " ", "=", 
+     " ", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\Cantilever\>\""}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"FileNames", "[", 
+      RowBox[{"\"\<dump_p.*.LAMMPS\>\"", ",", " ", "cantileverDir"}], "]"}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"SortBy", "[", 
+      RowBox[{"files", ",", " ", 
+       RowBox[{
+        RowBox[{"ToExpression", "[", 
+         RowBox[{"StringExtract", "[", 
+          RowBox[{
+           RowBox[{"FileNameTake", "[", "#", "]"}], ",", " ", 
+           RowBox[{"\"\<.\>\"", " ", "->", " ", 
+            RowBox[{"-", "2"}]}]}], "]"}], "]"}], " ", "&"}]}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"4.", " ", "\:591a\:6838\:5e76\:884c\:9884\:52a0\:8f7d"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "PrintTemporary", 
+     "[", "\"\<\:6b63\:5728\:4f7f\:7528\:591a\:6838 CPU \:5e76\:884c\:5bfc\
+\:5165\:6240\:6709\:5e27\:6570\:636e...\>\"", "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"allFramesAssoc", " ", "=", " ", 
+     RowBox[{"ParallelMap", "[", 
+      RowBox[{"parseLAMMPSRobust", ",", " ", "files", ",", " ", 
+       RowBox[{"DistributedContexts", " ", "->", " ", "Automatic"}]}], 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 \>\"",
+       ",", " ", 
+      RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", 
+      " ", "\"\< \:5e27\:6570\:636e\:3002\>\""}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "5.", " ", "\:5e26\:6709\:89c6\:56fe\:5207\:6362\:529f\:80fd\:7684", " ", 
+     "Manipulate", " ", "\:9762\:677f"}], " ", "*)"}], "\n", 
+   RowBox[{"Manipulate", "[", "\n", " ", 
+    RowBox[{
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "frameData", ",", " ", "availableVars", ",", " ", "is3D", ",", " ", 
+         "coords", ",", " ", "fieldVal", ",", " ", "minV", ",", " ", "maxV", ",",
+          " ", "colors", ",", " ", "\n", "         ", "viewParams", ",", " ", 
+         "graphic"}], "}"}], ",", "\n", "  ", "\n", "  ", 
+       RowBox[{
+        RowBox[{"frameData", " ", "=", " ", 
+         RowBox[{"allFramesAssoc", "[", 
+          RowBox[{"[", "frame", "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"availableVars", " ", "=", " ", 
+         RowBox[{"Keys", "[", "frameData", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"is3D", " ", "=", " ", 
+         RowBox[{"MemberQ", "[", 
+          RowBox[{"availableVars", ",", " ", "\"\<z\>\""}], "]"}]}], ";", 
+        "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:63d0\:53d6\:5750\:6807", " ", "*)"}], "\n", 
+        "  ", 
+        RowBox[{"coords", " ", "=", " ", 
+         RowBox[{"If", "[", 
+          RowBox[{"is3D", ",", "\n", "    ", 
+           RowBox[{"Transpose", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"frameData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<y\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<z\>\"", "]"}]}], "}"}], "]"}], ",",
+            "\n", "    ", 
+           RowBox[{"Transpose", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"frameData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<y\>\"", "]"}]}], "}"}], "]"}]}], 
+          "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:63d0\:53d6\:6807\:91cf\:573a", " ", "*)"}], 
+        "\n", "  ", 
+        RowBox[{"fieldVal", " ", "=", " ", 
+         RowBox[{"Lookup", "[", 
+          RowBox[{"frameData", ",", " ", "renderTarget", ",", " ", 
+           RowBox[{"frameData", "[", "\"\<x\>\"", "]"}]}], "]"}]}], ";", "\n",
+         "  ", 
+        RowBox[{"minV", " ", "=", " ", 
+         RowBox[{"Min", "[", "fieldVal", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"maxV", " ", "=", " ", 
+         RowBox[{"Max", "[", "fieldVal", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"maxV", " ", "==", " ", "minV"}], ",", " ", 
+          RowBox[{"maxV", " ", "=", " ", 
+           RowBox[{"minV", " ", "+", " ", "1.0*^-6"}]}]}], "]"}], ";", "\n", 
+        "  ", "\n", "  ", 
+        RowBox[{"colors", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"ColorData", "[", "\"\<Rainbow\>\"", "]"}], " ", "/@", " ", 
+          RowBox[{"Rescale", "[", 
+           RowBox[{"fieldVal", ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "]"}]}]}], ";", 
+        "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "\:6839\:636e\:9009\:62e9\:914d\:7f6e", " ", "3", "D", " ", 
+          "\:89c6\:89d2\:53c2\:6570", " ", 
+          RowBox[{"{", 
+           RowBox[{"ViewPoint", ",", " ", "ViewVertical"}], "}"}]}], " ", 
+         "*)"}], "\n", "  ", 
+        RowBox[{"viewParams", " ", "=", " ", 
+         RowBox[{"Switch", "[", 
+          RowBox[{
+          "viewOption", ",", "\n", "    ", "\"\<3D \:89c6\:89d2\>\"", ",", 
+           " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"1.3", ",", " ", 
+               RowBox[{"-", "2.4"}], ",", " ", "1.5"}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}], ",",
+            "\n", "    ", "\"\<XY \:5e73\:9762 \
+(\:4e3b\:89c6/\:4fef\:89c6)\>\"", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "Infinity"}], "}"}], ",", 
+             " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "}"}], ",",
+            "  ", 
+           RowBox[{"(*", " ", 
+            RowBox[{
+            "\:6b63\:5bf9", " ", "Z", " ", "\:8f74\:770b", " ", "XY"}], " ", 
+            "*)"}], "\n", 
+           "    ", "\"\<XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)\>\"", ",",
+            " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", 
+               RowBox[{"-", "Infinity"}], ",", " ", "0"}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}], ",",
+            " ", 
+           RowBox[{"(*", " ", 
+            RowBox[{
+            "\:6b63\:5bf9", " ", "Y", " ", "\:8f74\:770b", " ", "XZ"}], " ", 
+            "*)"}], "\n", 
+           "    ", "\"\<YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)\>\"", ",",
+            " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Infinity", ",", " ", "0", ",", " ", "0"}], "}"}], ",", 
+             " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}]}], 
+          "   ", 
+          RowBox[{"(*", " ", 
+           RowBox[{"\:6b63\:5bf9", " ", "X", " ", "\:8f74\:770b", " ", "YZ"}],
+            " ", "*)"}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"graphic", " ", "=", " ", 
+         RowBox[{"If", "[", 
+          RowBox[{"is3D", ",", "\n", "    ", 
+           RowBox[{"Graphics3D", "[", 
+            RowBox[{
+             RowBox[{"{", "\n", "       ", 
+              RowBox[{
+               RowBox[{"PointSize", "[", "pointSize", "]"}], ",", "\n", 
+               "       ", 
+               RowBox[{"Point", "[", 
+                RowBox[{"coords", ",", " ", 
+                 RowBox[{"VertexColors", " ", "->", " ", "colors"}]}], 
+                "]"}]}], "\n", "      ", "}"}], ",", "\n", "      ", 
+             RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", 
+             "      ", 
+             RowBox[{"Axes", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"AxesLabel", " ", "->", " ", 
+              RowBox[{"{", 
+               
+               RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\"", ",", 
+                " ", "\"\<Z (m)\>\""}], "}"}]}], ",", "\n", "      ", 
+             RowBox[{"Boxed", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"ViewPoint", " ", "->", " ", 
+              RowBox[{"viewParams", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"ViewVertical", " ", "->", " ", 
+              RowBox[{"viewParams", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"PlotLabel", " ", "->", " ", 
+              RowBox[{"StringForm", "[", 
+               
+               RowBox[{"\"\<3D MPM - Frame ``/`` | Variable: `` | View: \
+``\>\"", ",", " ", "\n", "        ", "frame", ",", " ", 
+                RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                "renderTarget", ",", " ", "viewOption"}], "]"}]}], ",", "\n", 
+             "      ", 
+             RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
+            "]"}], ",", "\n", "    ", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", "\n", "       ", 
+              RowBox[{
+               RowBox[{"PointSize", "[", "pointSize", "]"}], ",", "\n", 
+               "       ", 
+               RowBox[{"Point", "[", 
+                RowBox[{"coords", ",", " ", 
+                 RowBox[{"VertexColors", " ", "->", " ", "colors"}]}], 
+                "]"}]}], "\n", "      ", "}"}], ",", "\n", "      ", 
+             RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", 
+             "      ", 
+             RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"FrameLabel", " ", "->", " ", 
+              RowBox[{"{", 
+               RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\""}], "}"}]}], 
+             ",", "\n", "      ", 
+             RowBox[{"PlotLabel", " ", "->", " ", 
+              RowBox[{"StringForm", "[", 
+               
+               RowBox[{"\"\<2D MPM - Frame ``/`` | Variable: ``\>\"", ",", 
+                " ", "\n", "        ", "frame", ",", " ", 
+                RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                "renderTarget"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
+            "]"}]}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"Legended", "[", "\n", "   ", 
+         RowBox[{"graphic", ",", "\n", "   ", 
+          RowBox[{"BarLegend", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<Rainbow\>\"", ",", " ", 
+              RowBox[{"{", 
+               RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "}"}], ",", " ", 
+            RowBox[{"LegendLabel", " ", "->", " ", "renderTarget"}], ",", " ", 
+            RowBox[{"LegendMarkerSize", " ", "->", " ", "300"}]}], "]"}]}], 
+         "\n", "  ", "]"}]}]}], "\n", " ", "]"}], ",", "\n", " ", "\n", " ", 
+     RowBox[{"(*", " ", "\:4ea4\:4e92\:63a7\:4ef6", " ", "*)"}], "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "frame", ",", " ", "1", ",", 
+         " ", "\"\<\:65f6\:95f4\:5e27 (Frame)\>\""}], "}"}], ",", " ", "1", ",",
+        " ", 
+       RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", "1", ",", 
+       " ", 
+       RowBox[{"Appearance", " ", "->", " ", "\"\<Open\>\""}]}], "}"}], ",", 
+     "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "renderTarget", ",", " ", "\"\<s22\>\"", ",", 
+         " ", "\"\<\:6e32\:67d3\:7269\:7406\:91cf\>\""}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<seq\>\"", ",", " ", "\"\<s11\>\"", ",", 
+         " ", "\"\<s22\>\"", ",", " ", "\"\<s33\>\"", ",", " ", "\"\<s12\>\"",
+          ",", " ", "\"\<s13\>\"", ",", " ", "\"\<s23\>\"", ",", 
+         " ", "\"\<vx\>\"", ",", " ", "\"\<vy\>\"", ",", " ", "\"\<vz\>\""}], 
+        "}"}]}], "}"}], ",", "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "viewOption", ",", " ", "\"\<3D \:89c6\:89d2\>\"", ",", 
+         " ", "\"\<\:89c6\:56fe\:9009\:62e9\>\""}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<3D \:89c6\:89d2\>\"", ",", 
+         " ", "\"\<XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)\>\"", ",", 
+         " ", "\"\<XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)\>\"", ",", 
+         " ", "\"\<YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)\>\""}], 
+        "}"}]}], "}"}], ",", "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "pointSize", ",", " ", "0.005", ",", 
+         " ", "\"\<\:8d28\:70b9\:534a\:5f84\>\""}], "}"}], ",", " ", "0.001", 
+       ",", " ", "0.02", ",", " ", "0.001"}], "}"}]}], "\n", 
+    "]"}]}]}]], "Code",
+ CellChangeTimes->{{3.9947513353946953`*^9, 3.9947513353956966`*^9}},
+ CellLabel->
+  "In[173]:=",ExpressionUUID->"a1e7e2f2-9f74-4f43-a647-1af6d3837338"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 \"\>", 
+    "\[InvisibleSpace]", "23", 
+    "\[InvisibleSpace]", "\<\" \:5e27\:6570\:636e\:3002\"\>"}],
+   SequenceForm[
+   "\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 ", 23, 
+    " \:5e27\:6570\:636e\:3002"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.994751395148346*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[173]:=",ExpressionUUID->"96876a10-b767-1743-\
+9596-b2eb633b829b"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   FormBox[
+    StyleBox[
+     DynamicModuleBox[{$CellContext`frame$$ = 10, $CellContext`pointSize$$ = 
+      0.005, $CellContext`renderTarget$$ = "vx", $CellContext`viewOption$$ = 
+      "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", Typeset`show$$ = True, 
+      Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+      Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+      "\"\:65e0\:6807\:9898\"", Typeset`specs$$ = {{{
+         Hold[$CellContext`frame$$], 1, "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23, 
+        1, ControlType -> Manipulator}, {{
+         Hold[$CellContext`renderTarget$$], "s22", 
+         "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+        "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", "vz"}, 
+        ControlType -> PopupMenu}, {{
+         Hold[$CellContext`viewOption$$], "3D \:89c6\:89d2", 
+         "\:89c6\:56fe\:9009\:62e9"}, {
+        "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+         "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+         "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}, ControlType -> 
+        SetterBar}, {{
+         Hold[$CellContext`pointSize$$], 0.005, "\:8d28\:70b9\:534a\:5f84"}, 
+        0.001, 0.02, 0.001, ControlType -> Manipulator}}, Typeset`size$$ = {
+      642.7177820144653, {160.53579083895312`, 166.70571271395312`}}, 
+      Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True,
+       Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+      DynamicBox[Manipulate`ManipulateBoxes[
+       1, TraditionalForm, 
+        "Variables" :> {$CellContext`frame$$ = 1, $CellContext`pointSize$$ = 
+          0.005, $CellContext`renderTarget$$ = 
+          "s22", $CellContext`viewOption$$ = "3D \:89c6\:89d2"}, 
+        "ControllerVariables" :> {}, 
+        "OtherVariables" :> {
+         Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+          Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+          Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+          Typeset`initDone$$, Typeset`skipInitDone$$, 
+          Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+        Module[{$CellContext`frameData$, $CellContext`availableVars$, \
+$CellContext`is3D$, $CellContext`coords$, $CellContext`fieldVal$, \
+$CellContext`minV$, $CellContext`maxV$, $CellContext`colors$, \
+$CellContext`viewParams$, $CellContext`graphic$}, $CellContext`frameData$ = 
+           Part[$CellContext`allFramesAssoc, $CellContext`frame$$]; \
+$CellContext`availableVars$ = 
+           Keys[$CellContext`frameData$]; $CellContext`is3D$ = 
+           MemberQ[$CellContext`availableVars$, "z"]; $CellContext`coords$ = 
+           If[$CellContext`is3D$, 
+             Transpose[{
+               $CellContext`frameData$["x"], 
+               $CellContext`frameData$["y"], 
+               $CellContext`frameData$["z"]}], 
+             Transpose[{
+               $CellContext`frameData$["x"], 
+               $CellContext`frameData$["y"]}]]; $CellContext`fieldVal$ = 
+           Lookup[$CellContext`frameData$, $CellContext`renderTarget$$, 
+             $CellContext`frameData$["x"]]; $CellContext`minV$ = 
+           Min[$CellContext`fieldVal$]; $CellContext`maxV$ = 
+           Max[$CellContext`fieldVal$]; 
+          If[$CellContext`maxV$ == $CellContext`minV$, $CellContext`maxV$ = \
+$CellContext`minV$ + 1.*^-6]; $CellContext`colors$ = Map[
+             ColorData["Rainbow"], 
+             
+             Rescale[$CellContext`fieldVal$, {$CellContext`minV$, \
+$CellContext`maxV$}]]; $CellContext`viewParams$ = 
+           Switch[$CellContext`viewOption$$, 
+             "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+             "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+              0, 0, Infinity}, {0, 1, 0}}, 
+             "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+              0, -Infinity, 0}, {0, 0, 1}}, 
+             "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+              Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`graphic$ = 
+           If[$CellContext`is3D$, 
+             Graphics3D[{
+               PointSize[$CellContext`pointSize$$], 
+               
+               Point[$CellContext`coords$, 
+                VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+              Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, Boxed -> 
+              True, ViewPoint -> Part[$CellContext`viewParams$, 1], 
+              ViewVertical -> Part[$CellContext`viewParams$, 2], PlotLabel -> 
+              StringForm[
+               "3D MPM - Frame ``/`` | Variable: `` | View: ``", \
+$CellContext`frame$$, 
+                
+                Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$, $CellContext`viewOption$$], ImageSize -> Large], 
+             Graphics[{
+               PointSize[$CellContext`pointSize$$], 
+               
+               Point[$CellContext`coords$, 
+                VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+              Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+              StringForm[
+               "2D MPM - Frame ``/`` | Variable: ``", $CellContext`frame$$, 
+                
+                Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> Large]]; 
+          Legended[$CellContext`graphic$, 
+            
+            BarLegend[{"Rainbow", {$CellContext`minV$, $CellContext`maxV$}}, 
+             LegendLabel -> $CellContext`renderTarget$$, LegendMarkerSize -> 
+             300]]], "Specifications" :> {{{$CellContext`frame$$, 1, 
+            "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23, 1, Appearance -> 
+           "Open"}, {{$CellContext`renderTarget$$, "s22", 
+            "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+           "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", 
+            "vz"}}, {{$CellContext`viewOption$$, "3D \:89c6\:89d2", 
+            "\:89c6\:56fe\:9009\:62e9"}, {
+           "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+            "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+            "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}}, \
+{{$CellContext`pointSize$$, 0.005, "\:8d28\:70b9\:534a\:5f84"}, 0.001, 0.02, 
+           0.001}}, "Options" :> {}, "DefaultOptions" :> {}],
+       ImageSizeCache->{
+        685.3177820144653, {258.7773728702032, 264.9472947452032}},
+       SingleEvaluation->True],
+      Deinitialization:>None,
+      DynamicModuleValues:>{},
+      SynchronousInitialization->True,
+      UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+      UnsavedVariables:>{Typeset`initDone$$},
+      UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+     Deployed->True,
+     StripOnInput->False],
+    TraditionalForm],
+   Manipulate`InterpretManipulate[1]], TraditionalForm]], "Output",
+ CellChangeTimes->{3.9947513952003193`*^9},
+ CellLabel->
+  "Out[181]=",ExpressionUUID->"38f31556-ad73-7647-a43e-5f9cbfafc90e"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["manipulate", "Subsubsection",
+ CellChangeTimes->{
+  3.9947516963970966`*^9},ExpressionUUID->"589b0040-049f-4046-8e9a-\
+a2a62391a618"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"1.", " ", "\:542f\:52a8\:591a\:6838\:5e76\:884c"}], " ", "*)"}], 
+  "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"If", "[", 
+     RowBox[{
+      RowBox[{
+       RowBox[{"Kernels", "[", "]"}], " ", "==", " ", 
+       RowBox[{"{", "}"}]}], ",", " ", 
+      RowBox[{"LaunchKernels", "[", "]"}]}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "2.", " ", "\:5065\:58ee\:7684\:52a8\:6001\:89e3\:6790\:51fd\:6570"}], 
+    " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parseLAMMPSRobust", "[", "filepath_String", "]"}], " ", ":=", 
+     " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "rawText", ",", " ", "sections", ",", " ", "headerLine", ",", " ", 
+         "dataStr", ",", " ", "headers", ",", " ", "rawTable", ",", " ", 
+         "cleanTable", ",", " ", "cols"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"rawText", " ", "=", " ", 
+         RowBox[{"Import", "[", 
+          RowBox[{"filepath", ",", " ", "\"\<Text\>\""}], "]"}]}], ";", "\n", 
+        "  ", 
+        RowBox[{"sections", " ", "=", " ", 
+         RowBox[{"StringSplit", "[", 
+          RowBox[{"rawText", ",", " ", "\"\<ITEM: ATOMS \>\""}], "]"}]}], ";",
+         "\n", "  ", 
+        RowBox[{"headerLine", " ", "=", " ", 
+         RowBox[{"First", "[", 
+          RowBox[{"StringSplit", "[", 
+           RowBox[{
+            RowBox[{"sections", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"\"\<\\r\\n\>\"", ",", " ", "\"\<\\n\>\""}], "}"}]}], 
+           "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"headers", " ", "=", " ", 
+         RowBox[{"StringSplit", "[", "headerLine", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"dataStr", " ", "=", " ", 
+         RowBox[{"StringDrop", "[", 
+          RowBox[{
+           RowBox[{"sections", "[", 
+            RowBox[{"[", "2", "]"}], "]"}], ",", " ", 
+           RowBox[{
+            RowBox[{"StringLength", "[", "headerLine", "]"}], " ", "+", " ", 
+            "1"}]}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"rawTable", " ", "=", " ", 
+         RowBox[{"ImportString", "[", 
+          RowBox[{"dataStr", ",", " ", "\"\<Table\>\""}], "]"}]}], ";", "\n", 
+        "  ", 
+        RowBox[{"cleanTable", " ", "=", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{"rawTable", ",", " ", 
+           RowBox[{
+            RowBox[{"VectorQ", "[", 
+             RowBox[{"#", ",", " ", "NumericQ"}], "]"}], " ", "&"}]}], 
+          "]"}]}], ";", "\n", "  ", 
+        RowBox[{"cols", " ", "=", " ", 
+         RowBox[{"Transpose", "[", "cleanTable", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"AssociationThread", "[", 
+         RowBox[{"headers", ",", " ", "cols"}], "]"}]}]}], "\n", "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"3.", " ", "\:63d0\:53d6\:6587\:4ef6\:5e76\:6392\:5e8f"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "cantileverDir", " ", "=", 
+     " ", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\Cantilever\>\""}], 
+    ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"FileNames", "[", 
+      RowBox[{"\"\<dump_p.*.LAMMPS\>\"", ",", " ", "cantileverDir"}], "]"}]}],
+     ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"SortBy", "[", 
+      RowBox[{"files", ",", " ", 
+       RowBox[{
+        RowBox[{"ToExpression", "[", 
+         RowBox[{"StringExtract", "[", 
+          RowBox[{
+           RowBox[{"FileNameTake", "[", "#", "]"}], ",", " ", 
+           RowBox[{"\"\<.\>\"", " ", "->", " ", 
+            RowBox[{"-", "2"}]}]}], "]"}], "]"}], " ", "&"}]}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"4.", " ", "\:591a\:6838\:5e76\:884c\:9884\:52a0\:8f7d"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "PrintTemporary", 
+     "[", "\"\<\:6b63\:5728\:4f7f\:7528\:591a\:6838 CPU \:5e76\:884c\:5bfc\
+\:5165\:6240\:6709\:5e27\:6570\:636e...\>\"", "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"allFramesAssoc", " ", "=", " ", 
+     RowBox[{"ParallelMap", "[", 
+      RowBox[{"parseLAMMPSRobust", ",", " ", "files", ",", " ", 
+       RowBox[{"DistributedContexts", " ", "->", " ", "Automatic"}]}], 
+      "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 \>\"",
+       ",", " ", 
+      RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", 
+      " ", "\"\< \:5e27\:6570\:636e\:3002\>\""}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{"5.", " ", "\:5e26\:6709", 
+     RowBox[{"\:3010", 
+      RowBox[{"\:4e00\:952e\:5bfc\:51fa", " ", "GIF", " ", "\:6309\:94ae"}], 
+      "\:3011"}], "\:7684", " ", "Manipulate", " ", "\:9762\:677f"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{"Manipulate", "[", "\n", " ", 
+    RowBox[{
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "frameData", ",", " ", "availableVars", ",", " ", "is3D", ",", " ", 
+         "coords", ",", " ", "fieldVal", ",", " ", "minV", ",", " ", "maxV", ",",
+          " ", "colors", ",", " ", "\n", "         ", "viewParams", ",", " ", 
+         "graphic"}], "}"}], ",", "\n", "  ", "\n", "  ", 
+       RowBox[{
+        RowBox[{"frameData", " ", "=", " ", 
+         RowBox[{"allFramesAssoc", "[", 
+          RowBox[{"[", "frame", "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"availableVars", " ", "=", " ", 
+         RowBox[{"Keys", "[", "frameData", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"is3D", " ", "=", " ", 
+         RowBox[{"MemberQ", "[", 
+          RowBox[{"availableVars", ",", " ", "\"\<z\>\""}], "]"}]}], ";", 
+        "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:63d0\:53d6\:5750\:6807", " ", "*)"}], "\n", 
+        "  ", 
+        RowBox[{"coords", " ", "=", " ", 
+         RowBox[{"If", "[", 
+          RowBox[{"is3D", ",", "\n", "    ", 
+           RowBox[{"Transpose", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"frameData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<y\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<z\>\"", "]"}]}], "}"}], "]"}], ",",
+            "\n", "    ", 
+           RowBox[{"Transpose", "[", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"frameData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+              RowBox[{"frameData", "[", "\"\<y\>\"", "]"}]}], "}"}], "]"}]}], 
+          "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:63d0\:53d6\:6807\:91cf\:573a", " ", "*)"}], 
+        "\n", "  ", 
+        RowBox[{"fieldVal", " ", "=", " ", 
+         RowBox[{"Lookup", "[", 
+          RowBox[{"frameData", ",", " ", "renderTarget", ",", " ", 
+           RowBox[{"frameData", "[", "\"\<x\>\"", "]"}]}], "]"}]}], ";", "\n",
+         "  ", 
+        RowBox[{"minV", " ", "=", " ", 
+         RowBox[{"Min", "[", "fieldVal", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"maxV", " ", "=", " ", 
+         RowBox[{"Max", "[", "fieldVal", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"maxV", " ", "==", " ", "minV"}], ",", " ", 
+          RowBox[{"maxV", " ", "=", " ", 
+           RowBox[{"minV", " ", "+", " ", "1.0*^-6"}]}]}], "]"}], ";", "\n", 
+        "  ", "\n", "  ", 
+        RowBox[{"colors", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"ColorData", "[", "\"\<Rainbow\>\"", "]"}], " ", "/@", " ", 
+          RowBox[{"Rescale", "[", 
+           RowBox[{"fieldVal", ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "]"}]}]}], ";", 
+        "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:89c6\:56fe\:53c2\:6570", " ", "*)"}], "\n", 
+        "  ", 
+        RowBox[{"viewParams", " ", "=", " ", 
+         RowBox[{"Switch", "[", 
+          RowBox[{
+          "viewOption", ",", "\n", "    ", "\"\<3D \:89c6\:89d2\>\"", ",", 
+           " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"1.3", ",", " ", 
+               RowBox[{"-", "2.4"}], ",", " ", "1.5"}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}], ",",
+            "\n", "    ", "\"\<XY \:5e73\:9762 \
+(\:4e3b\:89c6/\:4fef\:89c6)\>\"", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "Infinity"}], "}"}], ",", 
+             " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "}"}], ",",
+            "\n", "    ", "\"\<XZ \:5e73\:9762 \
+(\:524d\:89c6/\:6b63\:89c6)\>\"", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", 
+               RowBox[{"-", "Infinity"}], ",", " ", "0"}], "}"}], ",", " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}], ",",
+            "\n", "    ", "\"\<YZ \:5e73\:9762 \
+(\:4fa7\:89c6/\:5de6\:89c6)\>\"", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{
+             RowBox[{"{", 
+              RowBox[{"Infinity", ",", " ", "0", ",", " ", "0"}], "}"}], ",", 
+             " ", 
+             RowBox[{"{", 
+              RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}]}], 
+          "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"graphic", " ", "=", " ", 
+         RowBox[{"If", "[", 
+          RowBox[{"is3D", ",", "\n", "    ", 
+           RowBox[{"Graphics3D", "[", 
+            RowBox[{
+             RowBox[{"{", "\n", "       ", 
+              RowBox[{
+               RowBox[{"PointSize", "[", "pointSize", "]"}], ",", "\n", 
+               "       ", 
+               RowBox[{"Point", "[", 
+                RowBox[{"coords", ",", " ", 
+                 RowBox[{"VertexColors", " ", "->", " ", "colors"}]}], 
+                "]"}]}], "\n", "      ", "}"}], ",", "\n", "      ", 
+             RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", 
+             "      ", 
+             RowBox[{"Axes", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"AxesLabel", " ", "->", " ", 
+              RowBox[{"{", 
+               
+               RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\"", ",", 
+                " ", "\"\<Z (m)\>\""}], "}"}]}], ",", "\n", "      ", 
+             RowBox[{"Boxed", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"ViewPoint", " ", "->", " ", 
+              RowBox[{"viewParams", "[", 
+               RowBox[{"[", "1", "]"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"ViewVertical", " ", "->", " ", 
+              RowBox[{"viewParams", "[", 
+               RowBox[{"[", "2", "]"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"PlotLabel", " ", "->", " ", 
+              RowBox[{"StringForm", "[", 
+               
+               RowBox[{"\"\<3D MPM - Frame ``/`` | Variable: `` | View: \
+``\>\"", ",", " ", "\n", "        ", "frame", ",", " ", 
+                RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                "renderTarget", ",", " ", "viewOption"}], "]"}]}], ",", "\n", 
+             "      ", 
+             RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
+            "]"}], ",", "\n", "    ", 
+           RowBox[{"Graphics", "[", 
+            RowBox[{
+             RowBox[{"{", "\n", "       ", 
+              RowBox[{
+               RowBox[{"PointSize", "[", "pointSize", "]"}], ",", "\n", 
+               "       ", 
+               RowBox[{"Point", "[", 
+                RowBox[{"coords", ",", " ", 
+                 RowBox[{"VertexColors", " ", "->", " ", "colors"}]}], 
+                "]"}]}], "\n", "      ", "}"}], ",", "\n", "      ", 
+             RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", "\n", 
+             "      ", 
+             RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "      ", 
+             RowBox[{"FrameLabel", " ", "->", " ", 
+              RowBox[{"{", 
+               RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\""}], "}"}]}], 
+             ",", "\n", "      ", 
+             RowBox[{"PlotLabel", " ", "->", " ", 
+              RowBox[{"StringForm", "[", 
+               
+               RowBox[{"\"\<2D MPM - Frame ``/`` | Variable: ``\>\"", ",", 
+                " ", "\n", "        ", "frame", ",", " ", 
+                RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                "renderTarget"}], "]"}]}], ",", "\n", "      ", 
+             RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "    ", 
+            "]"}]}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"Legended", "[", "\n", "   ", 
+         RowBox[{"graphic", ",", "\n", "   ", 
+          RowBox[{"BarLegend", "[", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<Rainbow\>\"", ",", " ", 
+              RowBox[{"{", 
+               RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "}"}], ",", " ", 
+            RowBox[{"LegendLabel", " ", "->", " ", "renderTarget"}], ",", " ", 
+            RowBox[{"LegendMarkerSize", " ", "->", " ", "300"}]}], "]"}]}], 
+         "\n", "  ", "]"}]}]}], "\n", " ", "]"}], ",", "\n", " ", "\n", " ", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{"--", 
+        RowBox[{"--", 
+         RowBox[{"-", " ", 
+          RowBox[{
+           RowBox[{"\:63a7\:5236\:63a7\:4ef6\:914d\:7f6e", " ", "--"}], 
+           "--"}]}]}]}], "-"}], " ", "*)"}], "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "frame", ",", " ", "1", ",", 
+         " ", "\"\<\:65f6\:95f4\:5e27 (Frame)\>\""}], "}"}], ",", " ", "1", ",",
+        " ", 
+       RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", "1", ",", 
+       " ", 
+       RowBox[{"Appearance", " ", "->", " ", "\"\<Open\>\""}]}], "}"}], ",", 
+     "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "renderTarget", ",", " ", "\"\<s22\>\"", ",", 
+         " ", "\"\<\:6e32\:67d3\:7269\:7406\:91cf\>\""}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<seq\>\"", ",", " ", "\"\<s11\>\"", ",", 
+         " ", "\"\<s22\>\"", ",", " ", "\"\<s33\>\"", ",", " ", "\"\<s12\>\"",
+          ",", " ", "\"\<s13\>\"", ",", " ", "\"\<s23\>\"", ",", 
+         " ", "\"\<vx\>\"", ",", " ", "\"\<vy\>\"", ",", " ", "\"\<vz\>\""}], 
+        "}"}]}], "}"}], ",", "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "viewOption", ",", " ", "\"\<3D \:89c6\:89d2\>\"", ",", 
+         " ", "\"\<\:89c6\:56fe\:9009\:62e9\>\""}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<3D \:89c6\:89d2\>\"", ",", 
+         " ", "\"\<XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)\>\"", ",", 
+         " ", "\"\<XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)\>\"", ",", 
+         " ", "\"\<YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)\>\""}], 
+        "}"}]}], "}"}], ",", "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "pointSize", ",", " ", "0.005", ",", 
+         " ", "\"\<\:8d28\:70b9\:534a\:5f84\>\""}], "}"}], ",", " ", "0.001", 
+       ",", " ", "0.02", ",", " ", "0.001"}], "}"}], ",", "\n", " ", "\n", 
+     " ", 
+     RowBox[{"(*", " ", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"--", 
+         RowBox[{"--", 
+          RowBox[{"-", " ", "\:6dfb\:52a0"}]}]}], 
+        RowBox[{
+         RowBox[{
+          RowBox[{"\:3010", 
+           RowBox[{
+           "\:4e00\:952e\:5bfc\:51fa", " ", "GIF", " ", "\:6309\:94ae"}], 
+           "\:3011"}], " ", "--"}], "--"}]}], "-"}], " ", "*)"}], "\n", " ", 
+     RowBox[{"Item", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"Button", "[", "\n", "   ", 
+        RowBox[{"\"\<\|01f3ac \:5bfc\:51fa\:5f53\:524d\:8bbe\:7f6e\:7684 GIF \
+\:52a8\:753b\>\"", ",", "\n", "   ", 
+         RowBox[{"Module", "[", 
+          RowBox[{
+           RowBox[{"{", 
+            RowBox[{
+            "exportGifPath", ",", " ", "vParams", ",", " ", "framesList", ",",
+              " ", "i", ",", " ", "fData", ",", " ", "vars", ",", " ", "is3D",
+              ",", " ", "crds", ",", " ", "fVal", ",", " ", "mnV", ",", " ", 
+             "mxV", ",", " ", "clrs", ",", " ", "g"}], "}"}], ",", "\n", 
+           "    ", 
+           RowBox[{
+            RowBox[{"exportGifPath", " ", "=", " ", 
+             RowBox[{"FileNameJoin", "[", 
+              RowBox[{"{", 
+               RowBox[{
+               "cantileverDir", ",", " ", "\"\<MPM_Animation.gif\>\""}], 
+               "}"}], "]"}]}], ";", "\n", "    ", "\n", "    ", 
+            RowBox[{
+            "PrintTemporary", 
+             "[", "\"\<\:6b63\:5728\:751f\:6210\:5e76\:5bfc\:51fa GIF \:52a8\
+\:753b\:ff0c\:8bf7\:7a0d\:5019...\>\"", "]"}], ";", "\n", "    ", "\n", 
+            "    ", 
+            RowBox[{"vParams", " ", "=", " ", 
+             RowBox[{"Switch", "[", 
+              RowBox[{
+              "viewOption", ",", "\n", "      ", "\"\<3D \:89c6\:89d2\>\"", ",",
+                " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0.0", ",", "0.0", ",", "0.0"}], "}"}], ",", " ", 
+                 RowBox[{"{", 
+                  RowBox[{"1.", ",", " ", "1.", ",", " ", 
+                   RowBox[{"-", "1."}]}], "}"}]}], "}"}], ",", "\n", 
+               "      ", "\"\<XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)\>\"",
+                ",", " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", " ", "0", ",", " ", "Infinity"}], "}"}], ",",
+                  " ", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", " ", "1", ",", " ", "0"}], "}"}]}], "}"}],
+                ",", "\n", 
+               "      ", "\"\<XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)\>\"",
+                ",", " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", " ", 
+                   RowBox[{"-", "Infinity"}], ",", " ", "0"}], "}"}], ",", 
+                 " ", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], "}"}],
+                ",", "\n", 
+               "      ", "\"\<YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)\>\"",
+                ",", " ", 
+               RowBox[{"{", 
+                RowBox[{
+                 RowBox[{"{", 
+                  RowBox[{"Infinity", ",", " ", "0", ",", " ", "0"}], "}"}], ",",
+                  " ", 
+                 RowBox[{"{", 
+                  RowBox[{"0", ",", " ", "0", ",", " ", "1"}], "}"}]}], 
+                "}"}]}], "\n", "    ", "]"}]}], ";", "\n", "    ", "\n", 
+            "    ", 
+            RowBox[{"framesList", " ", "=", " ", 
+             RowBox[{"Table", "[", "\n", "      ", 
+              RowBox[{
+               RowBox[{
+                RowBox[{"fData", " ", "=", " ", 
+                 RowBox[{"allFramesAssoc", "[", 
+                  RowBox[{"[", "i", "]"}], "]"}]}], ";", "\n", "      ", 
+                RowBox[{"vars", " ", "=", " ", 
+                 RowBox[{"Keys", "[", "fData", "]"}]}], ";", "\n", "      ", 
+                RowBox[{"is3D", " ", "=", " ", 
+                 RowBox[{"MemberQ", "[", 
+                  RowBox[{"vars", ",", " ", "\"\<z\>\""}], "]"}]}], ";", "\n",
+                 "      ", 
+                RowBox[{"crds", " ", "=", " ", 
+                 RowBox[{"If", "[", 
+                  RowBox[{"is3D", ",", "\n", "        ", 
+                   RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"fData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+                    RowBox[{"fData", "[", "\"\<y\>\"", "]"}], ",", " ", 
+                    RowBox[{"fData", "[", "\"\<z\>\"", "]"}]}], "}"}], "]"}], 
+                   ",", "\n", "        ", 
+                   RowBox[{"Transpose", "[", 
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"fData", "[", "\"\<x\>\"", "]"}], ",", " ", 
+                    RowBox[{"fData", "[", "\"\<y\>\"", "]"}]}], "}"}], 
+                    "]"}]}], "\n", "      ", "]"}]}], ";", "\n", "      ", 
+                RowBox[{"fVal", " ", "=", " ", 
+                 RowBox[{"Lookup", "[", 
+                  RowBox[{"fData", ",", " ", "renderTarget", ",", " ", 
+                   RowBox[{"fData", "[", "\"\<x\>\"", "]"}]}], "]"}]}], ";", 
+                "\n", "      ", 
+                RowBox[{"mnV", " ", "=", " ", 
+                 RowBox[{"Min", "[", "fVal", "]"}]}], ";", "\n", "      ", 
+                RowBox[{"mxV", " ", "=", " ", 
+                 RowBox[{"Max", "[", "fVal", "]"}]}], ";", "\n", "      ", 
+                RowBox[{"If", "[", 
+                 RowBox[{
+                  RowBox[{"mxV", " ", "==", " ", "mnV"}], ",", " ", 
+                  RowBox[{"mxV", " ", "=", " ", 
+                   RowBox[{"mnV", " ", "+", " ", "1.0*^-6"}]}]}], "]"}], ";", 
+                "\n", "      ", 
+                RowBox[{"clrs", " ", "=", " ", 
+                 RowBox[{
+                  RowBox[{"ColorData", "[", "\"\<Rainbow\>\"", "]"}], " ", "/@",
+                   " ", 
+                  RowBox[{"Rescale", "[", 
+                   RowBox[{"fVal", ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"mnV", ",", " ", "mxV"}], "}"}]}], "]"}]}]}], ";",
+                 "\n", "      ", "\n", "      ", 
+                RowBox[{"g", " ", "=", " ", 
+                 RowBox[{"If", "[", 
+                  RowBox[{"is3D", ",", "\n", "        ", 
+                   RowBox[{"Graphics3D", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"PointSize", "[", "pointSize", "]"}], ",", " ", 
+                    RowBox[{"Point", "[", 
+                    RowBox[{"crds", ",", " ", 
+                    RowBox[{"VertexColors", " ", "->", " ", "clrs"}]}], 
+                    "]"}]}], "}"}], ",", " ", "\n", "          ", 
+                    RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", " ", 
+                    RowBox[{"Axes", " ", "->", " ", "True"}], ",", " ", 
+                    RowBox[{"AxesLabel", " ", "->", " ", 
+                    RowBox[{"{", 
+                    
+                    RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\"", ",", 
+                    " ", "\"\<Z (m)\>\""}], "}"}]}], ",", " ", "\n", 
+                    "          ", 
+                    RowBox[{"Boxed", " ", "->", " ", "True"}], ",", " ", 
+                    RowBox[{"ViewPoint", " ", "->", " ", 
+                    RowBox[{"vParams", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}]}], ",", " ", 
+                    RowBox[{"ViewVertical", " ", "->", " ", 
+                    RowBox[{"vParams", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}]}], ",", " ", "\n", 
+                    "          ", 
+                    RowBox[{"PlotLabel", " ", "->", " ", 
+                    RowBox[{"StringForm", "[", 
+                    
+                    RowBox[{"\"\<3D MPM - Frame ``/`` | Var: ``\>\"", ",", 
+                    " ", "i", ",", " ", 
+                    RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                    "renderTarget"}], "]"}]}], ",", " ", "\n", "          ", 
+                    RowBox[{"ImageSize", " ", "->", " ", "600"}]}], "]"}], ",",
+                    "\n", "        ", 
+                   RowBox[{"Graphics", "[", 
+                    RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{
+                    RowBox[{"PointSize", "[", "pointSize", "]"}], ",", " ", 
+                    RowBox[{"Point", "[", 
+                    RowBox[{"crds", ",", " ", 
+                    RowBox[{"VertexColors", " ", "->", " ", "clrs"}]}], 
+                    "]"}]}], "}"}], ",", " ", "\n", "          ", 
+                    RowBox[{"PlotRange", " ", "->", " ", "All"}], ",", " ", 
+                    RowBox[{"Frame", " ", "->", " ", "True"}], ",", " ", 
+                    RowBox[{"FrameLabel", " ", "->", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\""}], 
+                    "}"}]}], ",", " ", "\n", "          ", 
+                    RowBox[{"PlotLabel", " ", "->", " ", 
+                    RowBox[{"StringForm", "[", 
+                    
+                    RowBox[{"\"\<2D MPM - Frame ``/`` | Var: ``\>\"", ",", 
+                    " ", "i", ",", " ", 
+                    RowBox[{"Length", "[", "allFramesAssoc", "]"}], ",", " ", 
+                    "renderTarget"}], "]"}]}], ",", " ", "\n", "          ", 
+                    RowBox[{"ImageSize", " ", "->", " ", "600"}]}], "]"}]}], 
+                  "\n", "      ", "]"}]}], ";", "\n", "      ", 
+                RowBox[{"Legended", "[", 
+                 RowBox[{"g", ",", " ", 
+                  RowBox[{"BarLegend", "[", 
+                   RowBox[{
+                    RowBox[{"{", 
+                    RowBox[{"\"\<Rainbow\>\"", ",", " ", 
+                    RowBox[{"{", 
+                    RowBox[{"mnV", ",", " ", "mxV"}], "}"}]}], "}"}], ",", 
+                    " ", 
+                    RowBox[{"LegendLabel", " ", "->", " ", "renderTarget"}], ",",
+                     " ", 
+                    RowBox[{"LegendMarkerSize", " ", "->", " ", "250"}]}], 
+                   "]"}]}], "]"}]}], ",", "\n", "      ", 
+               RowBox[{"{", 
+                RowBox[{"i", ",", " ", "1", ",", " ", 
+                 RowBox[{"Length", "[", "allFramesAssoc", "]"}]}], "}"}]}], 
+              "\n", "    ", "]"}]}], ";", "\n", "    ", "\n", "    ", 
+            RowBox[{"Export", "[", 
+             RowBox[{
+             "exportGifPath", ",", " ", "framesList", ",", " ", "\"\<GIF\>\"",
+               ",", " ", 
+              RowBox[{"\"\<DisplayDurations\>\"", " ", "->", " ", "0.08"}], ",",
+               " ", 
+              
+              RowBox[{"\"\<AnimationRepetitions\>\"", " ", "->", " ", 
+               "Infinity"}]}], "]"}], ";", "\n", "    ", 
+            RowBox[{"Print", "[", 
+             
+             RowBox[{"\"\<\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\
+\:81f3: \>\"", ",", " ", "exportGifPath"}], "]"}], ";"}]}], "\n", "   ", 
+          "]"}], ",", "\n", "   ", 
+         RowBox[{"Method", " ", "->", " ", "\"\<Queued\>\""}], ",", " ", 
+         RowBox[{"(*", " ", 
+          RowBox[{
+          "\:5fc5\:987b\:52a0", " ", "Queued", " ", 
+           "\:53c2\:6570\:4ee5\:9632\:6b62\:5bfc\:51fa\:5927\:52a8\:753b\:65f6\
+\:89e6\:53d1\:754c\:9762\:8d85\:65f6"}], " ", "*)"}], "\n", "   ", 
+         RowBox[{"ImageSize", " ", "->", " ", 
+          RowBox[{"{", 
+           RowBox[{"250", ",", " ", "35"}], "}"}]}]}], "\n", "  ", "]"}], ",",
+        "\n", "  ", 
+       RowBox[{"Alignment", " ", "->", " ", "Center"}]}], "\n", " ", "]"}]}], 
+    "\n", "]"}]}]}]], "Code",
+ CellChangeTimes->{{3.99475169854599*^9, 3.9947516985469913`*^9}, {
+  3.9947518502247047`*^9, 3.9947518952940903`*^9}, {3.9947530338027706`*^9, 
+  3.9947530428974953`*^9}},
+ CellLabel->
+  "In[200]:=",ExpressionUUID->"ed4f7ca7-e537-274b-b522-944f0f54c7f5"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 \"\>", 
+    "\[InvisibleSpace]", "23", 
+    "\[InvisibleSpace]", "\<\" \:5e27\:6570\:636e\:3002\"\>"}],
+   SequenceForm[
+   "\:5e76\:884c\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171 ", 23, 
+    " \:5e27\:6570\:636e\:3002"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.9947517669289513`*^9, 3.9947519633555717`*^9, 
+  3.9947531022990055`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97In[200]:=",ExpressionUUID->"c9e0e178-b143-9746-\
+90db-c62f7ee6c646"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   FormBox[
+    StyleBox[
+     DynamicModuleBox[{$CellContext`frame$$ = 1, $CellContext`pointSize$$ = 
+      0.005, $CellContext`renderTarget$$ = "s22", $CellContext`viewOption$$ = 
+      "3D \:89c6\:89d2", Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+      Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, Typeset`animvar$$ =
+       1, Typeset`name$$ = "\"\:65e0\:6807\:9898\"", Typeset`specs$$ = {{{
+         Hold[$CellContext`frame$$], 1, "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23, 
+        1, ControlType -> Manipulator}, {{
+         Hold[$CellContext`renderTarget$$], "s22", 
+         "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+        "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", "vz"}, 
+        ControlType -> PopupMenu}, {{
+         Hold[$CellContext`viewOption$$], "3D \:89c6\:89d2", 
+         "\:89c6\:56fe\:9009\:62e9"}, {
+        "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+         "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+         "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}, ControlType -> 
+        SetterBar}, {{
+         Hold[$CellContext`pointSize$$], 0.005, "\:8d28\:70b9\:534a\:5f84"}, 
+        0.001, 0.02, 0.001, ControlType -> Manipulator}, {
+        Hold[
+         Item[
+          Button[
+          "\|01f3ac \:5bfc\:51fa\:5f53\:524d\:8bbe\:7f6e\:7684 GIF \:52a8\
+\:753b", 
+           
+           Module[{$CellContext`exportGifPath$, $CellContext`vParams$, \
+$CellContext`framesList$, $CellContext`i$, $CellContext`fData$, \
+$CellContext`vars$, $CellContext`is3D$, $CellContext`crds$, \
+$CellContext`fVal$, $CellContext`mnV$, $CellContext`mxV$, $CellContext`clrs$, \
+$CellContext`g$}, $CellContext`exportGifPath$ = 
+             FileNameJoin[{$CellContext`cantileverDir, "MPM_Animation.gif"}]; 
+            PrintTemporary[
+             "\:6b63\:5728\:751f\:6210\:5e76\:5bfc\:51fa GIF \:52a8\:753b\
+\:ff0c\:8bf7\:7a0d\:5019..."]; $CellContext`vParams$ = 
+             Switch[$CellContext`viewOption$$, "3D \:89c6\:89d2", {{0., 0., 
+               0.}, {1., 1., -1.}}, 
+               "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+                0, 0, Infinity}, {0, 1, 0}}, 
+               "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+                0, -Infinity, 0}, {0, 0, 1}}, 
+               "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+                Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`framesList$ = 
+             Table[$CellContext`fData$ = 
+                Part[$CellContext`allFramesAssoc, $CellContext`i$]; \
+$CellContext`vars$ = Keys[$CellContext`fData$]; $CellContext`is3D$ = 
+                MemberQ[$CellContext`vars$, "z"]; $CellContext`crds$ = 
+                If[$CellContext`is3D$, 
+                  Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"], 
+                    $CellContext`fData$["z"]}], 
+                  Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"]}]]; $CellContext`fVal$ = 
+                Lookup[$CellContext`fData$, $CellContext`renderTarget$$, 
+                  $CellContext`fData$["x"]]; $CellContext`mnV$ = 
+                Min[$CellContext`fVal$]; $CellContext`mxV$ = 
+                Max[$CellContext`fVal$]; 
+               If[$CellContext`mxV$ == $CellContext`mnV$, $CellContext`mxV$ = \
+$CellContext`mnV$ + 1.*^-6]; $CellContext`clrs$ = Map[
+                  ColorData["Rainbow"], 
+                  
+                  Rescale[$CellContext`fVal$, {$CellContext`mnV$, \
+$CellContext`mxV$}]]; $CellContext`g$ = If[$CellContext`is3D$, 
+                  Graphics3D[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                   Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, 
+                   Boxed -> True, ViewPoint -> Part[$CellContext`vParams$, 1],
+                    ViewVertical -> Part[$CellContext`vParams$, 2], PlotLabel -> 
+                   StringForm[
+                    "3D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600], 
+                  Graphics[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                   Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+                   StringForm[
+                    "2D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600]]; Legended[$CellContext`g$, 
+                 
+                 BarLegend[{
+                  "Rainbow", {$CellContext`mnV$, $CellContext`mxV$}}, 
+                  LegendLabel -> $CellContext`renderTarget$$, 
+                  LegendMarkerSize -> 250]], {$CellContext`i$, 1, 
+                Length[$CellContext`allFramesAssoc]}]; 
+            Export[$CellContext`exportGifPath$, $CellContext`framesList$, 
+              "GIF", "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+              Infinity]; 
+            Print["\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: ", \
+$CellContext`exportGifPath$]; Null], Method -> "Queued", 
+           ImageSize -> {250, 35}], Alignment -> Center]], 
+        Manipulate`Dump`ThisIsNotAControl, ControlType -> None}}, 
+      Typeset`size$$ = {
+      49.130858325026935`, {0.990234345942735, 9.331054413691163}}, 
+      Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True,
+       Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+      DynamicBox[Manipulate`ManipulateBoxes[
+       1, TraditionalForm, 
+        "Variables" :> {$CellContext`frame$$ = 1, $CellContext`pointSize$$ = 
+          0.005, $CellContext`renderTarget$$ = 
+          "s22", $CellContext`viewOption$$ = "3D \:89c6\:89d2"}, 
+        "ControllerVariables" :> {}, 
+        "OtherVariables" :> {
+         Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+          Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+          Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+          Typeset`initDone$$, Typeset`skipInitDone$$, 
+          Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+        Module[{$CellContext`frameData$, $CellContext`availableVars$, \
+$CellContext`is3D$, $CellContext`coords$, $CellContext`fieldVal$, \
+$CellContext`minV$, $CellContext`maxV$, $CellContext`colors$, \
+$CellContext`viewParams$, $CellContext`graphic$}, $CellContext`frameData$ = 
+           Part[$CellContext`allFramesAssoc, $CellContext`frame$$]; \
+$CellContext`availableVars$ = 
+           Keys[$CellContext`frameData$]; $CellContext`is3D$ = 
+           MemberQ[$CellContext`availableVars$, "z"]; $CellContext`coords$ = 
+           If[$CellContext`is3D$, 
+             Transpose[{
+               $CellContext`frameData$["x"], 
+               $CellContext`frameData$["y"], 
+               $CellContext`frameData$["z"]}], 
+             Transpose[{
+               $CellContext`frameData$["x"], 
+               $CellContext`frameData$["y"]}]]; $CellContext`fieldVal$ = 
+           Lookup[$CellContext`frameData$, $CellContext`renderTarget$$, 
+             $CellContext`frameData$["x"]]; $CellContext`minV$ = 
+           Min[$CellContext`fieldVal$]; $CellContext`maxV$ = 
+           Max[$CellContext`fieldVal$]; 
+          If[$CellContext`maxV$ == $CellContext`minV$, $CellContext`maxV$ = \
+$CellContext`minV$ + 1.*^-6]; $CellContext`colors$ = Map[
+             ColorData["Rainbow"], 
+             
+             Rescale[$CellContext`fieldVal$, {$CellContext`minV$, \
+$CellContext`maxV$}]]; $CellContext`viewParams$ = 
+           Switch[$CellContext`viewOption$$, 
+             "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+             "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+              0, 0, Infinity}, {0, 1, 0}}, 
+             "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+              0, -Infinity, 0}, {0, 0, 1}}, 
+             "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+              Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`graphic$ = 
+           If[$CellContext`is3D$, 
+             Graphics3D[{
+               PointSize[$CellContext`pointSize$$], 
+               
+               Point[$CellContext`coords$, 
+                VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+              Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, Boxed -> 
+              True, ViewPoint -> Part[$CellContext`viewParams$, 1], 
+              ViewVertical -> Part[$CellContext`viewParams$, 2], PlotLabel -> 
+              StringForm[
+               "3D MPM - Frame ``/`` | Variable: `` | View: ``", \
+$CellContext`frame$$, 
+                
+                Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$, $CellContext`viewOption$$], ImageSize -> Large], 
+             Graphics[{
+               PointSize[$CellContext`pointSize$$], 
+               
+               Point[$CellContext`coords$, 
+                VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+              Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+              StringForm[
+               "2D MPM - Frame ``/`` | Variable: ``", $CellContext`frame$$, 
+                
+                Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> Large]]; 
+          Legended[$CellContext`graphic$, 
+            
+            BarLegend[{"Rainbow", {$CellContext`minV$, $CellContext`maxV$}}, 
+             LegendLabel -> $CellContext`renderTarget$$, LegendMarkerSize -> 
+             300]]], "Specifications" :> {{{$CellContext`frame$$, 1, 
+            "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23, 1, Appearance -> 
+           "Open"}, {{$CellContext`renderTarget$$, "s22", 
+            "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+           "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", 
+            "vz"}}, {{$CellContext`viewOption$$, "3D \:89c6\:89d2", 
+            "\:89c6\:56fe\:9009\:62e9"}, {
+           "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+            "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+            "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}}, \
+{{$CellContext`pointSize$$, 0.005, "\:8d28\:70b9\:534a\:5f84"}, 0.001, 0.02, 
+           0.001}, 
+          Item[
+           Button[
+           "\|01f3ac \:5bfc\:51fa\:5f53\:524d\:8bbe\:7f6e\:7684 GIF \:52a8\
+\:753b", 
+            
+            Module[{$CellContext`exportGifPath$, $CellContext`vParams$, \
+$CellContext`framesList$, $CellContext`i$, $CellContext`fData$, \
+$CellContext`vars$, $CellContext`is3D$, $CellContext`crds$, \
+$CellContext`fVal$, $CellContext`mnV$, $CellContext`mxV$, $CellContext`clrs$, \
+$CellContext`g$}, $CellContext`exportGifPath$ = 
+              FileNameJoin[{$CellContext`cantileverDir, "MPM_Animation.gif"}]; 
+             PrintTemporary[
+              "\:6b63\:5728\:751f\:6210\:5e76\:5bfc\:51fa GIF \:52a8\:753b\
+\:ff0c\:8bf7\:7a0d\:5019..."]; $CellContext`vParams$ = 
+              Switch[$CellContext`viewOption$$, "3D \:89c6\:89d2", {{0., 0., 
+                0.}, {1., 1., -1.}}, 
+                "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+                 0, 0, Infinity}, {0, 1, 0}}, 
+                "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+                 0, -Infinity, 0}, {0, 0, 1}}, 
+                "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+                 Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`framesList$ = 
+              Table[$CellContext`fData$ = 
+                 Part[$CellContext`allFramesAssoc, $CellContext`i$]; \
+$CellContext`vars$ = Keys[$CellContext`fData$]; $CellContext`is3D$ = 
+                 MemberQ[$CellContext`vars$, "z"]; $CellContext`crds$ = 
+                 If[$CellContext`is3D$, 
+                   Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"], 
+                    $CellContext`fData$["z"]}], 
+                   Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"]}]]; $CellContext`fVal$ = 
+                 Lookup[$CellContext`fData$, $CellContext`renderTarget$$, 
+                   $CellContext`fData$["x"]]; $CellContext`mnV$ = 
+                 Min[$CellContext`fVal$]; $CellContext`mxV$ = 
+                 Max[$CellContext`fVal$]; 
+                If[$CellContext`mxV$ == $CellContext`mnV$, $CellContext`mxV$ = \
+$CellContext`mnV$ + 1.*^-6]; $CellContext`clrs$ = Map[
+                   ColorData["Rainbow"], 
+                   
+                   Rescale[$CellContext`fVal$, {$CellContext`mnV$, \
+$CellContext`mxV$}]]; $CellContext`g$ = If[$CellContext`is3D$, 
+                   Graphics3D[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, 
+                    Boxed -> True, ViewPoint -> 
+                    Part[$CellContext`vParams$, 1], ViewVertical -> 
+                    Part[$CellContext`vParams$, 2], PlotLabel -> 
+                    StringForm[
+                    "3D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600], 
+                   Graphics[{
+                    PointSize[$CellContext`pointSize$$], 
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, 
+                    PlotLabel -> 
+                    StringForm[
+                    "2D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600]]; Legended[$CellContext`g$, 
+                  
+                  BarLegend[{
+                   "Rainbow", {$CellContext`mnV$, $CellContext`mxV$}}, 
+                   LegendLabel -> $CellContext`renderTarget$$, 
+                   LegendMarkerSize -> 250]], {$CellContext`i$, 1, 
+                 Length[$CellContext`allFramesAssoc]}]; 
+             Export[$CellContext`exportGifPath$, $CellContext`framesList$, 
+               "GIF", "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+               Infinity]; 
+             Print["\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: ", \
+$CellContext`exportGifPath$]; Null], Method -> "Queued", 
+            ImageSize -> {250, 35}], Alignment -> Center]}, "Options" :> {}, 
+        "DefaultOptions" :> {}],
+       ImageSizeCache->{
+        395.4582998752594, {121.65486328124999`, 127.82478515624999`}},
+       SingleEvaluation->True],
+      Deinitialization:>None,
+      DynamicModuleValues:>{},
+      SynchronousInitialization->True,
+      UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+      UnsavedVariables:>{Typeset`initDone$$},
+      UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+     Deployed->True,
+     StripOnInput->False],
+    TraditionalForm],
+   Manipulate`InterpretManipulate[1]], TraditionalForm]], "Output",
+ CellChangeTimes->{3.994753102364008*^9},
+ CellLabel->
+  "Out[208]=",ExpressionUUID->"dc0769f8-b226-624e-8aec-bf31b75cec53"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   TagBox[
+    FormBox[
+     StyleBox[
+      DynamicModuleBox[{$CellContext`frame$$ = 9, $CellContext`pointSize$$ = 
+       0.004, $CellContext`renderTarget$$ = "vy", $CellContext`viewOption$$ = 
+       "3D \:89c6\:89d2", Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+       Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
+       Typeset`animvar$$ = 1, Typeset`name$$ = "\"\:65e0\:6807\:9898\"", 
+       Typeset`specs$$ = {{{
+          Hold[$CellContext`frame$$], 1, "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23,
+          1, ControlType -> Manipulator}, {{
+          Hold[$CellContext`renderTarget$$], "s22", 
+          "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+         "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", "vz"}, 
+         ControlType -> PopupMenu}, {{
+          Hold[$CellContext`viewOption$$], "3D \:89c6\:89d2", 
+          "\:89c6\:56fe\:9009\:62e9"}, {
+         "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+          "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+          "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}, ControlType -> 
+         SetterBar}, {{
+          Hold[$CellContext`pointSize$$], 0.005, "\:8d28\:70b9\:534a\:5f84"}, 
+         0.001, 0.02, 0.001, ControlType -> Manipulator}, {
+         Hold[
+          Item[
+           Button[
+           "\|01f3ac \:5bfc\:51fa\:5f53\:524d\:8bbe\:7f6e\:7684 GIF \:52a8\
+\:753b", 
+            
+            Module[{$CellContext`exportGifPath$, $CellContext`vParams$, \
+$CellContext`framesList$, $CellContext`i$, $CellContext`fData$, \
+$CellContext`vars$, $CellContext`is3D$, $CellContext`crds$, \
+$CellContext`fVal$, $CellContext`mnV$, $CellContext`mxV$, $CellContext`clrs$, \
+$CellContext`g$}, $CellContext`exportGifPath$ = 
+              FileNameJoin[{$CellContext`cantileverDir, "MPM_Animation.gif"}]; 
+             PrintTemporary[
+              "\:6b63\:5728\:751f\:6210\:5e76\:5bfc\:51fa GIF \:52a8\:753b\
+\:ff0c\:8bf7\:7a0d\:5019..."]; $CellContext`vParams$ = 
+              Switch[$CellContext`viewOption$$, "3D \:89c6\:89d2", {{0., 0., 
+                0.}, {100., 100., 100.}}, 
+                "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+                 0, 0, Infinity}, {0, 1, 0}}, 
+                "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+                 0, -Infinity, 0}, {0, 0, 1}}, 
+                "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+                 Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`framesList$ = 
+              Table[$CellContext`fData$ = 
+                 Part[$CellContext`allFramesAssoc, $CellContext`i$]; \
+$CellContext`vars$ = Keys[$CellContext`fData$]; $CellContext`is3D$ = 
+                 MemberQ[$CellContext`vars$, "z"]; $CellContext`crds$ = 
+                 If[$CellContext`is3D$, 
+                   Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"], 
+                    $CellContext`fData$["z"]}], 
+                   Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"]}]]; $CellContext`fVal$ = 
+                 Lookup[$CellContext`fData$, $CellContext`renderTarget$$, 
+                   $CellContext`fData$["x"]]; $CellContext`mnV$ = 
+                 Min[$CellContext`fVal$]; $CellContext`mxV$ = 
+                 Max[$CellContext`fVal$]; 
+                If[$CellContext`mxV$ == $CellContext`mnV$, $CellContext`mxV$ = \
+$CellContext`mnV$ + 1.*^-6]; $CellContext`clrs$ = Map[
+                   ColorData["Rainbow"], 
+                   
+                   Rescale[$CellContext`fVal$, {$CellContext`mnV$, \
+$CellContext`mxV$}]]; $CellContext`g$ = If[$CellContext`is3D$, 
+                   Graphics3D[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, 
+                    Boxed -> True, ViewPoint -> 
+                    Part[$CellContext`vParams$, 1], ViewVertical -> 
+                    Part[$CellContext`vParams$, 2], PlotLabel -> 
+                    StringForm[
+                    "3D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600], 
+                   Graphics[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, 
+                    PlotLabel -> 
+                    StringForm[
+                    "2D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600]]; Legended[$CellContext`g$, 
+                  
+                  BarLegend[{
+                   "Rainbow", {$CellContext`mnV$, $CellContext`mxV$}}, 
+                   LegendLabel -> $CellContext`renderTarget$$, 
+                   LegendMarkerSize -> 250]], {$CellContext`i$, 1, 
+                 Length[$CellContext`allFramesAssoc]}]; 
+             Export[$CellContext`exportGifPath$, $CellContext`framesList$, 
+               "GIF", "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+               Infinity]; 
+             Print["\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: ", \
+$CellContext`exportGifPath$]; Null], Method -> "Queued", 
+            ImageSize -> {250, 35}], Alignment -> Center]], 
+         Manipulate`Dump`ThisIsNotAControl, ControlType -> None}}, 
+       Typeset`size$$ = {
+       636.5248679100036, {164.99077810322035`, 170.64654001810686`}}, 
+       Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+       True, Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+       DynamicBox[Manipulate`ManipulateBoxes[
+        1, TraditionalForm, 
+         "Variables" :> {$CellContext`frame$$ = 1, $CellContext`pointSize$$ = 
+           0.005, $CellContext`renderTarget$$ = 
+           "s22", $CellContext`viewOption$$ = "3D \:89c6\:89d2"}, 
+         "ControllerVariables" :> {}, 
+         "OtherVariables" :> {
+          Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+           Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+           Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+           Typeset`initDone$$, Typeset`skipInitDone$$, 
+           Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+         Module[{$CellContext`frameData$, $CellContext`availableVars$, \
+$CellContext`is3D$, $CellContext`coords$, $CellContext`fieldVal$, \
+$CellContext`minV$, $CellContext`maxV$, $CellContext`colors$, \
+$CellContext`viewParams$, $CellContext`graphic$}, $CellContext`frameData$ = 
+            Part[$CellContext`allFramesAssoc, $CellContext`frame$$]; \
+$CellContext`availableVars$ = 
+            Keys[$CellContext`frameData$]; $CellContext`is3D$ = 
+            MemberQ[$CellContext`availableVars$, "z"]; $CellContext`coords$ = 
+            If[$CellContext`is3D$, 
+              Transpose[{
+                $CellContext`frameData$["x"], 
+                $CellContext`frameData$["y"], 
+                $CellContext`frameData$["z"]}], 
+              Transpose[{
+                $CellContext`frameData$["x"], 
+                $CellContext`frameData$["y"]}]]; $CellContext`fieldVal$ = 
+            Lookup[$CellContext`frameData$, $CellContext`renderTarget$$, 
+              $CellContext`frameData$["x"]]; $CellContext`minV$ = 
+            Min[$CellContext`fieldVal$]; $CellContext`maxV$ = 
+            Max[$CellContext`fieldVal$]; 
+           If[$CellContext`maxV$ == $CellContext`minV$, $CellContext`maxV$ = \
+$CellContext`minV$ + 1.*^-6]; $CellContext`colors$ = Map[
+              ColorData["Rainbow"], 
+              
+              Rescale[$CellContext`fieldVal$, {$CellContext`minV$, \
+$CellContext`maxV$}]]; $CellContext`viewParams$ = 
+            Switch[$CellContext`viewOption$$, 
+              "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+              "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+               0, 0, Infinity}, {0, 1, 0}}, 
+              "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+               0, -Infinity, 0}, {0, 0, 1}}, 
+              "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+               Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`graphic$ = 
+            If[$CellContext`is3D$, 
+              Graphics3D[{
+                PointSize[$CellContext`pointSize$$], 
+                
+                Point[$CellContext`coords$, 
+                 VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+               Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, Boxed -> 
+               True, ViewPoint -> Part[$CellContext`viewParams$, 1], 
+               ViewVertical -> Part[$CellContext`viewParams$, 2], PlotLabel -> 
+               StringForm[
+                "3D MPM - Frame ``/`` | Variable: `` | View: ``", \
+$CellContext`frame$$, 
+                 
+                 Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$, $CellContext`viewOption$$], ImageSize -> Large], 
+              Graphics[{
+                PointSize[$CellContext`pointSize$$], 
+                
+                Point[$CellContext`coords$, 
+                 VertexColors -> $CellContext`colors$]}, PlotRange -> All, 
+               Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+               StringForm[
+                "2D MPM - Frame ``/`` | Variable: ``", $CellContext`frame$$, 
+                 
+                 Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> Large]]; 
+           Legended[$CellContext`graphic$, 
+             
+             BarLegend[{"Rainbow", {$CellContext`minV$, $CellContext`maxV$}}, 
+              LegendLabel -> $CellContext`renderTarget$$, LegendMarkerSize -> 
+              300]]], "Specifications" :> {{{$CellContext`frame$$, 1, 
+             "\:65f6\:95f4\:5e27 (Frame)"}, 1, 23, 1, Appearance -> 
+            "Open"}, {{$CellContext`renderTarget$$, "s22", 
+             "\:6e32\:67d3\:7269\:7406\:91cf"}, {
+            "seq", "s11", "s22", "s33", "s12", "s13", "s23", "vx", "vy", 
+             "vz"}}, {{$CellContext`viewOption$$, "3D \:89c6\:89d2", 
+             "\:89c6\:56fe\:9009\:62e9"}, {
+            "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", 
+             "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", 
+             "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)"}}, \
+{{$CellContext`pointSize$$, 0.005, "\:8d28\:70b9\:534a\:5f84"}, 0.001, 0.02, 
+            0.001}, 
+           Item[
+            Button[
+            "\|01f3ac \:5bfc\:51fa\:5f53\:524d\:8bbe\:7f6e\:7684 GIF \:52a8\
+\:753b", 
+             
+             Module[{$CellContext`exportGifPath$, $CellContext`vParams$, \
+$CellContext`framesList$, $CellContext`i$, $CellContext`fData$, \
+$CellContext`vars$, $CellContext`is3D$, $CellContext`crds$, \
+$CellContext`fVal$, $CellContext`mnV$, $CellContext`mxV$, $CellContext`clrs$, \
+$CellContext`g$}, $CellContext`exportGifPath$ = 
+               FileNameJoin[{$CellContext`cantileverDir, 
+                  "MPM_Animation.gif"}]; 
+              PrintTemporary[
+               "\:6b63\:5728\:751f\:6210\:5e76\:5bfc\:51fa GIF \:52a8\:753b\
+\:ff0c\:8bf7\:7a0d\:5019..."]; $CellContext`vParams$ = 
+               Switch[$CellContext`viewOption$$, "3D \:89c6\:89d2", {{0., 0., 
+                 0.}, {100., 100., 100.}}, 
+                 "XY \:5e73\:9762 (\:4e3b\:89c6/\:4fef\:89c6)", {{
+                  0, 0, Infinity}, {0, 1, 0}}, 
+                 "XZ \:5e73\:9762 (\:524d\:89c6/\:6b63\:89c6)", {{
+                  0, -Infinity, 0}, {0, 0, 1}}, 
+                 "YZ \:5e73\:9762 (\:4fa7\:89c6/\:5de6\:89c6)", {{
+                  Infinity, 0, 0}, {0, 0, 1}}]; $CellContext`framesList$ = 
+               Table[$CellContext`fData$ = 
+                  Part[$CellContext`allFramesAssoc, $CellContext`i$]; \
+$CellContext`vars$ = Keys[$CellContext`fData$]; $CellContext`is3D$ = 
+                  MemberQ[$CellContext`vars$, "z"]; $CellContext`crds$ = 
+                  If[$CellContext`is3D$, 
+                    Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"], 
+                    $CellContext`fData$["z"]}], 
+                    Transpose[{
+                    $CellContext`fData$["x"], 
+                    $CellContext`fData$["y"]}]]; $CellContext`fVal$ = 
+                  Lookup[$CellContext`fData$, $CellContext`renderTarget$$, 
+                    $CellContext`fData$["x"]]; $CellContext`mnV$ = 
+                  Min[$CellContext`fVal$]; $CellContext`mxV$ = 
+                  Max[$CellContext`fVal$]; 
+                 If[$CellContext`mxV$ == $CellContext`mnV$, $CellContext`mxV$ = \
+$CellContext`mnV$ + 1.*^-6]; $CellContext`clrs$ = Map[
+                    ColorData["Rainbow"], 
+                    
+                    Rescale[$CellContext`fVal$, {$CellContext`mnV$, \
+$CellContext`mxV$}]]; $CellContext`g$ = If[$CellContext`is3D$, 
+                    Graphics3D[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Axes -> True, AxesLabel -> {"X (m)", "Y (m)", "Z (m)"}, 
+                    Boxed -> True, ViewPoint -> 
+                    Part[$CellContext`vParams$, 1], ViewVertical -> 
+                    Part[$CellContext`vParams$, 2], PlotLabel -> 
+                    StringForm[
+                    "3D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600], 
+                    Graphics[{
+                    PointSize[$CellContext`pointSize$$], 
+                    
+                    Point[$CellContext`crds$, 
+                    VertexColors -> $CellContext`clrs$]}, PlotRange -> All, 
+                    Frame -> True, FrameLabel -> {"X (m)", "Y (m)"}, 
+                    PlotLabel -> 
+                    StringForm[
+                    "2D MPM - Frame ``/`` | Var: ``", $CellContext`i$, 
+                    
+                    Length[$CellContext`allFramesAssoc], \
+$CellContext`renderTarget$$], ImageSize -> 600]]; Legended[$CellContext`g$, 
+                   
+                   BarLegend[{
+                    "Rainbow", {$CellContext`mnV$, $CellContext`mxV$}}, 
+                    LegendLabel -> $CellContext`renderTarget$$, 
+                    LegendMarkerSize -> 250]], {$CellContext`i$, 1, 
+                  Length[$CellContext`allFramesAssoc]}]; 
+              Export[$CellContext`exportGifPath$, $CellContext`framesList$, 
+                "GIF", "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+                Infinity]; 
+              Print["\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: \
+", $CellContext`exportGifPath$]; Null], Method -> "Queued", 
+             ImageSize -> {250, 35}], Alignment -> Center]}, "Options" :> {}, 
+         "DefaultOptions" :> {}],
+        ImageSizeCache->{
+         678.4248679100037, {281.4786491969703, 287.1344111118568}},
+        SingleEvaluation->True],
+       Deinitialization:>None,
+       DynamicModuleValues:>{},
+       SynchronousInitialization->True,
+       UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+       UnsavedVariables:>{Typeset`initDone$$},
+       UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+      Deployed->True,
+      StripOnInput->False],
+     TraditionalForm],
+    Manipulate`InterpretManipulate[1]], "df"}], TraditionalForm]], "Code",
+ CellChangeTimes->{{3.99475302587138*^9, 
+  3.99475302588838*^9}},ExpressionUUID->"7a03cba5-c5be-8948-a9bc-\
+9730238c6ec6"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: \"\>", 
+    "\[InvisibleSpace]", \
+"\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\Cantilever\\\\MPM_Animation.gif\
+\"\>"}],
+   SequenceForm[
+   "\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: ", 
+    "D:\\code\\karamelo-sb\\examples\\Cantilever\\MPM_Animation.gif"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.994752311090727*^9},
+ CellLabel->"",ExpressionUUID->"648f03c0-b852-a643-beb7-b73e891269e0"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: \"\>", 
+    "\[InvisibleSpace]", \
+"\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\Cantilever\\\\MPM_Animation.gif\
+\"\>"}],
+   SequenceForm[
+   "\:2705 GIF \:52a8\:753b\:6210\:529f\:5bfc\:51fa\:81f3: ", 
+    "D:\\code\\karamelo-sb\\examples\\Cantilever\\MPM_Animation.gif"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.9947528882799873`*^9},
+ CellLabel->"",ExpressionUUID->"5022724a-dd79-7440-82a7-f01686f2b830"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1525.2, 801.5999999999999},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (2026\:5e745\:670819\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"035fefd1-6fb0-d545-a6d0-5187141fb97f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 15969, 365, 1783, "Code",ExpressionUUID->"a1e7e2f2-9f74-4f43-a647-1af6d3837338"],
+Cell[16548, 389, 537, 13, 21, "Print",ExpressionUUID->"96876a10-b767-1743-9596-b2eb633b829b"],
+Cell[17088, 404, 6973, 131, 540, "Output",ExpressionUUID->"38f31556-ad73-7647-a43e-5f9cbfafc90e"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[24098, 540, 139, 3, 43, "Subsubsection",ExpressionUUID->"589b0040-049f-4046-8e9a-a2a62391a618"],
+Cell[CellGroupData[{
+Cell[24262, 547, 27359, 597, 2756, "Code",ExpressionUUID->"ed4f7ca7-e537-274b-b522-944f0f54c7f5"],
+Cell[51624, 1146, 590, 14, 21, "Print",ExpressionUUID->"c9e0e178-b143-9746-90db-c62f7ee6c646"],
+Cell[52217, 1162, 15736, 295, 266, "Output",ExpressionUUID->"dc0769f8-b226-624e-8aec-bf31b75cec53"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[67990, 1462, 16061, 301, 604, "Code",ExpressionUUID->"7a03cba5-c5be-8948-a9bc-9730238c6ec6"],
+Cell[CellGroupData[{
+Cell[84076, 1767, 551, 12, 21, "Print",ExpressionUUID->"648f03c0-b852-a643-beb7-b73e891269e0"],
+Cell[84630, 1781, 553, 12, 21, "Print",ExpressionUUID->"5022724a-dd79-7440-82a7-f01686f2b830"]
+}, Open  ]]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+

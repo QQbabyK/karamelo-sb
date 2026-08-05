@@ -1,0 +1,1167 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     54932,       1159]
+NotebookOptionsPosition[     52484,       1108]
+NotebookOutlinePosition[     52915,       1126]
+CellTagsIndexPosition[     52872,       1123]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{"Quit", "[", "]"}]], "Code",
+ CellChangeTimes->{{3.99492556758877*^9, 3.994925570003826*^9}},
+ CellLabel->
+  "(k2) In[32]:=",ExpressionUUID->"09055025-8a09-bd4d-a6a6-2c8a7ded6961"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "@", 
+  RowBox[{"NotebookDirectory", "[", "]"}]}], "\n", 
+ RowBox[{"Directory", "[", "]"}]}], "Code",
+ CellChangeTimes->{{3.9949166837033195`*^9, 3.9949167039082584`*^9}},
+ CellLabel->
+  "(k2) In[1]:=",ExpressionUUID->"707894cd-33ca-5a4e-83ee-9e8d36be7cfa"],
+
+Cell[BoxData[
+ FormBox["\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\two-disks\"\>", 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{
+  3.9949167404949474`*^9, 3.9949172074548283`*^9, {3.9949186519373665`*^9, 
+   3.994918672329529*^9}, 3.994925583945591*^9},
+ CellLabel->
+  "(k2) Out[1]=",ExpressionUUID->"b5e4132e-6a03-bc4a-9406-6e8e81841edf"],
+
+Cell[BoxData[
+ FormBox["\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\two-disks\"\>", 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{
+  3.9949167404949474`*^9, 3.9949172074548283`*^9, {3.9949186519373665`*^9, 
+   3.994918672329529*^9}, 3.9949255839684944`*^9},
+ CellLabel->
+  "(k2) Out[2]=",ExpressionUUID->"7cd54230-af4b-4f42-a3cc-cc77b003c66c"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\:4f7f\:7528mpmPlot", "Subsubsection",
+ CellChangeTimes->{{3.994799410082958*^9, 
+  3.9947994386724567`*^9}},ExpressionUUID->"d7db15e1-4089-a44c-b5c5-\
+2238874446c6"],
+
+Cell[BoxData[
+ RowBox[{"Get", "[", "\"\<D:\\\\code\\\\karamelo-sb\\\\mpmPlot.wl\>\"", 
+  "]"}]], "Code",
+ CellChangeTimes->{
+  3.994917209796053*^9, {3.9949172758675213`*^9, 3.9949173223085594`*^9}},
+ CellLabel->
+  "(k2) In[8]:=",ExpressionUUID->"2d1a9717-7b0d-f94e-9f0d-2fd063d2b7ed"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "mpmPlot`*"}]], "Code",
+ CellChangeTimes->{{3.994925187269346*^9, 3.9949252024195595`*^9}},
+ CellLabel->
+  "(k2) In[9]:=",ExpressionUUID->"9d4c9a97-4f4e-af43-a3e7-e2786d764b71"],
+
+Cell[BoxData[
+ FormBox[
+  StyleBox[
+   FrameBox[GridBox[{
+      {
+       DynamicModuleBox[{Typeset`open$$ = True}, 
+        PaneSelectorBox[{False->
+         ButtonBox[
+          RowBox[{
+           
+           DynamicBox[FEPrivate`FrontEndResource[
+            "FEBitmaps", "RightPointerOpener"]], " ", 
+           StyleBox["mpmPlot`", "InformationGridGroupHeader"]}],
+          Appearance->None,
+          BaseStyle->"InformationGridLink",
+          ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
+          Evaluator->Automatic,
+          Method->"Preemptive"], True->
+         PaneBox[GridBox[{
+            {
+             ButtonBox[
+              RowBox[{
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "DownPointerOpener"],
+                ImageSizeCache->{10., {1.9150390625, 8.0849609375}}], " ", 
+               StyleBox["mpmPlot`", "InformationGridGroupHeader"]}],
+              Appearance->None,
+              BaseStyle->"InformationGridLink",
+              ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
+              Evaluator->Automatic,
+              Method->"Preemptive"]},
+            {
+             PaneBox[GridBox[{
+                {
+                 ButtonBox[
+                  StyleBox["loadGridData", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "loadGridData", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["loadMPMData", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "loadMPMData", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["mPlotData", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "mPlotData", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic]},
+                {
+                 ButtonBox[
+                  StyleBox["loadGridData3D", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "loadGridData3D", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["loadMPMData3D", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "loadMPMData3D", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["mPlotData3D", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-779bac74-6ff6-4bcc-b392-963a2b019fb8", {
+                    "mPlotData3D", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic]}
+               },
+               DefaultBaseStyle->"Text",
+               
+               GridBoxAlignment->{
+                "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+               GridBoxItemSize->{"Columns" -> {{
+                    Scaled[0.31666666666666665`]}}}],
+              ImageMargins->{{10, 0}, {0, 2}}]}
+           },
+           GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+          FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
+         ImageSize->Automatic]]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+     GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.8]}, 
+         Offset[0.2]}}],
+    BaseStyle->"InformationTitleFrame"], "InformationGridPlain"], 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{3.994925203540222*^9, 3.9949255930860977`*^9, 
+  3.9949261521881237`*^9},
+ CellLabel->
+  "(k2) Out[9]=",ExpressionUUID->"d8810978-e7f3-6e41-9518-f5cf6db4a98f"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{
+  RowBox[{"pdata", " ", "=", " ", 
+   RowBox[{
+   "loadMPMData3D", 
+    "[", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\two-disks\>\"", 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{
+  RowBox[{"gdata", " ", "=", " ", 
+   RowBox[{
+   "loadGridData3D", 
+    "[", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\two-disks\>\"", 
+    "]"}]}], ";"}], "\n", 
+ RowBox[{"mPlotData3D", "[", 
+  RowBox[{"pdata", ",", "gdata"}], "]"}]}], "Code",
+ CellChangeTimes->{{3.9949251513946857`*^9, 3.9949251513946857`*^9}, {
+   3.99492531399605*^9, 3.9949253848508873`*^9}, {3.9949256060973473`*^9, 
+   3.9949256083063393`*^9}, 3.9949261611447945`*^9},
+ CellLabel->
+  "(k2) In[5]:=",ExpressionUUID->"c62baa3b-2786-8940-b05b-9d93cfe2c540"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:2705 3D \:7c92\:5b50\:5bfc\:5165\:6210\:529f\:ff0c\:5171 \"\
+\>", "\[InvisibleSpace]", "35", "\[InvisibleSpace]", "\<\" \:5e27\:ff01\"\>"}],
+   SequenceForm[
+   "\:2705 3D \:7c92\:5b50\:5bfc\:5165\:6210\:529f\:ff0c\:5171 ", 35, 
+    " \:5e27\:ff01"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.994925387609724*^9, 3.9949256106055527`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k2) \
+In[5]:=",ExpressionUUID->"155c3f56-96d1-2444-9d71-e5d69d9c7170"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:2705 3D \:7f51\:683c\:5bfc\:5165\:6210\:529f\:ff0c\:5171 \"\
+\>", "\[InvisibleSpace]", "35", "\[InvisibleSpace]", "\<\" \:5e27\:ff01\"\>"}],
+   SequenceForm[
+   "\:2705 3D \:7f51\:683c\:5bfc\:5165\:6210\:529f\:ff0c\:5171 ", 35, 
+    " \:5e27\:ff01"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.994925387609724*^9, 3.994925610860567*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k2) \
+In[5]:=",ExpressionUUID->"52f6a8da-5505-004a-b85a-367305af15bb"]
+}, Open  ]],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   FormBox[
+    StyleBox[
+     DynamicModuleBox[{mpmPlot`Private`displayMode$$ = "onlyShowParticle", 
+      mpmPlot`Private`frame$$ = 22, mpmPlot`Private`ptSize$$ = 0.008, 
+      mpmPlot`Private`renderTarget$$ = "s11", mpmPlot`Private`viewOption$$ = 
+      "XY \:5e73\:9762 (\:4fef\:89c6)", Typeset`show$$ = True, 
+      Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+      Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+      "\"\:65e0\:6807\:9898\"", Typeset`specs$$ = {{{
+         Hold[mpmPlot`Private`frame$$], 1, "\:5e27 (Frame)"}, 1, 35, 1, 
+        ControlType -> Manipulator}, {{
+         Hold[mpmPlot`Private`renderTarget$$], "seq", 
+         "\:6e32\:67d3\:53d8\:91cf"}, {
+        "vx", "vy", "vz", "seq", "s11", "s22", "s33", "s12", "s13", "s23"}, 
+        ControlType -> PopupMenu}, {{
+         Hold[mpmPlot`Private`displayMode$$], "ShowAll", 
+         "\:663e\:793a\:6a21\:5f0f"}, {
+        "onlyShowParticle" -> "\:4ec5\:7c92\:5b50", "onlyShowGrid" -> 
+         "\:4ec5\:7f51\:683c", "ShowAll" -> "\:5168\:90e8\:663e\:793a"}, 
+        ControlType -> PopupMenu}, {{
+         Hold[mpmPlot`Private`viewOption$$], "3D \:89c6\:89d2", 
+         "\:89c6\:89d2\:9009\:62e9"}, {
+        "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4fef\:89c6)", 
+         "XZ \:5e73\:9762 (\:6b63\:89c6)", "YZ \:5e73\:9762 (\:4fa7\:89c6)"}, 
+        ControlType -> SetterBar}, {{
+         Hold[mpmPlot`Private`ptSize$$], 0.005, "\:8d28\:70b9\:5927\:5c0f"}, 
+        0.001, 0.02, 0.001, ControlType -> Manipulator}, {
+        Hold[
+         Item[
+          Button["\|01f3ac \:5bfc\:51fa 3D GIF \:52a8\:753b", 
+           
+           Module[{mpmPlot`Private`out$ = 
+             If[mpmPlot`Private`exportDir$20721 == "", 
+               FileNameJoin[{
+                 Directory[], "3D_Animation.gif"}], 
+               mpmPlot`Private`exportDir$20721], mpmPlot`Private`frames$, 
+             mpmPlot`Private`vP$}, 
+            PrintTemporary["\:6e32\:67d3 3D GIF \:4e2d..."]; 
+            mpmPlot`Private`vP$ = 
+             Switch[mpmPlot`Private`viewOption$$, 
+               "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+               "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 
+                0}}, "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {0,
+                 0, 1}}, 
+               "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 
+                1}}, 
+               Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; 
+            mpmPlot`Private`frames$ = Table[
+               
+               Module[{
+                mpmPlot`Private`pCoords$, mpmPlot`Private`pField$, 
+                 mpmPlot`Private`gCoords$, mpmPlot`Private`gField$, 
+                 mpmPlot`Private`mn$ = Infinity, 
+                 mpmPlot`Private`mx$ = -Infinity, 
+                 mpmPlot`Private`elems$ = {}}, 
+                If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+                  mpmPlot`Private`pCoords$ = 
+                   Part[$CellContext`pdata, mpmPlot`Private`i]["Coords"]; 
+                  mpmPlot`Private`pField$ = Lookup[
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`pCoords$]]]; 
+                  mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`pField$]]; 
+                  mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`pField$]]; Null]; If[
+                  And[
+                  mpmPlot`Private`hasGrid$20721, 
+                   mpmPlot`Private`displayMode$$ =!= "onlyShowParticle"], 
+                  mpmPlot`Private`gCoords$ = 
+                   Part[$CellContext`gdata, mpmPlot`Private`i]["Coords"]; 
+                  mpmPlot`Private`gField$ = Lookup[
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`gCoords$]]]; 
+                  mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`gField$]]; 
+                  mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`gField$]]; Null]; 
+                If[mpmPlot`Private`mn$ == Infinity, mpmPlot`Private`mn$ = 0.; 
+                  mpmPlot`Private`mx$ = 1.*^-6]; 
+                If[mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                  mpmPlot`Private`mx$ = mpmPlot`Private`mn$ + 1.*^-6]; If[
+                  And[
+                  mpmPlot`Private`hasGrid$20721, 
+                   mpmPlot`Private`displayMode$$ =!= "onlyShowParticle"], 
+                  AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`ptSize$$ 0.8], 
+                    Point[
+                    mpmPlot`Private`gCoords$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`gField$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; 
+                If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+                  AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`ptSize$$], 
+                    Point[
+                    mpmPlot`Private`pCoords$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`pField$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; Legended[
+                  Graphics3D[
+                  mpmPlot`Private`elems$, PlotRange -> All, Axes -> True, 
+                   Boxed -> True, ViewPoint -> Part[mpmPlot`Private`vP$, 1], 
+                   ViewVertical -> Part[mpmPlot`Private`vP$, 2], ImageSize -> 
+                   600], 
+                  
+                  BarLegend[{
+                   "Rainbow", {
+                    mpmPlot`Private`mn$, mpmPlot`Private`mx$}}]]], {
+               mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$20721}]; 
+            Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF", 
+              "DisplayDurations" -> 0.08, "AnimationRepetitions" -> Infinity]; 
+            Print["\:2705 3D GIF \:5bfc\:51fa\:81f3: ", mpmPlot`Private`out$]; 
+            Null], Method -> "Queued", ImageSize -> {200, 30}], Alignment -> 
+          Center]], Manipulate`Dump`ThisIsNotAControl, ControlType -> None}}, 
+      Typeset`size$$ = {
+      640.1765688941956, {293.86914072036745`, 300.03906259536745`}}, 
+      Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True,
+       Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+      DynamicBox[Manipulate`ManipulateBoxes[
+       1, TraditionalForm, 
+        "Variables" :> {
+         mpmPlot`Private`displayMode$$ = "ShowAll", mpmPlot`Private`frame$$ = 
+          1, mpmPlot`Private`ptSize$$ = 0.005, mpmPlot`Private`renderTarget$$ = 
+          "seq", mpmPlot`Private`viewOption$$ = "3D \:89c6\:89d2"}, 
+        "ControllerVariables" :> {}, 
+        "OtherVariables" :> {
+         Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+          Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+          Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+          Typeset`initDone$$, Typeset`skipInitDone$$, 
+          Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+        Module[{mpmPlot`Private`pCoords$, mpmPlot`Private`pField$, 
+           mpmPlot`Private`gCoords$, mpmPlot`Private`gField$, 
+           mpmPlot`Private`minV$, mpmPlot`Private`maxV$, 
+           mpmPlot`Private`plotElements$ = {}, mpmPlot`Private`vParams$}, 
+          mpmPlot`Private`minV$ = Infinity; mpmPlot`Private`maxV$ = -Infinity; 
+          If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+            mpmPlot`Private`pCoords$ = 
+             Part[$CellContext`pdata, mpmPlot`Private`frame$$]["Coords"]; 
+            mpmPlot`Private`pField$ = Lookup[
+               Part[$CellContext`pdata, mpmPlot`Private`frame$$]["Data"], 
+               mpmPlot`Private`renderTarget$$, 
+               ConstantArray[0., 
+                Length[mpmPlot`Private`pCoords$]]]; 
+            mpmPlot`Private`minV$ = Min[mpmPlot`Private`minV$, 
+               Min[mpmPlot`Private`pField$]]; 
+            mpmPlot`Private`maxV$ = Max[mpmPlot`Private`maxV$, 
+               Max[mpmPlot`Private`pField$]]; Null]; If[
+            And[
+            mpmPlot`Private`hasGrid$20721, mpmPlot`Private`displayMode$$ =!= 
+             "onlyShowParticle"], 
+            mpmPlot`Private`gCoords$ = 
+             Part[$CellContext`gdata, mpmPlot`Private`frame$$]["Coords"]; 
+            mpmPlot`Private`gField$ = Lookup[
+               Part[$CellContext`gdata, mpmPlot`Private`frame$$]["Data"], 
+               mpmPlot`Private`renderTarget$$, 
+               ConstantArray[0., 
+                Length[mpmPlot`Private`gCoords$]]]; 
+            mpmPlot`Private`minV$ = Min[mpmPlot`Private`minV$, 
+               Min[mpmPlot`Private`gField$]]; 
+            mpmPlot`Private`maxV$ = Max[mpmPlot`Private`maxV$, 
+               Max[mpmPlot`Private`gField$]]; Null]; 
+          If[mpmPlot`Private`minV$ == Infinity, mpmPlot`Private`minV$ = 0.; 
+            mpmPlot`Private`maxV$ = 1.*^-6]; 
+          If[
+           mpmPlot`Private`minV$ == mpmPlot`Private`maxV$, 
+            mpmPlot`Private`maxV$ = mpmPlot`Private`minV$ + 1.*^-6]; If[
+            And[
+            mpmPlot`Private`hasGrid$20721, mpmPlot`Private`displayMode$$ =!= 
+             "onlyShowParticle"], 
+            AppendTo[mpmPlot`Private`plotElements$, {
+              PointSize[mpmPlot`Private`ptSize$$ 0.8], 
+              Point[
+              mpmPlot`Private`gCoords$, VertexColors -> 
+               mpmPlot`Private`getFastColors[
+                mpmPlot`Private`gField$, mpmPlot`Private`minV$, 
+                 mpmPlot`Private`maxV$]]}]]; 
+          If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+            AppendTo[mpmPlot`Private`plotElements$, {
+              PointSize[mpmPlot`Private`ptSize$$], 
+              Point[
+              mpmPlot`Private`pCoords$, VertexColors -> 
+               mpmPlot`Private`getFastColors[
+                mpmPlot`Private`pField$, mpmPlot`Private`minV$, 
+                 mpmPlot`Private`maxV$]]}]]; 
+          mpmPlot`Private`vParams$ = 
+           Switch[mpmPlot`Private`viewOption$$, 
+             "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+             "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 0}}, 
+             "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {0, 0, 1}},
+              "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 1}}, 
+             Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; Legended[
+            Graphics3D[
+            mpmPlot`Private`plotElements$, PlotRange -> All, Axes -> True, 
+             AxesLabel -> {"X", "Y", "Z"}, Boxed -> True, ViewPoint -> 
+             Part[mpmPlot`Private`vParams$, 1], ViewVertical -> 
+             Part[mpmPlot`Private`vParams$, 2], PlotLabel -> 
+             StringForm[
+              "3D MPM | Frame ``/`` | Var: ``", mpmPlot`Private`frame$$, 
+               mpmPlot`Private`numFrames$20721, 
+               mpmPlot`Private`renderTarget$$], ImageSize -> 
+             mpmPlot`Private`imgSz$20721], 
+            
+            BarLegend[{
+             "Rainbow", {mpmPlot`Private`minV$, mpmPlot`Private`maxV$}}, 
+             LegendLabel -> mpmPlot`Private`renderTarget$$]]], 
+        "Specifications" :> {{{mpmPlot`Private`frame$$, 1, "\:5e27 (Frame)"}, 
+           1, 35, 1, Appearance -> "Open"}, {{
+           mpmPlot`Private`renderTarget$$, "seq", 
+            "\:6e32\:67d3\:53d8\:91cf"}, {
+           "vx", "vy", "vz", "seq", "s11", "s22", "s33", "s12", "s13", 
+            "s23"}}, {{
+           mpmPlot`Private`displayMode$$, "ShowAll", 
+            "\:663e\:793a\:6a21\:5f0f"}, {
+           "onlyShowParticle" -> "\:4ec5\:7c92\:5b50", "onlyShowGrid" -> 
+            "\:4ec5\:7f51\:683c", "ShowAll" -> "\:5168\:90e8\:663e\:793a"}, 
+           ControlType -> PopupMenu}, {{
+           mpmPlot`Private`viewOption$$, "3D \:89c6\:89d2", 
+            "\:89c6\:89d2\:9009\:62e9"}, {
+           "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4fef\:89c6)", 
+            "XZ \:5e73\:9762 (\:6b63\:89c6)", 
+            "YZ \:5e73\:9762 (\:4fa7\:89c6)"}}, {{
+           mpmPlot`Private`ptSize$$, 0.005, "\:8d28\:70b9\:5927\:5c0f"}, 
+           0.001, 0.02, 0.001}, 
+          Item[
+           Button["\|01f3ac \:5bfc\:51fa 3D GIF \:52a8\:753b", 
+            
+            Module[{mpmPlot`Private`out$ = 
+              If[mpmPlot`Private`exportDir$20721 == "", 
+                FileNameJoin[{
+                  Directory[], "3D_Animation.gif"}], 
+                mpmPlot`Private`exportDir$20721], mpmPlot`Private`frames$, 
+              mpmPlot`Private`vP$}, 
+             PrintTemporary["\:6e32\:67d3 3D GIF \:4e2d..."]; 
+             mpmPlot`Private`vP$ = 
+              Switch[mpmPlot`Private`viewOption$$, 
+                "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+                "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 
+                 0}}, "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {
+                 0, 0, 1}}, 
+                "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 
+                 1}}, 
+                Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; 
+             mpmPlot`Private`frames$ = Table[
+                
+                Module[{
+                 mpmPlot`Private`pCoords$, mpmPlot`Private`pField$, 
+                  mpmPlot`Private`gCoords$, mpmPlot`Private`gField$, 
+                  mpmPlot`Private`mn$ = Infinity, 
+                  mpmPlot`Private`mx$ = -Infinity, 
+                  mpmPlot`Private`elems$ = {}}, 
+                 If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+                   mpmPlot`Private`pCoords$ = 
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Coords"]; 
+                   mpmPlot`Private`pField$ = Lookup[
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`pCoords$]]]; 
+                   mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`pField$]]; 
+                   mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`pField$]]; Null]; If[
+                   And[
+                   mpmPlot`Private`hasGrid$20721, 
+                    mpmPlot`Private`displayMode$$ =!= "onlyShowParticle"], 
+                   mpmPlot`Private`gCoords$ = 
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Coords"]; 
+                   mpmPlot`Private`gField$ = Lookup[
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`gCoords$]]]; 
+                   mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`gField$]]; 
+                   mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`gField$]]; Null]; 
+                 If[mpmPlot`Private`mn$ == Infinity, mpmPlot`Private`mn$ = 0.; 
+                   mpmPlot`Private`mx$ = 1.*^-6]; 
+                 If[mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                   mpmPlot`Private`mx$ = mpmPlot`Private`mn$ + 1.*^-6]; If[
+                   And[
+                   mpmPlot`Private`hasGrid$20721, 
+                    mpmPlot`Private`displayMode$$ =!= "onlyShowParticle"], 
+                   AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`ptSize$$ 0.8], 
+                    Point[
+                    mpmPlot`Private`gCoords$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`gField$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; 
+                 If[mpmPlot`Private`displayMode$$ =!= "onlyShowGrid", 
+                   AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`ptSize$$], 
+                    Point[
+                    mpmPlot`Private`pCoords$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`pField$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; Legended[
+                   Graphics3D[
+                   mpmPlot`Private`elems$, PlotRange -> All, Axes -> True, 
+                    Boxed -> True, ViewPoint -> Part[mpmPlot`Private`vP$, 1], 
+                    ViewVertical -> Part[mpmPlot`Private`vP$, 2], ImageSize -> 
+                    600], 
+                   
+                   BarLegend[{
+                    "Rainbow", {
+                    mpmPlot`Private`mn$, mpmPlot`Private`mx$}}]]], {
+                mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$20721}]; 
+             Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF", 
+               "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+               Infinity]; 
+             Print["\:2705 3D GIF \:5bfc\:51fa\:81f3: ", 
+               mpmPlot`Private`out$]; Null], Method -> "Queued", 
+            ImageSize -> {200, 30}], Alignment -> Center]}, 
+        "Options" :> {
+         TrackedSymbols :> {
+           mpmPlot`Private`frame$$, mpmPlot`Private`renderTarget$$, 
+            mpmPlot`Private`viewOption$$, mpmPlot`Private`ptSize$$, 
+            mpmPlot`Private`displayMode$$}}, "DefaultOptions" :> {}],
+       ImageSizeCache->{
+        682.7765688941955, {424.3987110328675, 430.5686329078675}},
+       SingleEvaluation->True],
+      Deinitialization:>None,
+      DynamicModuleValues:>{},
+      SynchronousInitialization->True,
+      UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+      UnsavedVariables:>{Typeset`initDone$$},
+      UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+     Deployed->True,
+     StripOnInput->False],
+    TraditionalForm],
+   Manipulate`InterpretManipulate[1]], TraditionalForm]], "Output",
+ CellChangeTimes->{3.994925388301512*^9, 3.9949256109055405`*^9},
+ CellLabel->
+  "(k2) Out[7]=",ExpressionUUID->"e89b73fd-5dd9-9045-b655-717b6294c7f3"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"mPlotData3D", "[", 
+  RowBox[{"pdata", ",", "gdata"}], "]"}]], "Code",
+ CellChangeTimes->{{3.9949169929184036`*^9, 3.9949170074476414`*^9}, {
+   3.9949194442374973`*^9, 3.9949194452289886`*^9}, 3.9949197852845135`*^9, 
+   3.994926169327841*^9},
+ CellLabel->
+  "(k2) In[10]:=",ExpressionUUID->"0cee90cf-8983-3b42-b08f-587817962ad6"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   FormBox[
+    StyleBox[
+     DynamicModuleBox[{mpmPlot`Private`frame$$ = 1, 
+      mpmPlot`Private`gPtSize$$ = 0.004, mpmPlot`Private`pPtSize$$ = 0.005, 
+      mpmPlot`Private`renderTarget$$ = "seq", mpmPlot`Private`showGrid$$ = 
+      True, mpmPlot`Private`showParticle$$ = True, 
+      mpmPlot`Private`viewOption$$ = "3D \:89c6\:89d2", Typeset`show$$ = True,
+       Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+      Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+      "\"\:65e0\:6807\:9898\"", Typeset`specs$$ = {{{
+         Hold[mpmPlot`Private`frame$$], 1, "\:5e27 (Frame)"}, 1, 35, 1, 
+        ControlType -> Manipulator}, {{
+         Hold[mpmPlot`Private`renderTarget$$], "seq", 
+         "\:6e32\:67d3\:53d8\:91cf"}, {
+        "vx", "vy", "vz", "seq", "s11", "s22", "s33", "s12", "s13", "s23"}, 
+        ControlType -> PopupMenu}, {{
+         Hold[mpmPlot`Private`showParticle$$], True, 
+         "\:663e\:793a\:7c92\:5b50 (Particle)"}, {True, False}, ControlType -> 
+        Checkbox}, {{
+         Hold[mpmPlot`Private`showGrid$$], True, 
+         "\:663e\:793a\:7f51\:683c (Grid)"}, {True, False}, ControlType -> 
+        Checkbox}, {{
+         Hold[mpmPlot`Private`viewOption$$], "3D \:89c6\:89d2", 
+         "\:89c6\:89d2\:9009\:62e9"}, {
+        "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4fef\:89c6)", 
+         "XZ \:5e73\:9762 (\:6b63\:89c6)", "YZ \:5e73\:9762 (\:4fa7\:89c6)"}, 
+        ControlType -> SetterBar}, {{
+         Hold[mpmPlot`Private`pPtSize$$], 0.005, 
+         "\:7c92\:5b50\:5927\:5c0f (Particle)"}, 0.001, 0.02, 0.001, 
+        ControlType -> Manipulator}, {{
+         Hold[mpmPlot`Private`gPtSize$$], 0.004, 
+         "\:7f51\:683c\:5927\:5c0f (Grid)"}, 0.001, 0.02, 0.001, ControlType -> 
+        Manipulator}, {
+        Hold[
+         Item[
+          Button["\|01f3ac \:5bfc\:51fa 3D GIF \:52a8\:753b", 
+           
+           Module[{mpmPlot`Private`out$ = 
+             If[mpmPlot`Private`exportDir$33993 == "", 
+               FileNameJoin[{
+                 Directory[], "3D_Animation.gif"}], 
+               mpmPlot`Private`exportDir$33993], mpmPlot`Private`frames$, 
+             mpmPlot`Private`vP$}, 
+            PrintTemporary["\:6e32\:67d3 3D GIF \:4e2d..."]; 
+            mpmPlot`Private`vP$ = 
+             Switch[mpmPlot`Private`viewOption$$, 
+               "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+               "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 
+                0}}, "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {0,
+                 0, 1}}, 
+               "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 
+                1}}, 
+               Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; 
+            mpmPlot`Private`frames$ = Table[
+               
+               Module[{
+                mpmPlot`Private`pC$, mpmPlot`Private`pF$, mpmPlot`Private`gC$,
+                  mpmPlot`Private`gF$, mpmPlot`Private`mn$ = Infinity, 
+                 mpmPlot`Private`mx$ = -Infinity, 
+                 mpmPlot`Private`elems$ = {}}, 
+                If[mpmPlot`Private`showParticle$$, 
+                  mpmPlot`Private`pC$ = 
+                   Part[$CellContext`pdata, mpmPlot`Private`i]["Coords"]; 
+                  mpmPlot`Private`pF$ = Lookup[
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`pC$]]]; 
+                  mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`pF$]]; 
+                  mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`pF$]]; Null]; If[
+                  And[
+                  mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$], 
+                  mpmPlot`Private`gC$ = 
+                   Part[$CellContext`gdata, mpmPlot`Private`i]["Coords"]; 
+                  mpmPlot`Private`gF$ = Lookup[
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`gC$]]]; 
+                  mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`gF$]]; 
+                  mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`gF$]]; Null]; 
+                If[mpmPlot`Private`mn$ == Infinity, mpmPlot`Private`mn$ = 0.; 
+                  mpmPlot`Private`mx$ = 1.*^-6]; 
+                If[mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                  mpmPlot`Private`mx$ = mpmPlot`Private`mn$ + 1.*^-6]; If[
+                  And[
+                  mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$], 
+                  AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`gPtSize$$], 
+                    Point[
+                    mpmPlot`Private`gC$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`gF$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; 
+                If[mpmPlot`Private`showParticle$$, 
+                  AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`pPtSize$$], 
+                    Point[
+                    mpmPlot`Private`pC$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`pF$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; Legended[
+                  Graphics3D[
+                  mpmPlot`Private`elems$, PlotRange -> All, Axes -> True, 
+                   Boxed -> True, ViewPoint -> Part[mpmPlot`Private`vP$, 1], 
+                   ViewVertical -> Part[mpmPlot`Private`vP$, 2], ImageSize -> 
+                   600], 
+                  
+                  BarLegend[{
+                   "Rainbow", {
+                    mpmPlot`Private`mn$, mpmPlot`Private`mx$}}]]], {
+               mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$33993}]; 
+            Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF", 
+              "DisplayDurations" -> 0.08, "AnimationRepetitions" -> Infinity]; 
+            Print["\:2705 3D GIF \:5bfc\:51fa\:81f3: ", mpmPlot`Private`out$]; 
+            Null], Method -> "Queued", ImageSize -> {200, 30}], Alignment -> 
+          Center]], Manipulate`Dump`ThisIsNotAControl, ControlType -> None}}, 
+      Typeset`size$$ = {522.6830592269074, {356.9150390625, 363.0849609375}}, 
+      Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True,
+       Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+      DynamicBox[Manipulate`ManipulateBoxes[
+       1, TraditionalForm, 
+        "Variables" :> {
+         mpmPlot`Private`frame$$ = 1, mpmPlot`Private`gPtSize$$ = 0.004, 
+          mpmPlot`Private`pPtSize$$ = 0.005, mpmPlot`Private`renderTarget$$ = 
+          "seq", mpmPlot`Private`showGrid$$ = True, 
+          mpmPlot`Private`showParticle$$ = True, mpmPlot`Private`viewOption$$ = 
+          "3D \:89c6\:89d2"}, "ControllerVariables" :> {}, 
+        "OtherVariables" :> {
+         Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+          Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+          Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+          Typeset`initDone$$, Typeset`skipInitDone$$, 
+          Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+        Module[{mpmPlot`Private`pCoords$, mpmPlot`Private`pField$, 
+           mpmPlot`Private`gCoords$, mpmPlot`Private`gField$, 
+           mpmPlot`Private`minV$, mpmPlot`Private`maxV$, 
+           mpmPlot`Private`plotElements$ = {}, mpmPlot`Private`vParams$}, 
+          mpmPlot`Private`minV$ = Infinity; mpmPlot`Private`maxV$ = -Infinity; 
+          If[mpmPlot`Private`showParticle$$, 
+            mpmPlot`Private`pCoords$ = 
+             Part[$CellContext`pdata, mpmPlot`Private`frame$$]["Coords"]; 
+            mpmPlot`Private`pField$ = Lookup[
+               Part[$CellContext`pdata, mpmPlot`Private`frame$$]["Data"], 
+               mpmPlot`Private`renderTarget$$, 
+               ConstantArray[0., 
+                Length[mpmPlot`Private`pCoords$]]]; 
+            mpmPlot`Private`minV$ = Min[mpmPlot`Private`minV$, 
+               Min[mpmPlot`Private`pField$]]; 
+            mpmPlot`Private`maxV$ = Max[mpmPlot`Private`maxV$, 
+               Max[mpmPlot`Private`pField$]]; Null]; If[
+            And[mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$], 
+            mpmPlot`Private`gCoords$ = 
+             Part[$CellContext`gdata, mpmPlot`Private`frame$$]["Coords"]; 
+            mpmPlot`Private`gField$ = Lookup[
+               Part[$CellContext`gdata, mpmPlot`Private`frame$$]["Data"], 
+               mpmPlot`Private`renderTarget$$, 
+               ConstantArray[0., 
+                Length[mpmPlot`Private`gCoords$]]]; 
+            mpmPlot`Private`minV$ = Min[mpmPlot`Private`minV$, 
+               Min[mpmPlot`Private`gField$]]; 
+            mpmPlot`Private`maxV$ = Max[mpmPlot`Private`maxV$, 
+               Max[mpmPlot`Private`gField$]]; Null]; 
+          If[mpmPlot`Private`minV$ == Infinity, mpmPlot`Private`minV$ = 0.; 
+            mpmPlot`Private`maxV$ = 1.*^-6]; 
+          If[
+           mpmPlot`Private`minV$ == mpmPlot`Private`maxV$, 
+            mpmPlot`Private`maxV$ = mpmPlot`Private`minV$ + 1.*^-6]; If[
+            And[mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$], 
+            AppendTo[mpmPlot`Private`plotElements$, {
+              PointSize[mpmPlot`Private`gPtSize$$], 
+              Point[
+              mpmPlot`Private`gCoords$, VertexColors -> 
+               mpmPlot`Private`getFastColors[
+                mpmPlot`Private`gField$, mpmPlot`Private`minV$, 
+                 mpmPlot`Private`maxV$]]}]]; 
+          If[mpmPlot`Private`showParticle$$, 
+            AppendTo[mpmPlot`Private`plotElements$, {
+              PointSize[mpmPlot`Private`pPtSize$$], 
+              Point[
+              mpmPlot`Private`pCoords$, VertexColors -> 
+               mpmPlot`Private`getFastColors[
+                mpmPlot`Private`pField$, mpmPlot`Private`minV$, 
+                 mpmPlot`Private`maxV$]]}]]; 
+          mpmPlot`Private`vParams$ = 
+           Switch[mpmPlot`Private`viewOption$$, 
+             "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+             "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 0}}, 
+             "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {0, 0, 1}},
+              "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 1}}, 
+             Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; Legended[
+            Graphics3D[
+            mpmPlot`Private`plotElements$, PlotRange -> All, Axes -> True, 
+             AxesLabel -> {"X", "Y", "Z"}, Boxed -> True, ViewPoint -> 
+             Part[mpmPlot`Private`vParams$, 1], ViewVertical -> 
+             Part[mpmPlot`Private`vParams$, 2], PlotLabel -> 
+             StringForm[
+              "3D MPM | Frame ``/`` | Var: ``", mpmPlot`Private`frame$$, 
+               mpmPlot`Private`numFrames$33993, 
+               mpmPlot`Private`renderTarget$$], ImageSize -> 
+             mpmPlot`Private`imgSz$33993], 
+            
+            BarLegend[{
+             "Rainbow", {mpmPlot`Private`minV$, mpmPlot`Private`maxV$}}, 
+             LegendLabel -> mpmPlot`Private`renderTarget$$]]], 
+        "Specifications" :> {{{mpmPlot`Private`frame$$, 1, "\:5e27 (Frame)"}, 
+           1, 35, 1, Appearance -> "Open"}, {{
+           mpmPlot`Private`renderTarget$$, "seq", 
+            "\:6e32\:67d3\:53d8\:91cf"}, {
+           "vx", "vy", "vz", "seq", "s11", "s22", "s33", "s12", "s13", 
+            "s23"}}, {{
+           mpmPlot`Private`showParticle$$, True, 
+            "\:663e\:793a\:7c92\:5b50 (Particle)"}, {True, False}}, {{
+           mpmPlot`Private`showGrid$$, True, 
+            "\:663e\:793a\:7f51\:683c (Grid)"}, {True, False}, ControlType -> 
+           Checkbox}, {{
+           mpmPlot`Private`viewOption$$, "3D \:89c6\:89d2", 
+            "\:89c6\:89d2\:9009\:62e9"}, {
+           "3D \:89c6\:89d2", "XY \:5e73\:9762 (\:4fef\:89c6)", 
+            "XZ \:5e73\:9762 (\:6b63\:89c6)", 
+            "YZ \:5e73\:9762 (\:4fa7\:89c6)"}}, {{
+           mpmPlot`Private`pPtSize$$, 0.005, 
+            "\:7c92\:5b50\:5927\:5c0f (Particle)"}, 0.001, 0.02, 0.001}, {{
+           mpmPlot`Private`gPtSize$$, 0.004, 
+            "\:7f51\:683c\:5927\:5c0f (Grid)"}, 0.001, 0.02, 0.001, 
+           ControlType -> Automatic}, 
+          Item[
+           Button["\|01f3ac \:5bfc\:51fa 3D GIF \:52a8\:753b", 
+            
+            Module[{mpmPlot`Private`out$ = 
+              If[mpmPlot`Private`exportDir$33993 == "", 
+                FileNameJoin[{
+                  Directory[], "3D_Animation.gif"}], 
+                mpmPlot`Private`exportDir$33993], mpmPlot`Private`frames$, 
+              mpmPlot`Private`vP$}, 
+             PrintTemporary["\:6e32\:67d3 3D GIF \:4e2d..."]; 
+             mpmPlot`Private`vP$ = 
+              Switch[mpmPlot`Private`viewOption$$, 
+                "3D \:89c6\:89d2", {{1.3, -2.4, 1.5}, {0, 0, 1}}, 
+                "XY \:5e73\:9762 (\:4fef\:89c6)", {{0, 0, Infinity}, {0, 1, 
+                 0}}, "XZ \:5e73\:9762 (\:6b63\:89c6)", {{0, -Infinity, 0}, {
+                 0, 0, 1}}, 
+                "YZ \:5e73\:9762 (\:4fa7\:89c6)", {{Infinity, 0, 0}, {0, 0, 
+                 1}}, 
+                Blank[], {{1.3, -2.4, 1.5}, {0, 0, 1}}]; 
+             mpmPlot`Private`frames$ = Table[
+                
+                Module[{
+                 mpmPlot`Private`pC$, mpmPlot`Private`pF$, 
+                  mpmPlot`Private`gC$, mpmPlot`Private`gF$, 
+                  mpmPlot`Private`mn$ = Infinity, 
+                  mpmPlot`Private`mx$ = -Infinity, 
+                  mpmPlot`Private`elems$ = {}}, 
+                 If[mpmPlot`Private`showParticle$$, 
+                   mpmPlot`Private`pC$ = 
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Coords"]; 
+                   mpmPlot`Private`pF$ = Lookup[
+                    Part[$CellContext`pdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`pC$]]]; 
+                   mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`pF$]]; 
+                   mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`pF$]]; Null]; If[
+                   And[
+                   mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$],
+                    mpmPlot`Private`gC$ = 
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Coords"]; 
+                   mpmPlot`Private`gF$ = Lookup[
+                    Part[$CellContext`gdata, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[mpmPlot`Private`gC$]]]; 
+                   mpmPlot`Private`mn$ = Min[mpmPlot`Private`mn$, 
+                    Min[mpmPlot`Private`gF$]]; 
+                   mpmPlot`Private`mx$ = Max[mpmPlot`Private`mx$, 
+                    Max[mpmPlot`Private`gF$]]; Null]; 
+                 If[mpmPlot`Private`mn$ == Infinity, mpmPlot`Private`mn$ = 0.; 
+                   mpmPlot`Private`mx$ = 1.*^-6]; 
+                 If[mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                   mpmPlot`Private`mx$ = mpmPlot`Private`mn$ + 1.*^-6]; If[
+                   And[
+                   mpmPlot`Private`hasGrid$33993, mpmPlot`Private`showGrid$$], 
+                   AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`gPtSize$$], 
+                    Point[
+                    mpmPlot`Private`gC$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`gF$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; 
+                 If[mpmPlot`Private`showParticle$$, 
+                   AppendTo[mpmPlot`Private`elems$, {
+                    PointSize[mpmPlot`Private`pPtSize$$], 
+                    Point[
+                    mpmPlot`Private`pC$, VertexColors -> 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`pF$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]]}]]; Legended[
+                   Graphics3D[
+                   mpmPlot`Private`elems$, PlotRange -> All, Axes -> True, 
+                    Boxed -> True, ViewPoint -> Part[mpmPlot`Private`vP$, 1], 
+                    ViewVertical -> Part[mpmPlot`Private`vP$, 2], ImageSize -> 
+                    600], 
+                   
+                   BarLegend[{
+                    "Rainbow", {
+                    mpmPlot`Private`mn$, mpmPlot`Private`mx$}}]]], {
+                mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$33993}]; 
+             Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF", 
+               "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+               Infinity]; 
+             Print["\:2705 3D GIF \:5bfc\:51fa\:81f3: ", 
+               mpmPlot`Private`out$]; Null], Method -> "Queued", 
+            ImageSize -> {200, 30}], Alignment -> Center]}, 
+        "Options" :> {
+         TrackedSymbols :> {
+           mpmPlot`Private`frame$$, mpmPlot`Private`renderTarget$$, 
+            mpmPlot`Private`viewOption$$, mpmPlot`Private`pPtSize$$, 
+            mpmPlot`Private`gPtSize$$, mpmPlot`Private`showParticle$$, 
+            mpmPlot`Private`showGrid$$}}, "DefaultOptions" :> {}],
+       ImageSizeCache->{893.663839713968, {383.46328125, 389.633203125}},
+       SingleEvaluation->True],
+      Deinitialization:>None,
+      DynamicModuleValues:>{},
+      SynchronousInitialization->True,
+      UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+      UnsavedVariables:>{Typeset`initDone$$},
+      UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+     Deployed->True,
+     StripOnInput->False],
+    TraditionalForm],
+   Manipulate`InterpretManipulate[1]], TraditionalForm]], "Output",
+ CellChangeTimes->{3.994916818054146*^9, 3.994918709926365*^9, 
+  3.9949190207845993`*^9, 3.9949194524614105`*^9, 3.9949196274108105`*^9, 
+  3.994919729370224*^9, 3.9949261707768097`*^9},
+ CellLabel->
+  "(k2) Out[10]=",ExpressionUUID->"27d3705f-53e4-1849-a5dc-93f0993fe7b8"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"?", "mpmPlot`*"}]], "Code",
+ CellChangeTimes->{{3.994754166222107*^9, 3.9947541804663963`*^9}, {
+  3.99475477375955*^9, 3.9947547778210907`*^9}},
+ CellLabel->
+  "(k2) In[7]:=",ExpressionUUID->"70c5285e-3436-0941-b37a-86b032c7e540"],
+
+Cell[BoxData[
+ FormBox[
+  StyleBox[
+   FrameBox[GridBox[{
+      {
+       DynamicModuleBox[{Typeset`open$$ = True}, 
+        PaneSelectorBox[{False->
+         ButtonBox[
+          RowBox[{
+           
+           DynamicBox[FEPrivate`FrontEndResource[
+            "FEBitmaps", "RightPointerOpener"]], " ", 
+           StyleBox["mpmPlot`", "InformationGridGroupHeader"]}],
+          Appearance->None,
+          BaseStyle->"InformationGridLink",
+          ButtonFunction:>FEPrivate`Set[Typeset`open$$, True],
+          Evaluator->Automatic,
+          Method->"Preemptive"], True->
+         PaneBox[GridBox[{
+            {
+             ButtonBox[
+              RowBox[{
+               
+               DynamicBox[FEPrivate`FrontEndResource[
+                "FEBitmaps", "DownPointerOpener"],
+                ImageSizeCache->{10., {1.9150390625, 8.0849609375}}], " ", 
+               StyleBox["mpmPlot`", "InformationGridGroupHeader"]}],
+              Appearance->None,
+              BaseStyle->"InformationGridLink",
+              ButtonFunction:>FEPrivate`Set[Typeset`open$$, False],
+              Evaluator->Automatic,
+              Method->"Preemptive"]},
+            {
+             PaneBox[GridBox[{
+                {
+                 ButtonBox[
+                  StyleBox["loadMPMData", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-374becf3-7dc4-4f5f-9336-d032d9b64d26", {
+                    "loadMPMData", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["loadMPMData3D", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-374becf3-7dc4-4f5f-9336-d032d9b64d26", {
+                    "loadMPMData3D", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["mPlotData", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-374becf3-7dc4-4f5f-9336-d032d9b64d26", {
+                    "mPlotData", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic], 
+                 ButtonBox[
+                  StyleBox["mPlotData3D", "InformationGridButton"],
+                  Appearance->None,
+                  BaseStyle->"InformationGridLink",
+                  
+                  ButtonData:>{
+                   "Info-374becf3-7dc4-4f5f-9336-d032d9b64d26", {
+                    "mPlotData3D", "mpmPlot`"}, False},
+                  ButtonNote->"mpmPlot`",
+                  Evaluator->Automatic]}
+               },
+               DefaultBaseStyle->"Text",
+               
+               GridBoxAlignment->{
+                "Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+               GridBoxItemSize->{"Columns" -> {{
+                    Scaled[0.2375]}}}],
+              ImageMargins->{{10, 0}, {0, 2}}]}
+           },
+           GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}}],
+          FrameMargins->{{0, 0}, {8, 0}}]}, Dynamic[Typeset`open$$],
+         ImageSize->Automatic]]}
+     },
+     GridBoxAlignment->{"Columns" -> {{Left}}, "Rows" -> {{Baseline}}},
+     GridBoxDividers->{"ColumnsIndexed" -> {{False}}, "RowsIndexed" -> {}},
+     GridBoxSpacings->{"Columns" -> {
+         Offset[0.27999999999999997`], {
+          Offset[0.5599999999999999]}, 
+         Offset[0.27999999999999997`]}, "Rows" -> {
+         Offset[0.2], {
+          Offset[0.8]}, 
+         Offset[0.2]}}],
+    BaseStyle->"InformationTitleFrame"], "InformationGridPlain"], 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{{3.9947541766631393`*^9, 3.994754181262188*^9}, 
+   3.9947575630554504`*^9, 3.994799248397478*^9, 3.994916835641157*^9, 
+   3.9949173155386696`*^9},
+ CellLabel->
+  "(k2) Out[7]=",ExpressionUUID->"aa2754bb-813b-e246-8062-cb10c61bd6ed"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "@", 
+  RowBox[{"NotebookDirectory", "[", "]"}]}], "\n", 
+ RowBox[{"Directory", "[", "]"}]}], "Code",
+ CellChangeTimes->{{3.994799706083008*^9, 3.99479976373777*^9}},
+ CellLabel->
+  "(k3) In[19]:=",ExpressionUUID->"f8220280-babc-414b-b969-ae1b99405211"],
+
+Cell[BoxData[
+ FormBox["\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\Dam-break\"\>", 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{3.9947997097912197`*^9, 3.9947997641694717`*^9},
+ CellLabel->
+  "(k3) Out[19]=",ExpressionUUID->"b6439aed-c943-c345-97ce-ee359efbdb17"],
+
+Cell[BoxData[
+ FormBox["\<\"D:\\\\code\\\\karamelo-sb\\\\examples\\\\Dam-break\"\>", 
+  TraditionalForm]], "Output",
+ CellChangeTimes->{3.9947997097912197`*^9, 3.994799765287161*^9},
+ CellLabel->
+  "(k3) Out[20]=",ExpressionUUID->"5b0aace6-8992-2f4f-ad7c-749bd653bf81"]
+}, Open  ]],
+
+Cell[BoxData["Limit"], "Code",
+ CellChangeTimes->{{3.994831990255377*^9, 3.994832004854973*^9}, {
+  3.994833095090042*^9, 
+  3.994833112235052*^9}},ExpressionUUID->"6dd440ed-512d-de4a-bea9-\
+b3d08670cbba"]
+}, Open  ]]
+},
+Evaluator->"k2",
+WindowSize->{766.8, 790.8},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (2026\:5e745\:670819\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"035fefd1-6fb0-d545-a6d0-5187141fb97f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[554, 20, 203, 4, 64, "Code",ExpressionUUID->"09055025-8a09-bd4d-a6a6-2c8a7ded6961"],
+Cell[CellGroupData[{
+Cell[782, 28, 297, 6, 81, "Code",ExpressionUUID->"707894cd-33ca-5a4e-83ee-9e8d36be7cfa"],
+Cell[1082, 36, 347, 7, 45, "Output",ExpressionUUID->"b5e4132e-6a03-bc4a-9406-6e8e81841edf"],
+Cell[1432, 45, 349, 7, 45, "Output",ExpressionUUID->"7cd54230-af4b-4f42-a3cc-cc77b003c66c"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[1818, 57, 172, 3, 43, "Subsubsection",ExpressionUUID->"d7db15e1-4089-a44c-b5c5-2238874446c6"],
+Cell[1993, 62, 285, 6, 64, "Code",ExpressionUUID->"2d1a9717-7b0d-f94e-9f0d-2fd063d2b7ed"],
+Cell[CellGroupData[{
+Cell[2303, 72, 205, 4, 64, "Code",ExpressionUUID->"9d4c9a97-4f4e-af43-a3e7-e2786d764b71"],
+Cell[2511, 78, 5084, 123, 118, "Output",ExpressionUUID->"d8810978-e7f3-6e41-9518-f5cf6db4a98f"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7632, 206, 736, 19, 99, "Code",ExpressionUUID->"c62baa3b-2786-8940-b05b-9d93cfe2c540"],
+Cell[CellGroupData[{
+Cell[8393, 229, 540, 12, 21, "Print",ExpressionUUID->"155c3f56-96d1-2444-9d71-e5d69d9c7170"],
+Cell[8936, 243, 538, 12, 21, "Print",ExpressionUUID->"52f6a8da-5505-004a-b85a-367305af15bb"]
+}, Open  ]],
+Cell[9489, 258, 18451, 342, 885, "Output",ExpressionUUID->"e89b73fd-5dd9-9045-b655-717b6294c7f3"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[27977, 605, 355, 7, 64, "Code",ExpressionUUID->"0cee90cf-8983-3b42-b08f-587817962ad6"],
+Cell[28335, 614, 18505, 344, 804, "Output",ExpressionUUID->"27d3705f-53e4-1849-a5dc-93f0993fe7b8"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[46877, 963, 255, 5, 64, "Code",ExpressionUUID->"70c5285e-3436-0941-b37a-86b032c7e540"],
+Cell[47135, 970, 4237, 103, 101, "Output",ExpressionUUID->"aa2754bb-813b-e246-8062-cb10c61bd6ed"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[51409, 1078, 293, 6, 81, "Code",ExpressionUUID->"f8220280-babc-414b-b969-ae1b99405211"],
+Cell[51705, 1086, 271, 5, 45, "Output",ExpressionUUID->"b6439aed-c943-c345-97ce-ee359efbdb17"],
+Cell[51979, 1093, 269, 5, 45, "Output",ExpressionUUID->"5b0aace6-8992-2f4f-ad7c-749bd653bf81"]
+}, Open  ]],
+Cell[52263, 1101, 205, 4, 50, "Code",ExpressionUUID->"6dd440ed-512d-de4a-bea9-b3d08670cbba"]
+}, Open  ]]
+}
+]
+*)
+

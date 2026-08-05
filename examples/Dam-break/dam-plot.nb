@@ -1,0 +1,344 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       154,          7]
+NotebookDataLength[     15373,        336]
+NotebookOptionsPosition[     14265,        309]
+NotebookOutlinePosition[     14696,        327]
+CellTagsIndexPosition[     14653,        324]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell["\:4f7f\:7528mpmPlot", "Subsubsection",
+ CellChangeTimes->{{3.994799410082958*^9, 
+  3.9947994386724567`*^9}},ExpressionUUID->"d7db15e1-4089-a44c-b5c5-\
+2238874446c6"],
+
+Cell[BoxData[{
+ RowBox[{"SetDirectory", "@", 
+  RowBox[{"NotebookDirectory", "[", "]"}]}], "\n", 
+ RowBox[{"Directory", "[", "]"}], "\n", 
+ RowBox[{
+  RowBox[{
+  "Get", "[", "\"\<D:\\\\code\\\\karamelo-sb\\\\mpmPlot.wl\>\"", "]"}], 
+  ";"}]}], "Code",
+ CellChangeTimes->{{3.994799706083008*^9, 3.99479976373777*^9}, {
+  3.99492068254648*^9, 
+  3.9949206841153946`*^9}},ExpressionUUID->"f8220280-babc-414b-b969-\
+ae1b99405211"],
+
+Cell[BoxData[
+ RowBox[{"?", "mpmPlot`*"}]], "Code",
+ CellChangeTimes->{{3.994754166222107*^9, 3.9947541804663963`*^9}, {
+  3.99475477375955*^9, 3.9947547778210907`*^9}},
+ CellLabel->
+  "(k1) In[4]:=",ExpressionUUID->"70c5285e-3436-0941-b37a-86b032c7e540"],
+
+Cell[BoxData["data"], "Code",
+ CellChangeTimes->{{3.994924662119217*^9, 
+  3.9949246638756924`*^9}},ExpressionUUID->"7b69f506-0774-ca4c-a0c9-\
+c2194e0aaf6d"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[GridBox[{
+   {
+    RowBox[{
+     RowBox[{
+      RowBox[{"data2D", " ", "=", " ", 
+       RowBox[{
+       "loadMPMData", 
+        "[", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\Dam-break\>\"", 
+        "]"}]}], ";"}], "\n", 
+     RowBox[{"mPlotData", "[", "data2D", "]"}]}]},
+   {"\[Placeholder]"}
+  }]], "Code",
+ CellChangeTimes->{{3.9947538891002274`*^9, 3.9947539234401627`*^9}, {
+   3.994754071073393*^9, 3.994754079772915*^9}, {3.9947548827853127`*^9, 
+   3.994754893166769*^9}, {3.9947550164397793`*^9, 3.9947550171397915`*^9}, 
+   3.9947557594808693`*^9, {3.9947567092296257`*^9, 3.9947567529420376`*^9}, {
+   3.9947599752838745`*^9, 3.9947599761364746`*^9}, {3.994920680451149*^9, 
+   3.9949206990486584`*^9}},ExpressionUUID->"05653c97-4a82-8a40-b886-\
+231c07379aef"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:2705 2D \:6570\:636e\:5bfc\:5165\:6210\:529f\:ff0c\:5171 \"\
+\>", "\[InvisibleSpace]", "53", "\[InvisibleSpace]", "\<\" \:5e27\:ff01\"\>"}],
+   SequenceForm[
+   "\:2705 2D \:6570\:636e\:5bfc\:5165\:6210\:529f\:ff0c\:5171 ", 53, 
+    " \:5e27\:ff01"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.994918631388071*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k1) \
+In[5]:=",ExpressionUUID->"63e1d9c1-f405-7d4a-b304-0f47eeaee536"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{"(", "\[NoBreak]", GridBox[{
+     {
+      RowBox[{
+       SuperscriptBox["Null", "2"], " ", 
+       TagBox[
+        FormBox[
+         StyleBox[
+          
+          DynamicModuleBox[{mpmPlot`Private`frame$$ = 16, 
+           mpmPlot`Private`ptSize$$ = 0.005, mpmPlot`Private`renderTarget$$ = 
+           "seq", Typeset`show$$ = True, Typeset`bookmarkList$$ = {}, 
+           Typeset`bookmarkMode$$ = "Menu", Typeset`animator$$, 
+           Typeset`animvar$$ = 1, Typeset`name$$ = "\"\:65e0\:6807\:9898\"", 
+           Typeset`specs$$ = {{{
+              Hold[mpmPlot`Private`frame$$], 1, "\:5e27 (Frame)"}, 1, 53, 1, 
+             ControlType -> Manipulator}, {{
+              Hold[mpmPlot`Private`renderTarget$$], "seq", 
+              "\:6e32\:67d3\:53d8\:91cf"}, {
+             "z", "vx", "vy", "seq", "s11", "s22", "s33", "s12"}, ControlType -> 
+             PopupMenu}, {{
+              Hold[mpmPlot`Private`ptSize$$], 0.005, 
+              "\:8d28\:70b9\:5927\:5c0f"}, 0.001, 0.02, 0.001, ControlType -> 
+             Manipulator}, {
+             Hold[
+              Item[
+               Button["\|01f3ac \:5bfc\:51fa 2D GIF \:52a8\:753b", 
+                
+                Module[{
+                 mpmPlot`Private`out$ = 
+                  If[mpmPlot`Private`exportDir$11842 == "", 
+                    FileNameJoin[{
+                    Directory[], "2D_Animation.gif"}], 
+                    mpmPlot`Private`exportDir$11842], 
+                  mpmPlot`Private`frames$}, 
+                 PrintTemporary["\:6e32\:67d3 2D GIF \:4e2d..."]; 
+                 mpmPlot`Private`frames$ = Table[
+                    Module[{mpmPlot`Private`fv$ = Lookup[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Coords"]]]],
+                     mpmPlot`Private`mn$, mpmPlot`Private`mx$, 
+                    mpmPlot`Private`clrs$}, 
+                    mpmPlot`Private`mn$ = Min[mpmPlot`Private`fv$]; 
+                    mpmPlot`Private`mx$ = Max[mpmPlot`Private`fv$]; 
+                    mpmPlot`Private`clrs$ = 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`fv$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]; Legended[
+                    Graphics[{
+                    PointSize[mpmPlot`Private`ptSize$$], 
+                    Point[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Coords"], 
+                    VertexColors -> mpmPlot`Private`clrs$]}, PlotRange -> All,
+                     Frame -> True, ImageSize -> 600], 
+                    BarLegend[{"Rainbow", {mpmPlot`Private`mn$, 
+                    If[
+                    mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                    mpmPlot`Private`mn$ + 1.*^-6, mpmPlot`Private`mx$]}}]]], {
+                    mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$11842}]; 
+                 Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF", 
+                   "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+                   Infinity]; 
+                 Print["\:2705 2D GIF \:6210\:529f\:5bfc\:51fa\:81f3: ", 
+                   mpmPlot`Private`out$]; Null], Method -> "Queued", 
+                ImageSize -> {200, 30}], Alignment -> Center]], 
+             Manipulate`Dump`ThisIsNotAControl, ControlType -> None}}, 
+           Typeset`size$$ = {
+           642.2137867019653, {288.658151341692, 294.82807321669213`}}, 
+           Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = 
+           True, Typeset`keyframeActionsQ$$ = False, 
+           Typeset`keyframeList$$ = {}}, 
+           
+           DynamicBox[Manipulate`ManipulateBoxes[
+            1, TraditionalForm, 
+             "Variables" :> {
+              mpmPlot`Private`frame$$ = 1, mpmPlot`Private`ptSize$$ = 0.005, 
+               mpmPlot`Private`renderTarget$$ = "seq"}, 
+             "ControllerVariables" :> {}, 
+             "OtherVariables" :> {
+              Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+               Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+               Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+               Typeset`initDone$$, Typeset`skipInitDone$$, 
+               Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+             Module[{mpmPlot`Private`fObj$, mpmPlot`Private`coords$, 
+                mpmPlot`Private`fieldVal$, mpmPlot`Private`minV$, 
+                mpmPlot`Private`maxV$, mpmPlot`Private`colors$}, 
+               mpmPlot`Private`fObj$ = 
+                Part[$CellContext`data2D, mpmPlot`Private`frame$$]; 
+               mpmPlot`Private`coords$ = mpmPlot`Private`fObj$["Coords"]; 
+               mpmPlot`Private`fieldVal$ = Lookup[
+                  mpmPlot`Private`fObj$["Data"], 
+                  mpmPlot`Private`renderTarget$$, 
+                  ConstantArray[0., 
+                   Length[mpmPlot`Private`coords$]]]; 
+               mpmPlot`Private`minV$ = Min[mpmPlot`Private`fieldVal$]; 
+               mpmPlot`Private`maxV$ = Max[mpmPlot`Private`fieldVal$]; 
+               mpmPlot`Private`colors$ = 
+                mpmPlot`Private`getFastColors[
+                 mpmPlot`Private`fieldVal$, mpmPlot`Private`minV$, 
+                  mpmPlot`Private`maxV$]; Legended[
+                 Graphics[{
+                   PointSize[mpmPlot`Private`ptSize$$], 
+                   Point[
+                   mpmPlot`Private`coords$, VertexColors -> 
+                    mpmPlot`Private`colors$]}, PlotRange -> All, Frame -> 
+                  True, FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+                  StringForm[
+                   "2D MPM | Frame ``/`` | Var: ``", mpmPlot`Private`frame$$, 
+                    mpmPlot`Private`numFrames$11842, 
+                    mpmPlot`Private`renderTarget$$], ImageSize -> 
+                  mpmPlot`Private`imgSz$11842], 
+                 BarLegend[{"Rainbow", {mpmPlot`Private`minV$, 
+                    If[
+                    mpmPlot`Private`minV$ == mpmPlot`Private`maxV$, 
+                    mpmPlot`Private`minV$ + 1.*^-6, mpmPlot`Private`maxV$]}}, 
+                  LegendLabel -> mpmPlot`Private`renderTarget$$]]], 
+             "Specifications" :> {{{
+                mpmPlot`Private`frame$$, 1, "\:5e27 (Frame)"}, 1, 53, 1, 
+                Appearance -> "Open"}, {{
+                mpmPlot`Private`renderTarget$$, "seq", 
+                 "\:6e32\:67d3\:53d8\:91cf"}, {
+                "z", "vx", "vy", "seq", "s11", "s22", "s33", "s12"}}, {{
+                mpmPlot`Private`ptSize$$, 0.005, "\:8d28\:70b9\:5927\:5c0f"}, 
+                0.001, 0.02, 0.001}, 
+               Item[
+                Button["\|01f3ac \:5bfc\:51fa 2D GIF \:52a8\:753b", 
+                 
+                 Module[{
+                  mpmPlot`Private`out$ = 
+                   If[mpmPlot`Private`exportDir$11842 == "", 
+                    FileNameJoin[{
+                    Directory[], "2D_Animation.gif"}], 
+                    mpmPlot`Private`exportDir$11842], 
+                   mpmPlot`Private`frames$}, 
+                  PrintTemporary["\:6e32\:67d3 2D GIF \:4e2d..."]; 
+                  mpmPlot`Private`frames$ = Table[
+                    Module[{mpmPlot`Private`fv$ = Lookup[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Data"], 
+                    mpmPlot`Private`renderTarget$$, 
+                    ConstantArray[0., 
+                    Length[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Coords"]]]],
+                     mpmPlot`Private`mn$, mpmPlot`Private`mx$, 
+                    mpmPlot`Private`clrs$}, 
+                    mpmPlot`Private`mn$ = Min[mpmPlot`Private`fv$]; 
+                    mpmPlot`Private`mx$ = Max[mpmPlot`Private`fv$]; 
+                    mpmPlot`Private`clrs$ = 
+                    mpmPlot`Private`getFastColors[
+                    mpmPlot`Private`fv$, mpmPlot`Private`mn$, 
+                    mpmPlot`Private`mx$]; Legended[
+                    Graphics[{
+                    PointSize[mpmPlot`Private`ptSize$$], 
+                    Point[
+                    Part[$CellContext`data2D, mpmPlot`Private`i]["Coords"], 
+                    VertexColors -> mpmPlot`Private`clrs$]}, PlotRange -> All,
+                     Frame -> True, ImageSize -> 600], 
+                    BarLegend[{"Rainbow", {mpmPlot`Private`mn$, 
+                    If[
+                    mpmPlot`Private`mn$ == mpmPlot`Private`mx$, 
+                    mpmPlot`Private`mn$ + 1.*^-6, mpmPlot`Private`mx$]}}]]], {
+                    mpmPlot`Private`i, 1, mpmPlot`Private`numFrames$11842}]; 
+                  Export[mpmPlot`Private`out$, mpmPlot`Private`frames$, "GIF",
+                     "DisplayDurations" -> 0.08, "AnimationRepetitions" -> 
+                    Infinity]; 
+                  Print["\:2705 2D GIF \:6210\:529f\:5bfc\:51fa\:81f3: ", 
+                    mpmPlot`Private`out$]; Null], Method -> "Queued", 
+                 ImageSize -> {200, 30}], Alignment -> Center]}, 
+             "Options" :> {
+              TrackedSymbols :> {
+                mpmPlot`Private`frame$$, mpmPlot`Private`renderTarget$$, 
+                 mpmPlot`Private`ptSize$$}}, "DefaultOptions" :> {}],
+            
+            ImageSizeCache->{
+             684.8137867019652, {389.9143818104421, 396.0843036854421}},
+            SingleEvaluation->True],
+           Deinitialization:>None,
+           DynamicModuleValues:>{},
+           SynchronousInitialization->True,
+           UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+           UnsavedVariables:>{Typeset`initDone$$},
+           UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+          Deployed->True,
+          StripOnInput->False],
+         TraditionalForm],
+        Manipulate`InterpretManipulate[1]]}]},
+     {"\[Placeholder]"}
+    },
+    GridBoxAlignment->{"Columns" -> {{Center}}, "Rows" -> {{Baseline}}},
+    GridBoxSpacings->{"Columns" -> {
+        Offset[0.27999999999999997`], {
+         Offset[0.7]}, 
+        Offset[0.27999999999999997`]}, "Rows" -> {
+        Offset[0.2], {
+         Offset[0.4]}, 
+        Offset[0.2]}}], "\[NoBreak]", ")"}], TraditionalForm]], "Output",
+ CellChangeTimes->{
+  3.9947539061241436`*^9, 3.9947540238427925`*^9, 3.994754101937998*^9, 
+   3.994755000279125*^9, 3.994755130592495*^9, 3.9947554181475277`*^9, 
+   3.9947559509713593`*^9, 3.9947561172396755`*^9, 3.9947567912349167`*^9, 
+   3.994757043397703*^9, 3.9947604643434296`*^9, 3.994761677554611*^9, 
+   3.9947986956243668`*^9, 3.994799308877245*^9, 3.99480253439896*^9, 
+   3.994917492291626*^9, 3.9949176132430363`*^9, 3.9949176582661877`*^9, 
+   3.9949178555919704`*^9, 3.994917917387354*^9, 3.994917982237753*^9, {
+   3.994918393165537*^9, 3.994918422074028*^9}, 3.9949185848266163`*^9, 
+   3.994918631430073*^9},
+ CellLabel->
+  "(k1) Out[5]=",ExpressionUUID->"7e94517f-b2ea-224b-9f8f-3e67fdb572ff"]
+}, Open  ]],
+
+Cell[BoxData[""], "Code",
+ CellChangeTimes->{{3.9949206371809387`*^9, 3.994920638248247*^9}, {
+  3.9949207416182823`*^9, 
+  3.99492074253631*^9}},ExpressionUUID->"30ab44a6-dc3a-1845-87d7-\
+83a168bc8034"]
+}, Open  ]]
+},
+Evaluator->"k1",
+WindowSize->{766.8, 790.8},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (2026\:5e745\:670819\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"035fefd1-6fb0-d545-a6d0-5187141fb97f"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[576, 22, 172, 3, 43, "Subsubsection",ExpressionUUID->"d7db15e1-4089-a44c-b5c5-2238874446c6"],
+Cell[751, 27, 426, 11, 85, "Code",ExpressionUUID->"f8220280-babc-414b-b969-ae1b99405211"],
+Cell[1180, 40, 255, 5, 64, "Code",ExpressionUUID->"70c5285e-3436-0941-b37a-86b032c7e540"],
+Cell[1438, 47, 157, 3, 50, "Code",ExpressionUUID->"7b69f506-0774-ca4c-a0c9-c2194e0aaf6d"],
+Cell[CellGroupData[{
+Cell[1620, 54, 791, 18, 83, "Code",ExpressionUUID->"05653c97-4a82-8a40-b886-231c07379aef"],
+Cell[2414, 74, 516, 12, 21, "Print",ExpressionUUID->"63e1d9c1-f405-7d4a-b304-0f47eeaee536"],
+Cell[2933, 88, 11098, 211, 834, "Output",ExpressionUUID->"7e94517f-b2ea-224b-9f8f-3e67fdb572ff"]
+}, Open  ]],
+Cell[14046, 302, 203, 4, 50, "Code",ExpressionUUID->"30ab44a6-dc3a-1845-87d7-83a168bc8034"]
+}, Open  ]]
+}
+]
+*)
+

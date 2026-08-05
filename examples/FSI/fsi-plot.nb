@@ -1,0 +1,679 @@
+(* Content-type: application/vnd.wolfram.cdf.text *)
+
+(*** Wolfram CDF File ***)
+(* http://www.wolfram.com/cdf *)
+
+(* CreatedBy='Wolfram 15.0' *)
+
+(*************************************************************************)
+(*                                                                       *)
+(*                                                                       *)
+(*  This file was created under the Wolfram Enterprise licensing terms.  *)
+(*                                                                       *)
+(*       For additional information concerning CDF licensing see:        *)
+(*                                                                       *)
+(*        www.wolfram.com/cdf/adopting-cdf/licensing-options.html        *)
+(*                                                                       *)
+(*                                                                       *)
+(*                                                                       *)
+(*************************************************************************)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[      1060,         20]
+NotebookDataLength[     28108,        658]
+NotebookOptionsPosition[     27123,        638]
+NotebookOutlinePosition[     27567,        656]
+CellTagsIndexPosition[     27524,        653]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+
+Cell[CellGroupData[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"(*", " ", 
+   RowBox[{"1.", " ", "\:542f\:52a8\:591a\:6838\:5e76\:884c\:73af\:5883"}], 
+   " ", "*)"}], "\n", 
+  RowBox[{
+   RowBox[{
+    RowBox[{"LaunchKernels", "[", "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "2.", " ", "\:5b9a\:4e49\:517c\:5bb9", " ", "\\r", "\\n", " ", "\:548c", " ",
+      "\\n", " ", "\:7684\:5355\:6587\:4ef6\:89e3\:6790\:51fd\:6570"}], " ", 
+    "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+     RowBox[{"parseLAMMPS", "[", "filepath_String", "]"}], " ", ":=", " ", 
+     RowBox[{"Module", "[", "\n", "  ", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "lines", ",", " ", "atomIdx", ",", " ", "dataLines", ",", " ", 
+         "rawMat"}], "}"}], ",", "\n", "  ", 
+       RowBox[{
+        RowBox[{"lines", " ", "=", " ", 
+         RowBox[{"Import", "[", 
+          RowBox[{"filepath", ",", " ", "\"\<Lines\>\""}], "]"}]}], ";", "\n",
+         "  ", "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"\:67e5\:627e", " ", 
+          RowBox[{"ITEM", ":", " ", 
+           RowBox[{"ATOMS", " ", "\:6240\:5728\:7684\:884c\:53f7"}]}]}], " ", 
+         "*)"}], "\n", "  ", 
+        RowBox[{"atomIdx", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"FirstPosition", "[", 
+           RowBox[{"lines", ",", " ", 
+            RowBox[{"_", "?", 
+             RowBox[{"(", 
+              RowBox[{
+               RowBox[{"StringContainsQ", "[", 
+                RowBox[{"#", ",", " ", "\"\<ITEM: ATOMS\>\""}], "]"}], "&"}], 
+              ")"}]}]}], "]"}], "[", 
+          RowBox[{"[", "1", "]"}], "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{
+        "(*", " ", 
+         "\:63d0\:53d6\:8868\:5934\:540e\:9762\:7684\:6240\:6709\:6570\:636e\
+\:884c", " ", "*)"}], "\n", "  ", 
+        RowBox[{"dataLines", " ", "=", " ", 
+         RowBox[{"lines", "[", 
+          RowBox[{"[", 
+           RowBox[{
+            RowBox[{"atomIdx", " ", "+", " ", "1"}], " ", ";;"}], "]"}], 
+          "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{
+        "(*", " ", "\:5feb\:901f\:8f6c\:6362\:4e3a\:6570\:503c\:77e9\:9635", 
+         " ", "*)"}], "\n", "  ", 
+        RowBox[{"rawMat", " ", "=", " ", 
+         RowBox[{"ImportString", "[", 
+          RowBox[{
+           RowBox[{"StringRiffle", "[", 
+            RowBox[{"dataLines", ",", " ", "\"\<\\n\>\""}], "]"}], ",", 
+           " ", "\"\<Table\>\""}], "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{
+        "(*", " ", 
+         "\:53ea\:4fdd\:7559\:6570\:503c\:5b8c\:5168\:6b63\:786e\:7684\:884c",
+          " ", "*)"}], "\n", "  ", 
+        RowBox[{"rawMat", " ", "=", " ", 
+         RowBox[{"Select", "[", 
+          RowBox[{"rawMat", ",", " ", 
+           RowBox[{
+            RowBox[{"VectorQ", "[", 
+             RowBox[{"#", ",", " ", "NumericQ"}], "]"}], " ", "&"}]}], 
+          "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"\:63d0\:53d6\:5e76\:8fd4\:56de\:5fc5\:8981\:5b57\:6bb5", "\:ff1a", 
+          RowBox[{"{", 
+           RowBox[{
+            RowBox[{"x", 
+             RowBox[{"(", "4", ")"}]}], ",", " ", 
+            RowBox[{"y", 
+             RowBox[{"(", "5", ")"}]}], ",", " ", 
+            RowBox[{"vx", 
+             RowBox[{"(", "7", ")"}]}], ",", " ", 
+            RowBox[{"vy", 
+             RowBox[{"(", "8", ")"}]}]}], "}"}]}], " ", "*)"}], "\n", "  ", 
+        RowBox[{"rawMat", "[", 
+         RowBox[{"[", 
+          RowBox[{"All", ",", " ", 
+           RowBox[{"{", 
+            RowBox[{"4", ",", " ", "5", ",", " ", "7", ",", " ", "8"}], 
+            "}"}]}], "]"}], "]"}]}]}], "\n", "]"}]}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "3.", " ", 
+     "\:83b7\:53d6\:6240\:6709\:6587\:4ef6\:5e76\:6309\:5e27\:5e8f\:53f7\:6392\
+\:5e8f"}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "fsiDir", " ", "=", 
+     " ", "\"\<D:\\\\code\\\\karamelo-sb\\\\examples\\\\FSI\>\""}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"FileNames", "[", 
+      RowBox[{"\"\<dump_g.*.LAMMPS\>\"", ",", " ", "fsiDir"}], "]"}]}], ";"}],
+    "\n", 
+   RowBox[{
+    RowBox[{"files", " ", "=", " ", 
+     RowBox[{"SortBy", "[", 
+      RowBox[{"files", ",", " ", 
+       RowBox[{
+        RowBox[{"ToExpression", "[", 
+         RowBox[{"StringExtract", "[", 
+          RowBox[{
+           RowBox[{"FileNameTake", "[", "#", "]"}], ",", " ", 
+           RowBox[{"\"\<.\>\"", " ", "->", " ", 
+            RowBox[{"-", "2"}]}]}], "]"}], "]"}], " ", "&"}]}], "]"}]}], 
+    ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+     RowBox[{"4.", " ", 
+      RowBox[{"\:3010", "\:5e76\:884c\:9884\:52a0\:8f7d", "\:3011"}], 
+      "\:4f7f\:7528", " ", "CPU", " ", 
+      "\:6240\:6709\:6838\:5fc3\:5e76\:884c\:89e3\:6790\:5168\:90e8\:6587\
+\:4ef6"}], "\:ff0c", "\:663e\:793a\:8fdb\:5ea6\:6761"}], " ", "*)"}], "\n", 
+   RowBox[{
+    RowBox[{
+    "PrintTemporary", 
+     "[", "\"\<\:6b63\:5728\:4f7f\:7528\:591a\:6838 CPU \:5e76\:884c\:9884\
+\:52a0\:8f7d\:6240\:6709\:6570\:636e\:5e27\:ff0c\:8bf7\:7a0d\:5019...\>\"", 
+     "]"}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"allFramesData", " ", "=", " ", 
+     RowBox[{
+      RowBox[{"AbsoluteTiming", "[", "\n", "   ", 
+       RowBox[{"ParallelMap", "[", 
+        RowBox[{"parseLAMMPS", ",", " ", "files", ",", " ", 
+         RowBox[{"DistributedContexts", " ", "->", " ", "Automatic"}]}], 
+        "]"}], "\n", "]"}], "[", 
+      RowBox[{"[", "2", "]"}], "]"}]}], ";"}], "\n", 
+   RowBox[{
+    RowBox[{"Print", "[", 
+     RowBox[{"\"\<\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171\:52a0\:8f7d \>\"",
+       ",", " ", 
+      RowBox[{"Length", "[", "allFramesData", "]"}], ",", 
+      " ", "\"\< \:5e27\:6570\:636e\:3002\>\""}], "]"}], ";"}], "\n", "\n", 
+   RowBox[{"(*", " ", 
+    RowBox[{
+    "5.", " ", "\:6781\:901f\:4ea4\:4e92", " ", "Manipulate", " ", 
+     "\:9762\:677f"}], " ", "*)"}], "\n", 
+   RowBox[{"Manipulate", "[", "\n", " ", 
+    RowBox[{
+     RowBox[{"Module", "[", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "mat", ",", " ", "coords", ",", " ", "vx", ",", " ", "vy", ",", " ", 
+         "vMag", ",", " ", "minV", ",", " ", "maxV", ",", " ", "colors", ",", 
+         " ", "graphic"}], "}"}], ",", "\n", "  ", "\n", "  ", 
+       RowBox[{
+       "(*", " ", 
+        "\:76f4\:63a5\:4ece\:5185\:5b58\:5feb\:901f\:63d0\:53d6\:9884\:52a0\
+\:8f7d\:597d\:7684\:77e9\:9635", " ", "*)"}], "\n", "  ", 
+       RowBox[{
+        RowBox[{"mat", " ", "=", " ", 
+         RowBox[{"allFramesData", "[", 
+          RowBox[{"[", "frame", "]"}], "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"coords", " ", "=", " ", 
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"1", ",", " ", "2"}], "}"}]}], "]"}], "]"}]}], ";", " ", 
+        RowBox[{"(*", " ", 
+         RowBox[{"x", ",", " ", "y"}], " ", "*)"}], "\n", "  ", 
+        RowBox[{"vx", " ", "=", " ", 
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", " ", "3"}], "]"}], "]"}]}], ";", "\n", "  ", 
+        RowBox[{"vy", " ", "=", " ", 
+         RowBox[{"mat", "[", 
+          RowBox[{"[", 
+           RowBox[{"All", ",", " ", "4"}], "]"}], "]"}]}], ";", "\n", "  ", 
+        "\n", "  ", 
+        RowBox[{
+        "(*", " ", "\:6839\:636e\:9009\:62e9\:8ba1\:7b97\:7269\:7406\:91cf", 
+         " ", "*)"}], "\n", "  ", 
+        RowBox[{"vMag", " ", "=", " ", 
+         RowBox[{"Switch", "[", 
+          RowBox[{
+          "fieldChoice", ",", "\n", 
+           "    ", "\"\<\:901f\:5ea6\:6a21\:957f |v|\>\"", ",", " ", 
+           RowBox[{"Sqrt", "[", 
+            RowBox[{
+             RowBox[{"vx", "^", "2"}], " ", "+", " ", 
+             RowBox[{"vy", "^", "2"}]}], "]"}], ",", "\n", 
+           "    ", "\"\<X\:65b9\:5411\:901f\:5ea6 vx\>\"", ",", " ", "vx", ",",
+            "\n", "    ", "\"\<Y\:65b9\:5411\:901f\:5ea6 vy\>\"", ",", " ", 
+           "vy"}], "\n", "  ", "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"minV", " ", "=", " ", 
+         RowBox[{"Min", "[", "vMag", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"maxV", " ", "=", " ", 
+         RowBox[{"Max", "[", "vMag", "]"}]}], ";", "\n", "  ", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{"maxV", " ", "==", " ", "minV"}], ",", " ", 
+          RowBox[{"maxV", " ", "=", " ", 
+           RowBox[{"minV", " ", "+", " ", "1.0*^-6"}]}]}], "]"}], ";", "\n", 
+        "  ", "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "\:4ec5\:4f7f\:7528", " ", "Rainbow", " ", 
+          "\:5feb\:901f\:7740\:8272"}], " ", "*)"}], "\n", "  ", 
+        RowBox[{"colors", " ", "=", " ", 
+         RowBox[{
+          RowBox[{"ColorData", "[", "\"\<Rainbow\>\"", "]"}], " ", "/@", " ", 
+          RowBox[{"Rescale", "[", 
+           RowBox[{"vMag", ",", " ", 
+            RowBox[{"{", 
+             RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "]"}]}]}], ";", 
+        "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", 
+         RowBox[{
+         "\:5e95\:5c42", " ", "Graphics", " ", 
+          "\:786c\:4ef6\:52a0\:901f\:6e32\:67d3"}], " ", "*)"}], "\n", "  ", 
+        RowBox[{"graphic", " ", "=", " ", 
+         RowBox[{"Graphics", "[", 
+          RowBox[{
+           RowBox[{"{", "\n", "     ", 
+            RowBox[{
+             RowBox[{"PointSize", "[", "pointSize", "]"}], ",", "\n", "     ", 
+             RowBox[{"Point", "[", 
+              RowBox[{"coords", ",", " ", 
+               RowBox[{"VertexColors", " ", "->", " ", "colors"}]}], "]"}]}], 
+            "\n", "    ", "}"}], ",", "\n", "    ", 
+           RowBox[{"PlotRange", " ", "->", " ", 
+            RowBox[{"{", 
+             RowBox[{
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "0.205"}], ",", " ", "0.005"}], "}"}], ",", " ", 
+              RowBox[{"{", 
+               RowBox[{
+                RowBox[{"-", "0.005"}], ",", " ", "0.145"}], "}"}]}], "}"}]}],
+            ",", "\n", "    ", 
+           RowBox[{"Frame", " ", "->", " ", "True"}], ",", "\n", "    ", 
+           RowBox[{"FrameLabel", " ", "->", " ", 
+            RowBox[{"{", 
+             RowBox[{"\"\<X (m)\>\"", ",", " ", "\"\<Y (m)\>\""}], "}"}]}], ",",
+            "\n", "    ", 
+           RowBox[{"PlotLabel", " ", "->", " ", 
+            RowBox[{"StringForm", "[", 
+             
+             RowBox[{"\"\<Karamelo FSI - Frame `` / ``\>\"", ",", " ", 
+              "frame", ",", " ", 
+              RowBox[{"Length", "[", "allFramesData", "]"}]}], "]"}]}], ",", 
+           "\n", "    ", 
+           RowBox[{"ImageSize", " ", "->", " ", "Large"}]}], "\n", "   ", 
+          "]"}]}], ";", "\n", "  ", "\n", "  ", 
+        RowBox[{"(*", " ", "\:6302\:8f7d\:56fe\:4f8b", " ", "*)"}], "\n", 
+        "  ", 
+        RowBox[{"Legended", "[", "\n", "   ", 
+         RowBox[{"graphic", ",", "\n", "   ", 
+          RowBox[{"BarLegend", "[", "\n", "    ", 
+           RowBox[{
+            RowBox[{"{", 
+             RowBox[{"\"\<Rainbow\>\"", ",", " ", 
+              RowBox[{"{", 
+               RowBox[{"minV", ",", " ", "maxV"}], "}"}]}], "}"}], ",", "\n", 
+            "    ", 
+            RowBox[{"LegendLabel", " ", "->", " ", "fieldChoice"}], ",", "\n",
+             "    ", 
+            RowBox[{"LegendMarkerSize", " ", "->", " ", "300"}]}], "\n", 
+           "   ", "]"}]}], "\n", "  ", "]"}]}]}], "\n", " ", "]"}], ",", "\n",
+      " ", "\n", " ", 
+     RowBox[{"(*", " ", "\:63a7\:4ef6", " ", "*)"}], "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "frame", ",", " ", "1", ",", 
+         " ", "\"\<\:65f6\:95f4\:5e27 (Frame)\>\""}], "}"}], ",", " ", "1", ",",
+        " ", 
+       RowBox[{"Length", "[", "allFramesData", "]"}], ",", " ", "1", ",", " ", 
+       RowBox[{"Appearance", " ", "->", " ", "\"\<Open\>\""}]}], "}"}], ",", 
+     "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "fieldChoice", ",", " ", "\"\<\:901f\:5ea6\:6a21\:957f |v|\>\"", ",", 
+         " ", "\"\<\:663e\:793a\:7269\:7406\:91cf\>\""}], "}"}], ",", " ", 
+       RowBox[{"{", 
+        RowBox[{"\"\<\:901f\:5ea6\:6a21\:957f |v|\>\"", ",", 
+         " ", "\"\<X\:65b9\:5411\:901f\:5ea6 vx\>\"", ",", 
+         " ", "\"\<Y\:65b9\:5411\:901f\:5ea6 vy\>\""}], "}"}]}], "}"}], ",", 
+     "\n", " ", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{
+        "pointSize", ",", " ", "0.003", ",", 
+         " ", "\"\<\:8d28\:70b9\:534a\:5f84\>\""}], "}"}], ",", " ", "0.001", 
+       ",", " ", "0.01", ",", " ", "0.0005"}], "}"}]}], "\n", 
+    "]"}]}]}]], "Code",
+ CellChangeTimes->{{3.9947478017157574`*^9, 3.9947478017157574`*^9}},
+ CellLabel->
+  "(k1) In[16]:=",ExpressionUUID->"ec7767ac-7a72-0f40-b787-50681a10b48e"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+   "LaunchKernels", "nodef", 
+    "\"Some parallel subkernels are already running. Not launching default \
+kernels again.\"", 2, 16, 37, 33837319049859500443, "k1"},
+   "MessageTemplate",
+   BaseStyle->"MSG"], TraditionalForm]], "Message",
+ CellChangeTimes->{3.994747808198889*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k1) \
+In[16]:=",ExpressionUUID->"449318fe-beaf-ef47-bfbd-4cd08565cb99"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"StringContainsQ", "::", "strse"}], "MessageName"], " ", ":", 
+   "  ", "\<\"A string or list of strings is expected at position \
+\\!\\(\\*FormBox[\\\"1\\\", TraditionalForm]\\) in \
+\\!\\(\\*FormBox[RowBox[{\\\"StringContainsQ\\\", \\\"[\\\", RowBox[{\\\"List\
+\\\", \\\",\\\", \\\"\\\\\\\"ITEM: ATOMS\\\\\\\"\\\"}], \\\"]\\\"}], \
+TraditionalForm]\\).\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.9947478087691345`*^9},
+ CellLabel->
+  "kernel 3 (Local)",ExpressionUUID->"af1caab9-9ac3-7244-b207-d1f7a554b24e"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"StringContainsQ", "::", "strse"}], "MessageName"], " ", ":", 
+   "  ", "\<\"A string or list of strings is expected at position \
+\\!\\(\\*FormBox[\\\"1\\\", TraditionalForm]\\) in \
+\\!\\(\\*FormBox[RowBox[{\\\"StringContainsQ\\\", \\\"[\\\", RowBox[{\\\"List\
+\\\", \\\",\\\", \\\"\\\\\\\"ITEM: ATOMS\\\\\\\"\\\"}], \\\"]\\\"}], \
+TraditionalForm]\\).\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.994747808831135*^9},
+ CellLabel->
+  "kernel 1 (Local)",ExpressionUUID->"e08720b4-827b-9641-ba7b-4cd0faee2a4c"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"StringContainsQ", "::", "strse"}], "MessageName"], " ", ":", 
+   "  ", "\<\"A string or list of strings is expected at position \
+\\!\\(\\*FormBox[\\\"1\\\", TraditionalForm]\\) in \
+\\!\\(\\*FormBox[RowBox[{\\\"StringContainsQ\\\", \\\"[\\\", RowBox[{\\\"List\
+\\\", \\\",\\\", \\\"\\\\\\\"ITEM: ATOMS\\\\\\\"\\\"}], \\\"]\\\"}], \
+TraditionalForm]\\).\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.9947478088971367`*^9},
+ CellLabel->
+  "kernel 2 (Local)",ExpressionUUID->"a9b332dc-a1dc-ce47-b3de-c2ddfc563c19"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"StringContainsQ", "::", "strse"}], "MessageName"], " ", ":", 
+   "  ", "\<\"A string or list of strings is expected at position \
+\\!\\(\\*FormBox[\\\"1\\\", TraditionalForm]\\) in \
+\\!\\(\\*FormBox[RowBox[{\\\"StringContainsQ\\\", \\\"[\\\", RowBox[{\\\"List\
+\\\", \\\",\\\", \\\"\\\\\\\"ITEM: ATOMS\\\\\\\"\\\"}], \\\"]\\\"}], \
+TraditionalForm]\\).\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.994747808959135*^9},
+ CellLabel->
+  "kernel 4 (Local)",ExpressionUUID->"389cc738-bb88-3e48-bc32-bc350e60608e"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"StringContainsQ", "::", "strse"}], "MessageName"], " ", ":", 
+   "  ", "\<\"A string or list of strings is expected at position \
+\\!\\(\\*FormBox[\\\"1\\\", TraditionalForm]\\) in \
+\\!\\(\\*FormBox[RowBox[{\\\"StringContainsQ\\\", \\\"[\\\", RowBox[{\\\"List\
+\\\", \\\",\\\", \\\"\\\\\\\"ITEM: ATOMS\\\\\\\"\\\"}], \\\"]\\\"}], \
+TraditionalForm]\\).\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.994747809020134*^9},
+ CellLabel->
+  "kernel 5 (Local)",ExpressionUUID->"7e02cfd9-27f7-ec48-a46b-ff69c92a6e74"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+   "General", "stop", 
+    "\"\:5728\:672c\:6b21\:8ba1\:7b97\:4e2d\:ff0c\\!\\(\\*FormBox[StyleBox[\
+RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \\\"strse\\\"}], \\\"MessageName\
+\\\"], TraditionalForm]\\) \:7684\:8fdb\:4e00\:6b65\:8f93\:51fa\:5c06\:88ab\
+\:6291\:5236.\"", 2, 22, 38, 33837319049859500443, "k1"},
+   "MessageTemplate",
+   BaseStyle->"MSG"], TraditionalForm]], "Message",
+ CellChangeTimes->{3.994747809152136*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k1) \
+In[16]:=",ExpressionUUID->"6981cf99-4ea5-f447-8d96-1b105d97d8e8"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"General", "::", "stop"}], "MessageName"], " ", ":", 
+   "  ", "\<\"Further output of \
+\\!\\(\\*FormBox[StyleBox[RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \
+\\\"strse\\\"}], \\\"MessageName\\\"], TraditionalForm]\\) will be suppressed \
+during this calculation.\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.994747810048132*^9},
+ CellLabel->
+  "kernel 2 (Local)",ExpressionUUID->"7cf36bc8-5aa6-4a40-906a-c3ed7187c1cb"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"General", "::", "stop"}], "MessageName"], " ", ":", 
+   "  ", "\<\"Further output of \
+\\!\\(\\*FormBox[StyleBox[RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \
+\\\"strse\\\"}], \\\"MessageName\\\"], TraditionalForm]\\) will be suppressed \
+during this calculation.\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.9947478100941315`*^9},
+ CellLabel->
+  "kernel 3 (Local)",ExpressionUUID->"a271c745-42cd-754b-be27-15832986571c"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"General", "::", "stop"}], "MessageName"], " ", ":", 
+   "  ", "\<\"Further output of \
+\\!\\(\\*FormBox[StyleBox[RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \
+\\\"strse\\\"}], \\\"MessageName\\\"], TraditionalForm]\\) will be suppressed \
+during this calculation.\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.9947478101981335`*^9},
+ CellLabel->
+  "kernel 4 (Local)",ExpressionUUID->"67eafbef-c96b-464e-91fc-9e2483cf6785"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"General", "::", "stop"}], "MessageName"], " ", ":", 
+   "  ", "\<\"Further output of \
+\\!\\(\\*FormBox[StyleBox[RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \
+\\\"strse\\\"}], \\\"MessageName\\\"], TraditionalForm]\\) will be suppressed \
+during this calculation.\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.9947478102439804`*^9},
+ CellLabel->
+  "kernel 6 (Local)",ExpressionUUID->"5990ab05-3951-fb4d-b5f3-ac1dbba18dea"],
+
+Cell[BoxData[
+ FormBox[
+  RowBox[{
+   StyleBox[
+    RowBox[{"General", "::", "stop"}], "MessageName"], " ", ":", 
+   "  ", "\<\"Further output of \
+\\!\\(\\*FormBox[StyleBox[RowBox[{\\\"StringContainsQ\\\", \\\"::\\\", \
+\\\"strse\\\"}], \\\"MessageName\\\"], TraditionalForm]\\) will be suppressed \
+during this calculation.\"\>"}], TraditionalForm]], "Message", "MSG",
+ ShowCellLabel->True,
+ CellChangeTimes->{3.994747810350868*^9},
+ CellLabel->
+  "kernel 1 (Local)",ExpressionUUID->"020e41c9-a8b8-124d-844d-95a6b02c9132"],
+
+Cell[BoxData[
+ FormBox[
+  TemplateBox[{
+   "General", "stop", 
+    "\"\:5728\:672c\:6b21\:8ba1\:7b97\:4e2d\:ff0c\\!\\(\\*FormBox[\\\"\\\\\\\"\
+\:5728\:672c\:6b21\:8ba1\:7b97\:4e2d\:ff0c`1` \:7684\:8fdb\:4e00\:6b65\:8f93\
+\:51fa\:5c06\:88ab\:6291\:5236.\\\\\\\"\\\", TraditionalForm]\\) \:7684\:8fdb\
+\:4e00\:6b65\:8f93\:51fa\:5c06\:88ab\:6291\:5236.\"", 2, 22, 39, 
+    33837319049859500443, "k1"},
+   "MessageTemplate",
+   BaseStyle->"MSG"], TraditionalForm]], "Message",
+ CellChangeTimes->{3.994747810439869*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k1) \
+In[16]:=",ExpressionUUID->"e07ded65-64f3-4c44-b322-c4de35b15fa7"],
+
+Cell[BoxData[
+ FormBox[
+  InterpretationBox[
+   RowBox[{"\<\"\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171\:52a0\:8f7d \"\>", 
+    "\[InvisibleSpace]", "603", 
+    "\[InvisibleSpace]", "\<\" \:5e27\:6570\:636e\:3002\"\>"}],
+   SequenceForm[
+   "\:9884\:52a0\:8f7d\:5b8c\:6210\:ff01\:5171\:52a0\:8f7d ", 603, 
+    " \:5e27\:6570\:636e\:3002"],
+   Editable->False], TraditionalForm]], "Print",
+ CellChangeTimes->{3.9947478955583496`*^9},
+ CellLabel->
+  "\:6b63\:5728\:8ba1\:7b97(k1) \
+In[16]:=",ExpressionUUID->"12ad0271-bcbc-9942-92f6-f630d4918ba8"],
+
+Cell[BoxData[
+ FormBox[
+  TagBox[
+   FormBox[
+    StyleBox[
+     DynamicModuleBox[{$CellContext`fieldChoice$$ = 
+      "X\:65b9\:5411\:901f\:5ea6 vx", $CellContext`frame$$ = 
+      435, $CellContext`pointSize$$ = 0.01, Typeset`show$$ = True, 
+      Typeset`bookmarkList$$ = {}, Typeset`bookmarkMode$$ = "Menu", 
+      Typeset`animator$$, Typeset`animvar$$ = 1, Typeset`name$$ = 
+      "\"\:65e0\:6807\:9898\"", Typeset`specs$$ = {{{
+         Hold[$CellContext`frame$$], 1, "\:65f6\:95f4\:5e27 (Frame)"}, 1, 603,
+         1, ControlType -> Manipulator}, {{
+         Hold[$CellContext`fieldChoice$$], "\:901f\:5ea6\:6a21\:957f |v|", 
+         "\:663e\:793a\:7269\:7406\:91cf"}, {
+        "\:901f\:5ea6\:6a21\:957f |v|", "X\:65b9\:5411\:901f\:5ea6 vx", 
+         "Y\:65b9\:5411\:901f\:5ea6 vy"}, ControlType -> SetterBar}, {{
+         Hold[$CellContext`pointSize$$], 0.003, "\:8d28\:70b9\:534a\:5f84"}, 
+        0.001, 0.01, 0.0005, ControlType -> Manipulator}}, Typeset`size$$ = {
+      668.482712650299, {211.0633374963488, 217.23325937134874`}}, 
+      Typeset`update$$ = 0, Typeset`initDone$$, Typeset`skipInitDone$$ = True,
+       Typeset`keyframeActionsQ$$ = False, Typeset`keyframeList$$ = {}}, 
+      DynamicBox[Manipulate`ManipulateBoxes[
+       1, TraditionalForm, 
+        "Variables" :> {$CellContext`fieldChoice$$ = 
+          "\:901f\:5ea6\:6a21\:957f |v|", $CellContext`frame$$ = 
+          1, $CellContext`pointSize$$ = 0.003}, "ControllerVariables" :> {}, 
+        "OtherVariables" :> {
+         Typeset`show$$, Typeset`bookmarkList$$, Typeset`bookmarkMode$$, 
+          Typeset`animator$$, Typeset`animvar$$, Typeset`name$$, 
+          Typeset`specs$$, Typeset`size$$, Typeset`update$$, 
+          Typeset`initDone$$, Typeset`skipInitDone$$, 
+          Typeset`keyframeActionsQ$$, Typeset`keyframeList$$}, "Body" :> 
+        Module[{$CellContext`mat$, $CellContext`coords$, $CellContext`vx$, \
+$CellContext`vy$, $CellContext`vMag$, $CellContext`minV$, $CellContext`maxV$, \
+$CellContext`colors$, $CellContext`graphic$}, $CellContext`mat$ = 
+           Part[$CellContext`allFramesData, $CellContext`frame$$]; \
+$CellContext`coords$ = Part[$CellContext`mat$, All, {1, 2}]; $CellContext`vx$ = 
+           Part[$CellContext`mat$, All, 3]; $CellContext`vy$ = 
+           Part[$CellContext`mat$, All, 4]; $CellContext`vMag$ = 
+           Switch[$CellContext`fieldChoice$$, "\:901f\:5ea6\:6a21\:957f |v|", 
+             Sqrt[$CellContext`vx$^2 + $CellContext`vy$^2], 
+             "X\:65b9\:5411\:901f\:5ea6 vx", $CellContext`vx$, 
+             "Y\:65b9\:5411\:901f\:5ea6 vy", $CellContext`vy$]; \
+$CellContext`minV$ = Min[$CellContext`vMag$]; $CellContext`maxV$ = 
+           Max[$CellContext`vMag$]; 
+          If[$CellContext`maxV$ == $CellContext`minV$, $CellContext`maxV$ = \
+$CellContext`minV$ + 1.*^-6]; $CellContext`colors$ = Map[
+             ColorData["Rainbow"], 
+             
+             Rescale[$CellContext`vMag$, {$CellContext`minV$, \
+$CellContext`maxV$}]]; $CellContext`graphic$ = Graphics[{
+              PointSize[$CellContext`pointSize$$], 
+              
+              Point[$CellContext`coords$, 
+               VertexColors -> $CellContext`colors$]}, 
+             PlotRange -> {{-0.205, 0.005}, {-0.005, 0.145}}, Frame -> True, 
+             FrameLabel -> {"X (m)", "Y (m)"}, PlotLabel -> 
+             StringForm["Karamelo FSI - Frame `` / ``", $CellContext`frame$$, 
+               Length[$CellContext`allFramesData]], ImageSize -> Large]; 
+          Legended[$CellContext`graphic$, 
+            
+            BarLegend[{"Rainbow", {$CellContext`minV$, $CellContext`maxV$}}, 
+             LegendLabel -> $CellContext`fieldChoice$$, LegendMarkerSize -> 
+             300]]], "Specifications" :> {{{$CellContext`frame$$, 1, 
+            "\:65f6\:95f4\:5e27 (Frame)"}, 1, 603, 1, Appearance -> 
+           "Open"}, {{$CellContext`fieldChoice$$, 
+            "\:901f\:5ea6\:6a21\:957f |v|", 
+            "\:663e\:793a\:7269\:7406\:91cf"}, {
+           "\:901f\:5ea6\:6a21\:957f |v|", "X\:65b9\:5411\:901f\:5ea6 vx", 
+            "Y\:65b9\:5411\:901f\:5ea6 vy"}}, {{$CellContext`pointSize$$, 
+            0.003, "\:8d28\:70b9\:534a\:5f84"}, 0.001, 0.01, 0.0005}}, 
+        "Options" :> {}, "DefaultOptions" :> {}],
+       ImageSizeCache->{
+        711.082712650299, {293.81693124634876`, 299.98685312134876`}},
+       SingleEvaluation->True],
+      Deinitialization:>None,
+      DynamicModuleValues:>{},
+      SynchronousInitialization->True,
+      UndoTrackedVariables:>{Typeset`show$$, Typeset`bookmarkMode$$},
+      UnsavedVariables:>{Typeset`initDone$$},
+      UntrackedVariables:>{Typeset`size$$}], "Manipulate",
+     Deployed->True,
+     StripOnInput->False],
+    TraditionalForm],
+   Manipulate`InterpretManipulate[1]], TraditionalForm]], "Output",
+ CellChangeTimes->{3.9947478955913486`*^9},
+ CellLabel->
+  "(k1) Out[24]=",ExpressionUUID->"a4fca43f-6709-be44-b9ad-427a3932a1da"]
+}, Open  ]]
+},
+Evaluator->"k1",
+WindowSize->{1525.2, 801.5999999999999},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+FrontEndVersion->"15.0 for Microsoft Windows (64-bit) (2026\:5e745\:670819\
+\:65e5)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"28aa8b7e-d8d2-224e-a521-52273898fb98"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[CellGroupData[{
+Cell[1482, 35, 12781, 306, 1641, "Code",ExpressionUUID->"ec7767ac-7a72-0f40-b787-50681a10b48e"],
+Cell[14266, 343, 434, 11, 26, "Message",ExpressionUUID->"449318fe-beaf-ef47-bfbd-4cd08565cb99"],
+Cell[14703, 356, 615, 13, 36, "Message",ExpressionUUID->"af1caab9-9ac3-7244-b207-d1f7a554b24e"],
+Cell[15321, 371, 613, 13, 36, "Message",ExpressionUUID->"e08720b4-827b-9641-ba7b-4cd0faee2a4c"],
+Cell[15937, 386, 615, 13, 36, "Message",ExpressionUUID->"a9b332dc-a1dc-ce47-b3de-c2ddfc563c19"],
+Cell[16555, 401, 613, 13, 36, "Message",ExpressionUUID->"389cc738-bb88-3e48-bc32-bc350e60608e"],
+Cell[17171, 416, 613, 13, 36, "Message",ExpressionUUID->"7e02cfd9-27f7-ec48-a46b-ff69c92a6e74"],
+Cell[17787, 431, 582, 13, 26, "Message",ExpressionUUID->"6981cf99-4ea5-f447-8d96-1b105d97d8e8"],
+Cell[18372, 446, 524, 12, 36, "Message",ExpressionUUID->"7cf36bc8-5aa6-4a40-906a-c3ed7187c1cb"],
+Cell[18899, 460, 526, 12, 36, "Message",ExpressionUUID->"a271c745-42cd-754b-be27-15832986571c"],
+Cell[19428, 474, 526, 12, 36, "Message",ExpressionUUID->"67eafbef-c96b-464e-91fc-9e2483cf6785"],
+Cell[19957, 488, 526, 12, 36, "Message",ExpressionUUID->"5990ab05-3951-fb4d-b5f3-ac1dbba18dea"],
+Cell[20486, 502, 524, 12, 36, "Message",ExpressionUUID->"020e41c9-a8b8-124d-844d-95a6b02c9132"],
+Cell[21013, 516, 627, 14, 26, "Message",ExpressionUUID->"e07ded65-64f3-4c44-b322-c4de35b15fa7"],
+Cell[21643, 532, 545, 13, 21, "Print",ExpressionUUID->"12ad0271-bcbc-9942-92f6-f630d4918ba8"],
+Cell[22191, 547, 4916, 88, 624, "Output",ExpressionUUID->"a4fca43f-6709-be44-b9ad-427a3932a1da"]
+}, Open  ]]
+}
+]
+*)
+

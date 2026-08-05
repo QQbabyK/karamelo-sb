@@ -5,90 +5,89 @@
 # Benchmarking the material point method for interaction problems between the free surface flow and elastic structure
 # by Sun, 2019
 
-gamma = 7
-K     = 1.4e+6
-G     = 0.001
-E     = 12e+6
-nu    = 0.4
-rhoS  = 1100
-rhoW  = 998
+# UNITS: Pa, m, s
+gamma = 7          # 水的状态方程（EOS）指数（Tait 状态方程参数）
+K     = 1.4e+6     # 水的体积模量 (Pa)
+G     = 0.001      # 水的剪切模量 (Pa)（近乎无剪切）
+E     = 12e+6      # 弹性障碍物的杨氏模量 (12 MPa)
+nu    = 0.4        # 弹性障碍物的泊松比
+rhoS  = 1100       # 固体/障碍物密度 (1100 kg/m^3)
+rhoW  = 998        # 水的密度 (998 kg/m^3)
 
-L  = 200e-3
-H  = 140e-3
-l0 = 100e-3
-h0 = H
-h  = 79e-3#79e-3
-b  = 5e-3
+L  = 200e-3        # 200 mm
+H  = 140e-3        # 140 mm (计算域高度)
+l0 = 100e-3        # 100 mm (水柱宽度)
+h0 = H             # 水柱高度 (140 mm)
+h  = 79e-3         # 79 mm (障碍物高度)
+b  = 5e-3          # 5 mm (障碍物厚度)
 x0 = l0
 
 #---------- SET METHOD --------------#
-FLIP=1.0 
-method(ulmpm, FLIP, linear, FLIP)
+FLIP = 1.0         # 使用 100% FLIP 混合算法（减少数值耗散）
+method(ulmpm, FLIP, linear, FLIP)  # Updated Lagrangian MPM (ULMPM) 算法
 
 N = 100
-cellsize = l0/N
-# 2D problem, which the computational domain is
+cellsize = l0/N    # 背景网格尺寸: 100mm / 100 = 1 mm
+# 2D 领域设置: 维度=2, X 轴范围 [-L, 0], Y 轴范围 [0, H], 网格大小 = cellsize
 dimension(2, -L, 0, 0, H, cellsize)
 
 
 #---------- SET MATERIALS --------------#
+# 水：使用状态方程 (eosf) + 剪切强度 (strengthf) 模型
 eos(eosf, fluid, rhoW, K, gamma)
 strength(strengthf, fluid, G)
 material(mat1, eos-strength, eosf, strengthf) 
-# for the elastic obstacle
-material(mat2,  linear, rhoS, E, nu)
+
+# 固体弹性障碍物：使用线弹性模型 (linear)
+material(mat2, linear, rhoS, E, nu)
 
 
 #---------- SET SOLID --------------#
+# 定义水体和固体的几何区域 (block 矩形块: xmin, xmax, ymin, ymax)
 region(water, block, -x0, 0, 0, h0)
 region(solid, block, -l0-b-2*cellsize, -l0-2*cellsize, cellsize/2, h)
 
-ppc1d  = 2
-ppc1ds = 2
-solid(solidW, region, water, ppc1d, mat1, cellsize,0)
-solid(solidS, region, solid, ppc1ds, mat2, cellsize,0)
+ppc1d  = 2  # 水体每个网格方向放置 2 个质点 (2x2 = 4 个/Cell)
+ppc1ds = 2  # 固体每个网格方向放置 2 个质点
 
-#---------- IMPOSE BOUNDARY CONDITIONS --------------#
+solid(solidW, region, water, ppc1d, mat1, cellsize, 0)
+solid(solidS, region, solid, ppc1ds, mat2, cellsize, 0)
+
+# 底部节点（限制 Y 方向速度为 0）
 region(rBottomW, block, INF, INF, INF, cellsize/4)
 group(gBottomW, nodes, region, rBottomW, solid, solidW)
+fix(fBCLYW, velocity_nodes, gBottomW, NULL, 0)
 
-
+# 右边界节点（限制 X 方向速度为 0，即防外漏）
 region(rRight, block, -cellsize/4, INF, -INF, INF)
 group(gRight, nodes, region, rRight, solid, solidW)
+fix(fBCRX, velocity_nodes, gRight, 0, NULL)
 
-region(rLeft, block, -(l0+cellsize/4), -l0+cellsize/4, h, INF)
-group(gLeft, nodes, region, rLeft, solid, solidW)
-
-# top nodes at the fix of the gate
-#region(rTopS, block, -l0-2*b, -l0+cellsize/4, h-cellsize/4, h+cellsize/4)
-region(rTopS, block, -l0-2*b, -l0-2*cellsize, h-cellsize/4, h+cellsize/4)
-group(gTopS, nodes, region, rTopS, solid, solidS)
-
-fix(fBCLYW, velocity_nodes, gBottomW, NULL, 0)
-fix(fBCRX, velocity_nodes, gRight,  0, NULL)
-fix(fBCLX, velocity_nodes, gLeft,  0, NULL)
-
-fix(fBCXY, velocity_nodes, gTopS,  0, 0)
+# 障碍物顶部/底部约束 (固定约束固定点的 X, Y 速度)
+fix(fBCXY, velocity_nodes, gTopS, 0, 0)
 
 #---------- RECORDING TIP DISPLACEMENT --------------#
+# 选取障碍物顶端的质点组
 region(rULcorner, block, -l0-cellsize/2-2*cellsize, -l0-cellsize/2, cellsize/2, cellsize+cellsize/4)
 group(gULcorner, particles, region, rULcorner, solid, solidS)
+
+# 计算该质点组的形心 (xcm) 及其相对于初始位置的位移 (ut, vt)
 xcorner = xcm(gULcorner, x)
 ycorner = xcm(gULcorner, y)
-xcorner0=value(xcorner)
-ycorner0=value(ycorner)
-ut      = xcorner-xcorner0
-vt      = ycorner-ycorner0
+xcorner0 = value(xcorner)
+ycorner0 = value(ycorner)
+ut      = xcorner-xcorner0   # X 方向位移
+vt      = ycorner-ycorner0   # Y 方向位移
 
 #---------- IMPOSE INITIAL CONDITIONS --------------#
 gravity = -9.81 #m/s^2
 fix(fbody, body_force, all, 0, gravity)
 
-N_log = 100
+N_log = 100  # 每 100 步输出一次文件
 
+# 导出质点 (particle) 与背景网格 (grid) 的 LAMMPS 文件
 dump(dump1, all, particle, N_log, dump_p.*.LAMMPS, x, y, z, vx, vy)
-dump(dump2, all, grid, N_log, dump_g.*.LAMMPS, x, y, z, vx,vy)
-
+dump(dump2, all, grid, N_log, dump_g.*.LAMMPS, x, y, z, vx, vy)
 
 #----------- RUN --------------------#
 #dt_factor(0.3*0.25)

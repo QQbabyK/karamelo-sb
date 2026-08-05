@@ -1,73 +1,113 @@
-import numpy as np
-from scipy import math
-from numpy.random import random
-from scipy.spatial import cKDTree
-import matplotlib.pyplot as plt
-import pylab as pylab
-import glob 
-import matplotlib.ticker as mtick
-import matplotlib.colors as mcol
-import time
 import argparse
+from pathlib import Path
 
-parser = argparse.ArgumentParser(description='Plot the evolution of variables.',
-                                 add_help=False,
-                                 formatter_class=argparse.RawDescriptionHelpFormatter)
-
-
-parser.add_argument('--quiet', '-q', action='store_const', const=True, default=False,
-                    help='do not show plot.')
-args = parser.parse_args()
-
-#-------  Setup fonts
-plt.rc('font',family='Helvetica',size=14)
-plt.rc('xtick', labelsize=12)
-plt.rc('ytick', labelsize=12)
-plt.rc('axes',linewidth=1.)
-plt.rc('pdf',fonttype=3)
-plt.rc('mathtext',fontset='stixsans')
-plt.rc("figure", facecolor="none")
-
-markersize = 6
+import matplotlib.pyplot as plt
+import numpy as np
 
 
-#-------------------------------------------------------------
-# Dimer 5: Read Data
+def load_log(file_path: Path) -> tuple[np.ndarray, np.ndarray]:
+    """读取 log.mpm，并返回时间和悬臂梁端部位移。"""
+    if not file_path.exists():
+        raise FileNotFoundError(f"找不到结果文件：{file_path}")
 
-fnames = ['FEM.data','FLIP-099_linear_N-20_2_particles_per_cell-incrementalF.data']#,'SPH_converged.data', 'SPH_HG_0dot1.data', 'SPH_HG_2.data','FLIP-099_linear_N-20_2_particles_per_cell-incrementalF.data']#,'FLIP-099_linear_N-10_1_particles_per_cell.data','FLIP-099_linear_N-20_1_particles_per_cell.data','FLIP-099_linear_N-20_1_particles_per_cell-incrementalF.data','FLIP-099_linear_N-20_2_particles_per_cell-incrementalF.data']#'APIC_linear_N-10_2_particles_per_cell.data','APIC_cubic-spline_N-10_2_particles_per_cell.data','FLIP-099_linear_N-10_1_particles_per_cell.data','FLIP-099_linear_N-20_1_particles_per_cell.data']
+    data = np.genfromtxt(
+        file_path,
+        names=True,
+        dtype=float,
+        encoding="utf-8",
+    )
 
-dat = [pylab.genfromtxt(f,skip_header=1) for f in fnames]
+    required_columns = {"Time", "dy_tip"}
+    if data.dtype.names is None:
+        raise ValueError("无法识别 log.mpm 的表头。")
 
-x=[]
-y=[]
+    missing = required_columns.difference(data.dtype.names)
+    if missing:
+        raise ValueError(
+            f"log.mpm 缺少列：{', '.join(sorted(missing))}；"
+            f"现有列：{', '.join(data.dtype.names)}"
+        )
 
-fig = plt.figure(figsize=(15, 10),facecolor='white')
-ax = plt.subplot2grid((1, 1), (0, 0))
+    time = np.atleast_1d(data["Time"])
+    displacement = np.atleast_1d(data["dy_tip"])
 
-lw = 1.5
+    valid = np.isfinite(time) & np.isfinite(displacement)
+    time = time[valid]
+    displacement = displacement[valid]
 
-for i, f in enumerate(fnames):
-    if "SPH" in f:
-        x = dat[i][:,0]
-        y = dat[i][:,1]
-        ax.plot(x, y, label='SPH',linewidth=lw)
-    elif f=='FEM.data':
-        x = dat[i][:,0]
-        y = dat[i][:,1]
-        ax.plot(x, y, label='FEM',linewidth=2*lw)
-    else:
-        x = dat[i][:,2]
-        y = dat[i][:,6]+0.014
-        ax.plot(x, y, label=f,linewidth=lw)
-        
-ax.set_xlabel('Time')
-ax.set_ylabel('Displacement')
-#ax.set_ylim(-0.3,0.1)
-ax.set_xlim(0,3)
+    if time.size == 0:
+        raise ValueError("log.mpm 中没有有效数据。")
 
-ax.legend(loc=2, prop={'size': 11})
-plt.tight_layout()
-plt.grid(True)
-plt.savefig('./plot.png', format='png')
-if args.quiet == False:
-    plt.show()
+    return time, displacement
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description="绘制 Karamelo 悬臂梁自由端位移随时间变化曲线。"
+    )
+    parser.add_argument(
+        "-i",
+        "--input",
+        default="log.mpm",
+        help="输入日志文件，默认：log.mpm",
+    )
+    parser.add_argument(
+        "-o",
+        "--output",
+        default="dy_tip.png",
+        help="输出图片文件，默认：dy_tip.png",
+    )
+    parser.add_argument(
+        "-q",
+        "--quiet",
+        action="store_true",
+        help="只保存图片，不弹出绘图窗口。",
+    )
+    args = parser.parse_args()
+
+    input_path = Path(args.input)
+    output_path = Path(args.output)
+
+    time, displacement = load_log(input_path)
+
+    minimum_index = int(np.argmin(displacement))
+
+    print(f"读取数据点数：{time.size}")
+    print(f"模拟结束时间：{time[-1]:.6g} s")
+    print(f"最终端部位移：{displacement[-1]:.6g} m")
+    print(
+        f"最小端部位移：{displacement[minimum_index]:.6g} m "
+        f"（t = {time[minimum_index]:.6g} s）"
+    )
+
+    plt.figure(figsize=(9, 6))
+    plt.plot(time, displacement, linewidth=1.5, label="Karamelo MPM")
+
+    plt.axhline(0.0, linewidth=0.8)
+    plt.scatter(
+        time[minimum_index],
+        displacement[minimum_index],
+        s=35,
+        zorder=3,
+        label="Minimum displacement",
+    )
+
+    plt.xlabel("Time (s)")
+    plt.ylabel("Tip displacement (m)")
+    plt.title("Cantilever tip displacement")
+    plt.xlim(left=0)
+    plt.grid(True, alpha=0.3)
+    plt.legend()
+    plt.tight_layout()
+
+    plt.savefig(output_path, dpi=300, bbox_inches="tight")
+    print(f"图片已保存：{output_path.resolve()}")
+
+    if not args.quiet:
+        plt.show()
+
+    plt.close()
+
+
+if __name__ == "__main__":
+    main()

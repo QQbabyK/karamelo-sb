@@ -1,73 +1,80 @@
 #####################################################
 #               UNITS: Pa, m, s                     #
 #####################################################
-# Water dam break
+# Karamelo MPM Input Script: 2D Water Dam Break Simulation
+# 描述: 2D 自由表面水坝决堤流动模拟 (流体-固体接触与大变形)
 
-gamma = 7
-K     = 0.36*1000
-rho0  = 1000
-G     = 0.001
+# ---------- 1. 物理参数定义 (Physical Parameters) ----------
+gamma = 7               # Tait 状态方程指数 (EOS Exponent for Fluid)
+K     = 1.4e+6          # 体积模量 (Bulk Modulus, Pa)，保证弱可压缩流体的声速与数值稳定性
+rho0  = 1000            # 流体初始密度 (Water Density, kg/m^3)
+G     = 0.001           # 剪切模量 (Shear Modulus, Pa)，近似无剪切流体
 
+# ---------- 2. 几何与网格尺寸 (Geometry Setup) ----------
+L  = 1.61               # 计算域长度 (Domain Length, m)
+H  = 0.8                # 计算域高度 (Domain Height, m)
+l0 = 0.6                # 初始水柱宽度 (Water Column Width, m)
+h0 = 0.6                # 初始水柱高度 (Water Column Height, m)
 
-L = 1.61
-H = 0.8
-l0 = 0.6
-h0 = 0.6
+FLIP = 0.99             # FLIP/PIC 混合系数 (0.99 FLIP + 0.01 PIC，控制能量耗散与数值噪音)
 
-A_zy = L*L
-
-FLIP=0.99
-
-#---------- SET METHOD --------------#
+# ---------- 3. 计算方法与网格定义 (Method & Grid Domain) ----------
+# 使用更新拉格朗日物质点法 (ULMPM) + 三次样条插值 (cubic-spline) + FLIP 算法
 method(ulmpm, FLIP, cubic-spline, FLIP)
 
-N = 40
-cellsize = L/N
-# 2D problem, which the computational domain is
-dimension(2,0, L, 0, H, cellsize)
+N = 40                  # X 方向网格剖分基数
+cellsize = L / N        # 背景网格步长 (Cell Size, m = 1.61 / 40 = 0.04025m)
 
+# 定义 2D 计算域: 维度=2, X∈[0, L], Y∈[0, H], 网格步长=cellsize
+dimension(2, 0, L, 0, H, cellsize)
 
+# ---------- 4. 材料模型与质点填充 (Materials & Particles) ----------
+# 定义流体 Tait 状态方程 (EOS) 与无剪切强度模型
 eos(eosf, fluid, rho0, K, gamma)
 strength(strengthf, fluid, G)
 material(mat1, eos-strength, eosf, strengthf) 
 
-
-#material(mat1, neo-hookean, rho, E, nu)
-
-
-
-#---------- SET SOLID --------------#
+# 定义水柱几何区域 [0, l0] x [0, h0]
 region(water, block, 0, l0, 0, h0)
-ppc1d = 2
+
+ppc1d = 2                # 每个方向布置 2 个质点 (2x2 = 4 个质点/Cell)
 solid(solid1, region, water, ppc1d, mat1, cellsize, 0)
 
-
-#---------- IMPOSE BOUNDARY CONDITIONS --------------#
-
-region(rBottom, block, -INF, INF, INF, cellsize/4)
-region(rRight, block, -INF, cellsize/4, -INF, INF)
-
+# ---------- 5. 边界条件施加 (Boundary Conditions) ----------
+# (1) 底部固壁边界 (Y = 0 处)
+region(rBottom, block, -INF, INF, -INF, cellsize/4)
 group(gBottom, nodes, region, rBottom, solid, solid1)
+
+# (2) 左侧固壁边界 (X = 0 处)
+region(rLeft, block, -INF, cellsize/4, -INF, INF)
+group(gLeft, nodes, region, rLeft, solid, solid1)
+
+# (3) 右侧固壁边界 (X = L 处)
+region(rRight, block, L - cellsize/4, INF, -INF, INF)
 group(gRight, nodes, region, rRight, solid, solid1)
 
-fix(fBCLY, velocity_nodes, gBottom, NULL, 0)
-fix(fBCLX, velocity_nodes, gRight,  0, NULL)
+# 施加法向速度归零约束 (法向固定，切向滑动)
+fix(fBCLY, velocity_nodes, gBottom, NULL, 0) # 限制 Y 方向速度 vy = 0
+fix(fBCLX_L, velocity_nodes, gLeft, 0, NULL)  # 限制左壁 X 方向速度 vx = 0
+fix(fBCLX_R, velocity_nodes, gRight, 0, NULL) # 限制右壁 X 方向速度 vx = 0
 
-#---------- IMPOSE INITIAL CONDITIONS --------------#
-gravity = -9.81 #m/s^2
+# ---------- 6. 体积力/初始条件 (Body Forces & Gravity) ----------
+gravity = -9.81         # 重力加速度 (m/s^2)
 fix(fbody, body_force, all, 0, gravity)
 
+# ---------- 7. 数据导出控制 (Data Output Settings) ----------
+N_log = 11               # 数据导出间隔步数 (每 10 步保存一帧)
 
-N_log = 1
+# dump_p (质点文件): 导出坐标(x,y,z)、速度(vx,vy)、等效应变(seq)及应力分量(s11,s22,s33,s12)
+dump(dump1, all, particle, N_log, dump_p.*.LAMMPS, x, y, z, vx, vy, seq, s11, s22, s33, s12)
 
-dump(dump1, all, particle, N_log, dump_p.*.LAMMPS, x, y, z, x, vy, seq)
-dump(dump2, all, grid, N_log, dump_g.*.LAMMPS, x, y, z, vx, vy, bx, by, bz)
+# dump_g (背景网格文件): 导出节点坐标(x,y,z)、速度(vx,vy)及体积力(bx,by)
+# dump(dump2, all, grid, N_log, dump_g.*.LAMMPS, x, y, z, vx, vy, bx, by)
 
+# ---------- 8. 求解控制与运行 (Solver & Run Controls) ----------
+dt_factor(0.1)          # CFL 时间步长安全系数 (Courant-Friedrichs-Lewy Factor)
 
-#----------- RUN --------------------#
-dt_factor(0.1)
+log_modify(custom, step, dt, time) # 终端显示卡片：步数、当前步长、物理时间
+set_output(N_log)                  # 日志写入频率
 
-log_modify(custom, step, dt, time)
-#plot(dy_tip, N_log, time, dy_tip)
-set_output(N_log)
-run_time(0.5)
+run_time(0.5)           # 总计算物理时间 0.5 秒

@@ -72,8 +72,25 @@ void ULMPM::setup(vector<string> args)
       cout << "Setting up Bernstein-quadratic basis functions\n";
     basis_function = &BasisFunction::bernstein_quadratic;
     derivative_basis_function = &BasisFunction::derivative_bernstein_quadratic;
-  } else {
-    error->all(FLERR, "Error: shape function not supported! Supported functions are:  \033[1;32mlinear\033[0m, \033[1;32mcubic-spline\033[0m, \033[1;32mquadratic-spline\033[0m, \033[1;32mBernstein-quadratic\033[0m.\n");
+  }
+  // my:: 增加myQ4
+  else if (
+      update->shape_function ==
+      Update::ShapeFunctions::myQ4)
+  {
+      if (universe->me == 0)
+          cout << "Setting up myQ4 basis functions\n";
+      basis_function =
+          &BasisFunction::myQ4_1d;
+      derivative_basis_function =
+          &BasisFunction::derivative_myQ4_1d;
+  }
+  // -----------------------------------------
+  else {
+    error->all(FLERR, "Error: shape function not supported! Supported functions are:  "
+        "\033[1;32mlinear\033[0m, \033[1;32mcubic-spline\033[0m, \033[1;32mquadratic-spline\033[0m, "
+        "\033[1;32mBernstein-quadratic\033[0m."
+        "myQ4""\n");// my:: 加入提示
   }
 
   if (update->sub_method_type == Update::SubMethodType::APIC || update->sub_method_type == Update::SubMethodType::MLS) {
@@ -158,7 +175,8 @@ void ULMPM::compute_grid_weight_functions_and_gradients()
 
           n_neigh.clear();
 
-          if (update->shape_function == Update::ShapeFunctions::LINEAR)
+          if ( (update->shape_function == Update::ShapeFunctions::LINEAR) || 
+              (update->shape_function == Update::ShapeFunctions::myQ4) )// my:: ?? 自定义形函数
           {
 	    i0 = (int) (((*xp)[ip][0] - domain->boxlo[0])*inv_cellsize);
 	    j0 = (int) (((*xp)[ip][1] - domain->boxlo[1])*inv_cellsize);
